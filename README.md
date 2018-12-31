@@ -16,14 +16,14 @@ Shopping cart features:
 
 ###### Sever
 
-<br>
-:coffee: **_Node_**
+:coffee: **_Node.js_**
 <br>
 :coffee: **_Express_**
 
 ###### Database
 
-<br>
 :coffee: **_MongoDB_**
+
+###### Gif Placeholder
 
 Gif placeholder
