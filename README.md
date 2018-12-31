@@ -1,4 +1,4 @@
-## Shopping Cart - Welcome to Nama Chocolates
+## Welcome to Nama Chocolates
 
 ## Shopping cart features
 
