@@ -1,10 +1,12 @@
 ## Shopping Cart - Welcome to Nama Chocolates
 
-Shopping cart features:
+## Shopping cart features
 
 - Login/authentication (by user or admin)
 - Admins can add/delete products
 - Users can view products, add/update their cart
+
+## Technologies
 
 ###### Frontend
 
