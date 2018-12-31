@@ -1,0 +1,19 @@
+.div-menu {
+  background-color: lightyellow;
+}
+
+.div-menu .div-menu-ul {
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.div-menu .div-menu-ul .div-menu-li {
+  padding: 10px;
+}
+
+.div-menu .div-menu-ul .div-menu-li a {
+  text-decoration: none;
+}
