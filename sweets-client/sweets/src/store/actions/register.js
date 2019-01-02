@@ -2,22 +2,33 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 const REGISTER_URL = "http://localhost:3001/api/users/register";
 
-export const saveResult = user => {
+export const saveResult = (user, response) => {
   return {
     type: actionTypes.REGISTER,
-    user2: user
+    user2: user,
+    error: response
   };
 };
 
 // Action creator
-export const register = user => {
+export const register = (user, historyProps) => {
   return dispatch => {
     axios
       .post(REGISTER_URL, user)
       .then(response => {
+        // data: {success: false, message: "Db error - Unable to save/register new user."}
         console.log("responsessss", response);
-        dispatch(saveResult(user)); // After registering user we want to return the action in saveResult
+        dispatch(saveResult(user, response.data)); // After registering user we want to return the action in saveResult
 
+        // console.log(historyProps);
+        // console.log(response.data.success);
+        if (response.data.success === false) {
+          console.log(response.data);
+        } else {
+          historyProps.push(`/Login`); // new change
+        }
+        // if (response.data)
+        // historyProps.push(`/Login`); // new change
         // console.log(response.data);
         // this.props.history.push(`/Login`);  // error - will not work here b/c props is undefined
       })

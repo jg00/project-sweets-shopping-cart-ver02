@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 // import * as actionTypes from "../store/actions/actionTypes";
 import * as actionCreators from "../store/actions/register";
@@ -21,19 +22,19 @@ class Register extends Component {
     // console.log(user);
   };
 
-  handleRegisterButtonClick = () => {
-    let user = this.state.user;
+  // handleRegisterButtonClick = () => {
+  //   let user = this.state.user;
 
-    axios
-      .post(REGISTER_URL, user)
-      .then(response => {
-        // console.log(response.data);
-        this.props.history.push(`/Login`);
-      })
-      .catch(rejected => {
-        console.log("Register user connection error: ", rejected);
-      });
-  };
+  //   axios
+  //     .post(REGISTER_URL, user)
+  //     .then(response => {
+  //       // console.log(response.data);
+  //       this.props.history.push(`/Login`);
+  //     })
+  //     .catch(rejected => {
+  //       console.log("Register user connection error: ", rejected);
+  //     });
+  // };
 
   render() {
     return (
@@ -59,12 +60,18 @@ class Register extends Component {
               name="name"
               onChange={this.handleTextBoxOnChange}
             />
-            <button onClick={() => this.props.onRegister(this.state.user)}>
+            <button
+              onClick={() =>
+                this.props.onRegister(this.state.user, this.props.history)
+              }
+            >
               Register User
             </button>
             {/* <button onClick={this.handleRegisterButtonClick}>
               Register User
             </button> */}
+
+            <div>{this.props.error.message}</div>
           </div>
         </div>
       </div>
@@ -72,13 +79,20 @@ class Register extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    error: state.error // object
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    onRegister: user => dispatch(actionCreators.register(user))
+    onRegister: (user, historyProps) =>
+      dispatch(actionCreators.register(user, historyProps))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(Register);
+)(withRouter(Register));

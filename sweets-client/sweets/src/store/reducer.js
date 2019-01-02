@@ -4,7 +4,8 @@ import * as actionTypes from "../store/actions/actionTypes";
 const initialState = {
   user: {},
   isAuth: false,
-  products: []
+  products: [],
+  error: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -101,8 +102,11 @@ const reducer = (state = initialState, action) => {
 
   if (action.type === actionTypes.REGISTER) {
     console.log("finally at reducer - REGISTER action", action.user2);
+    console.log("finally at reducer - REGISTER action", action.error);
+
     return {
-      ...state
+      ...state,
+      error: action.error
     };
   }
 
