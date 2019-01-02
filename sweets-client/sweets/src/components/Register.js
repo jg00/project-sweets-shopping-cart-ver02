@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 // import * as actionTypes from "../store/actions/actionTypes";
 import * as actionCreators from "../store/actions/register";
-const REGISTER_URL = "http://localhost:3001/api/users/register";
+// const REGISTER_URL = "http://localhost:3001/api/users/register";
 
 class Register extends Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class Register extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.error // object
+    error: state.register.error // object
   };
 };
 

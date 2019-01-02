@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { setAuthenticationToken } from "../utils";
+import * as actionCreators from "../store/actions/auth";
 const LOGIN_URL = "http://localhost:3001/api/auth/";
 
 class Login extends Component {
@@ -108,14 +109,21 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onAuthenticate: responseData =>
-      dispatch({ type: "SET_AUTHENTICATE", responseData: responseData }),
+      dispatch(actionCreators.setAuthenticate(responseData)),
+
+    // orginal before action creators
+    // onAuthenticate: responseData =>
+    //   dispatch({ type: "SET_AUTHENTICATE", responseData: responseData }),
 
     onAuthenticateManuallySet: (boolValue, tokenInfo) =>
-      dispatch({
-        type: "SET_AUTHENTICATE_MANUALLY",
-        boolValue: boolValue,
-        tokenInfo: tokenInfo
-      })
+      dispatch(actionCreators.setAuthenticateManually(boolValue, tokenInfo))
+
+    // onAuthenticateManuallySet: (boolValue, tokenInfo) =>
+    //   dispatch({
+    //     type: "SET_AUTHENTICATE_MANUALLY",
+    //     boolValue: boolValue,
+    //     tokenInfo: tokenInfo
+    //   })
   };
 };
 

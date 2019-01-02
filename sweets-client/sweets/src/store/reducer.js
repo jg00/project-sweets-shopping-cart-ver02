@@ -2,14 +2,15 @@ import axios from "axios";
 import * as actionTypes from "../store/actions/actionTypes";
 
 const initialState = {
-  user: {},
-  isAuth: false,
+  // user: {},
+  // isAuth: false,
   products: [],
   error: {}
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === "SET_AUTHENTICATE") {
+  /* previous version before root reducer
+  if (action.type === actionTypes.SET_AUTHENTICATE) {
     return {
       ...state,
       // isAuth: true
@@ -17,7 +18,7 @@ const reducer = (state = initialState, action) => {
       isAuth: !state.isAuth
     };
   }
-  if (action.type === "SET_AUTHENTICATE_MANUALLY") {
+  if (action.type === actionTypes.SET_AUTHENTICATE_MANUALLY) {
     return {
       ...state,
       // isAuth: true
@@ -25,7 +26,9 @@ const reducer = (state = initialState, action) => {
       isAuth: action.boolValue
     };
   }
-  if (action.type === "SET_PRODUCTS_LIST") {
+*/
+
+  if (action.type === actionTypes.SET_PRODUCTS_LIST) {
     // To avoid duplicating products array list populated during componentDidMount() in AllProducts.js
     const initialArrayLenght = state.products.length;
     // console.log(initialArrayLenght);
@@ -50,7 +53,7 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  if (action.type === "ADD_TO_PRODUCT_LIST") {
+  if (action.type === actionTypes.ADD_TO_PRODUCT_LIST) {
     return {
       ...state,
       products: state.products.concat(action.product)
@@ -60,7 +63,7 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  if (action.type === "DELETE_PRODUCT") {
+  if (action.type === actionTypes.DELETE_PRODUCT) {
     console.log(action.productId);
     // console.log("in del", state.products);
     // console.log("in del2", state.product);
@@ -100,6 +103,7 @@ const reducer = (state = initialState, action) => {
     };
   }
 
+  /*
   if (action.type === actionTypes.REGISTER) {
     console.log("finally at reducer - REGISTER action", action.user2);
     console.log("finally at reducer - REGISTER action", action.error);
@@ -109,6 +113,7 @@ const reducer = (state = initialState, action) => {
       error: action.error
     };
   }
+*/
 
   return state;
 };

@@ -18,9 +18,16 @@ router.post("/register", (req, res) => {
     // if (user) return res.send("User email already exits");
     if (user)
       return res.json({
-        success: false,
-        message: "User email already exits"
+        error: {
+          success: false,
+          message: "User email already exits"
+        }
       });
+
+    // return res.json({
+    //   success: false,
+    //   message: "User email already exits"
+    // });
 
     const newUser = new User({
       email: email,
@@ -32,18 +39,31 @@ router.post("/register", (req, res) => {
       // if (err) return res.json({ error: "Unable to create user", err });
       if (err)
         return res.json({
-          success: false,
-          message: "Unable to create user.  Check password."
+          error: {
+            success: false,
+            message: "Unable to create user.  Check password."
+          }
         });
 
       newUser.password = hash;
       newUser
         .save()
-        .then(user => res.json(user))
+        // .then(user => res.json(user))
+        .then(user =>
+          res.json({
+            // user: user,
+            error: {
+              success: true,
+              message: null
+            }
+          })
+        )
         .catch(err => {
           res.json({
-            success: false,
-            message: "Db error - Unable to save/register new user."
+            error: {
+              success: false,
+              message: "Db error - Unable to save/register new user."
+            }
           });
           // res.json({
           //   error: "Db error - Unable to save/register new user",

@@ -22,11 +22,14 @@ export const register = (user, historyProps) => {
 
         // console.log(historyProps);
         // console.log(response.data.success);
-        if (response.data.success === false) {
+        // console.log(response.data.error.success);
+
+        if (response.data.error.success === false) {
           console.log(response.data);
         } else {
           historyProps.push(`/Login`); // new change
         }
+
         // if (response.data)
         // historyProps.push(`/Login`); // new change
         // console.log(response.data);

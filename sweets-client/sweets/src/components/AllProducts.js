@@ -193,10 +193,11 @@ class AllProducts extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products, // array
+    products: state.red.products, // array
+    // products: state.products, // array - before reducer
 
-    isAuth: state.isAuth,
-    userData: state.user
+    isAuth: state.auth.isAuth,
+    userData: state.auth.user
   };
 };
 
