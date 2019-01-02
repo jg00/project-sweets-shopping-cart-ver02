@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as actionTypes from "../store/actions/actionTypes";
 
 const initialState = {
   user: {},
@@ -31,10 +32,10 @@ const reducer = (state = initialState, action) => {
     let initializedArray = "";
     if (initialArrayLenght === 0) {
       initializedArray = state.products.concat(action.allProducts);
-      console.log("a", initializedArray);
+      // console.log("a", initializedArray);
     } else {
       initializedArray = state.products;
-      console.log("b", initializedArray);
+      // console.log("b", initializedArray);
     }
 
     return {
@@ -95,6 +96,13 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       products: newArray
+    };
+  }
+
+  if (action.type === actionTypes.REGISTER) {
+    console.log("finally at reducer - REGISTER action", action.user2);
+    return {
+      ...state
     };
   }
 

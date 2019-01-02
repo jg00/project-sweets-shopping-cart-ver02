@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-// const stripe = require("stripe")("sk_test_Ok17MK57yvmiPgTaGXrm2ern");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");

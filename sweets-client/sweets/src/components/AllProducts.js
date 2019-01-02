@@ -49,7 +49,7 @@ class AllProducts extends Component {
         // this.props.onProductsChange({ products: allProducts }); // array old
         this.props.onProductsChange(allProducts); // array
 
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch(rejected => {
         console.log("Unable to get all orders: ", rejected);
