@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { setAuthenticationToken } from "../utils";
@@ -47,37 +48,37 @@ class Login extends Component {
     this.setState({ user });
   };
 
-  handleLoginButtonClick = () => {
-    let user = this.state.user;
-    // console.log(user);
+  // handleLoginButtonClick = () => {
+  //   let user = this.state.user;
+  //   // console.log(user);
 
-    axios
-      .post(LOGIN_URL, user)
-      .then(response => {
-        // console.log(response.data);
+  //   axios
+  //     .post(LOGIN_URL, user)
+  //     .then(response => {
+  //       // console.log(response.data);
 
-        if (response.data.success === false) {
-          console.log("Login.js > handleLoginButtonClick - false");
-        } else {
-          console.log("Login.js > handleLoginButtonClick - true");
+  //       if (response.data.success === false) {
+  //         console.log("Login.js > handleLoginButtonClick - false");
+  //       } else {
+  //         console.log("Login.js > handleLoginButtonClick - true");
 
-          // save the token to localStorage so we can access it later on
-          localStorage.setItem("jsonwebtoken", response.data.token);
-          // put the token in the request header
-          setAuthenticationToken(response.data.token);
-          console.log(response.data); // response.data
-          // this.props.onAuthenticate()  // before sendin param;
-          this.props.onAuthenticate(response.data);
-          this.props.history.push("/");
-        }
+  //         // save the token to localStorage so we can access it later on
+  //         localStorage.setItem("jsonwebtoken", response.data.token);
+  //         // put the token in the request header
+  //         setAuthenticationToken(response.data.token);
+  //         console.log(response.data); // response.data
+  //         // this.props.onAuthenticate()  // before sendin param;
+  //         this.props.onAuthenticate(response.data);
+  //         this.props.history.push("/");
+  //       }
 
-        // window.location = "/";
-        // this.props.history.push("/");
-      })
-      .catch(rejected => {
-        console.log("Login user connection error: ", rejected);
-      });
-  };
+  //       // window.location = "/";
+  //       // this.props.history.push("/");
+  //     })
+  //     .catch(rejected => {
+  //       console.log("Login user connection error: ", rejected);
+  //     });
+  // };
 
   render() {
     return (
@@ -98,7 +99,14 @@ class Login extends Component {
               onChange={this.handleTextBoxOnChange}
             />
 
-            <button onClick={this.handleLoginButtonClick}>Login</button>
+            {/* <button onClick={this.handleLoginButtonClick}>Login</button> */}
+            <button
+              onClick={() =>
+                this.props.onAuthenticate(this.state.user, this.props.history)
+              }
+            >
+              Login
+            </button>
           </div>
         </div>
       </div>
@@ -108,8 +116,12 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuthenticate: responseData =>
-      dispatch(actionCreators.setAuthenticate(responseData)),
+    onAuthenticate: (user, historyProps) =>
+      dispatch(actionCreators.setAuthenticate(user, historyProps)),
+
+    // we dont need responseData here b/c async call will be in action creator
+    // onAuthenticate: responseData =>
+    //   dispatch(actionCreators.setAuthenticate(responseData)),
 
     // orginal before action creators
     // onAuthenticate: responseData =>
@@ -130,4 +142,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(Login);
+)(withRouter(Login));

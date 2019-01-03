@@ -20,8 +20,10 @@ router.post("/", (req, res) => {
     // if (!user) return res.send("User email not found.");
     if (!user)
       return res.json({
-        success: false,
-        message: "User email not found."
+        error: {
+          success: false,
+          message: "User email not found."
+        }
       });
 
     if (user) {
@@ -51,13 +53,19 @@ router.post("/", (req, res) => {
               email: persistedUser.email,
               name: persistedUser.name,
               isAdmin: persistedUser.isAdmin
+            },
+            error: {
+              success: true,
+              message: "User Logged In"
             }
           });
         } else {
           // password dont match
           res.json({
-            success: false,
-            message: "Password incorrect"
+            error: {
+              success: false,
+              message: "Password incorrect"
+            }
           });
         }
       });

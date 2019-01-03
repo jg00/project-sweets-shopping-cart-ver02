@@ -18,6 +18,20 @@ export const register = (user, historyProps) => {
       .then(response => {
         // data: {success: false, message: "Db error - Unable to save/register new user."}
         console.log("responsessss", response);
+        /*
+          responsessss 
+          {data: {…}, status: 200, statusText: "OK", headers: {…}, config: {…}, …}
+          config: {adapter: ƒ, transformRequest: {…}, transformResponse: {…}, timeout: 0, xsrfCookieName: "XSRF-TOKEN", …}
+          data:
+          error: {success: true, message: null}
+          __proto__: Object
+          headers: {content-type: "application/json; charset=utf-8"}
+          request: XMLHttpRequest {onreadystatechange: ƒ, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+          status: 200
+          statusText: "OK"
+          __proto__: Object
+        */
+
         dispatch(saveResult(user, response.data)); // After registering user we want to return the action in saveResult
 
         // console.log(historyProps);
