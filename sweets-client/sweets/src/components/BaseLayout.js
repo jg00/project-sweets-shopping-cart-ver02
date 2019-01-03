@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { Elements, StripeProvider } from "react-stripe-elements";
+import jwtDecode from "jwt-decode";
+import * as actionCreators from "../store/actions/auth";
 import Menu from "./Menu";
 import AllItems from "./AllItems";
 import AddItem from "./AddItem";
@@ -12,6 +15,33 @@ import AllProducts from "./AllProducts";
 import Donate from "./Donate";
 
 class BaseLayout extends Component {
+  componentDidMount() {
+    const token = localStorage.getItem("jsonwebtoken");
+    // console.log("test");
+    if (!token || token === "undefined") {
+      console.log("Not Authorized - BaseLayout");
+    } else {
+      console.log("Authorized - BaseLayout");
+      // this.props.onAuthenticate();  // was causing error when no token available
+
+      // Need to get payload userData from the token in localstore
+      const tokenInfo = jwtDecode(token);
+      console.log("tokeninfo - ", tokenInfo); // {email: "sam@mail.com", name: "Sam", isAdmin: true, iat: 1545188894 }
+
+      const formattedTokenInfo = {
+        email: tokenInfo.email,
+        name: tokenInfo.name,
+        isAdmin: tokenInfo.isAdmin
+      };
+
+      // If page "Refreshed" manually override redux property isAuth: true
+      // this.props.onAuthenticate();
+      // this.props.onAuthenticateManuallySet(true);  // before adding decode
+      // this.props.onAuthenticateManuallySet(true, formattedTokenInfo); //(commented for now)
+      // this.props.onAuthenticate()
+    }
+  }
+
   render() {
     return (
       <StripeProvider apiKey="pk_test_Zd781mNaLE5XM1ReSpgpOhI7">
@@ -38,4 +68,11 @@ class BaseLayout extends Component {
   }
 }
 
-export default BaseLayout;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuthenticate: (user, historyProps) =>
+      dispatch(actionCreators.setAuthenticate(user, historyProps))
+  };
+};
+
+export default withRouter(connect(mapDispatchToProps)(BaseLayout));
