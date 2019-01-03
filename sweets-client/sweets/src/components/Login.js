@@ -107,12 +107,20 @@ class Login extends Component {
             >
               Login
             </button>
+
+            <div>{this.props.error.message}</div>
           </div>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    error: state.auth.error // object
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -140,6 +148,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withRouter(Login));

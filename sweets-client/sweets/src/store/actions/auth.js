@@ -16,10 +16,12 @@ export const setAuthenticate = (user, historyProps) => {
     axios
       .post(LOGIN_URL, user)
       .then(response => {
-        // console.log(response.data);  // response from database
+        console.log("ddddddd", response.data); // response from database
 
-        if (response.data.success === false) {
+        // if (response.data.error.success === false) {
+        if (!response.data.error.success) {
           console.log("auth.js", response.data);
+          dispatch(returnAuthActionTypePayload(response.data));
         } else {
           console.log("Login.js > handleLoginButtonClick - true");
 

@@ -73,4 +73,71 @@ router.post("/", (req, res) => {
   });
 });
 
+/* ORIGINAL VERSION THAT WORKS
+// api/auth - post - login a user
+router.post("/", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const name = req.body.name;
+  const isAdmin = req.body.isAdmin;
+
+  User.findOne({ email: email }).then(user => {
+    // if (!user) return res.send("User email not found.");
+    if (!user)
+      return res.json({
+        error: {
+          success: false,
+          message: "User email not found."
+        }
+      });
+
+    if (user) {
+      // console.log("who is ths", user);
+      let persistedUser = user;
+
+      // check for the password
+      bcrypt.compare(password, persistedUser.password, (error, result) => {
+        // password match
+        if (result) {
+          // create a token
+          const token = jwt.sign(
+            //   { username: persistedUser.username },
+            {
+              email: persistedUser.email,
+              name: persistedUser.name,
+              isAdmin: persistedUser.isAdmin
+            },
+            "well well well"
+          );
+
+          // send back the token to the user
+          console.log("server - ", token);
+          res.json({
+            token: token,
+            userData: {
+              email: persistedUser.email,
+              name: persistedUser.name,
+              isAdmin: persistedUser.isAdmin
+            },
+            error: {
+              success: true,
+              message: "User Logged In"
+            }
+          });
+        } else {
+          // password dont match
+          res.json({
+            error: {
+              success: false,
+              message: "Password incorrect"
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+*/
+
 module.exports = router;

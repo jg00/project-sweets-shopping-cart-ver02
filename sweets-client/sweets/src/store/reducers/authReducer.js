@@ -18,7 +18,9 @@ const reducer = (state = initialState, action) => {
       // );
 
       let user = {},
-        isAuth = false;
+        isAuth = false,
+        error = {};
+
       // user = {},
       // isAdmin = false
       // }
@@ -29,9 +31,11 @@ const reducer = (state = initialState, action) => {
         // console.log(typeof user22);
         user = {};
         isAuth = false;
+        error = action.responseData.error;
       } else {
         user = action.responseData.userData;
         isAuth = true;
+        error = action.responseData.error;
 
         // // Check if admin user type
         // if (isAdmin) {
@@ -46,8 +50,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: user, // {userData: {email, name, isAdmin}}
-        isAuth: isAuth
+        isAuth: isAuth,
         // isAdmin: isAdmin
+        error: error
       };
     // return {
     //   ...state,
