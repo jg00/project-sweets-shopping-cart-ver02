@@ -15,6 +15,20 @@ import AllProducts from "./AllProducts";
 import Donate from "./Donate";
 
 class BaseLayout extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
+  componentDidMount() {
+    // const token = localStorage.getItem("jsonwebtoken");
+    // const tokenInfo = jwtDecode(token);
+    // console.log("mounting", tokenInfo);
+
+    this.props.onSiteReload(this.props.history);
+    // this.props.onSiteReload();
+  }
+
+  /*
   componentDidMount() {
     const token = localStorage.getItem("jsonwebtoken");
     // console.log("test");
@@ -41,6 +55,7 @@ class BaseLayout extends Component {
       // this.props.onAuthenticate()
     }
   }
+*/
 
   render() {
     return (
@@ -70,9 +85,28 @@ class BaseLayout extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuthenticate: (user, historyProps) =>
-      dispatch(actionCreators.setAuthenticate(user, historyProps))
+    onSiteReload: historyProps =>
+      dispatch(actionCreators.checkAuthenticateOnSiteReload(historyProps))
   };
 };
 
-export default withRouter(connect(mapDispatchToProps)(BaseLayout));
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onSiteReload: historyProps =>
+//       dispatch(actionCreators.checkAuthenticateOnSiteReload(historyProps))
+//   };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onAuthenticate: (user, historyProps) =>
+//       dispatch(actionCreators.setAuthenticate(user, historyProps))
+//   };
+// };
+
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(BaseLayout)
+);

@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { setAuthenticationToken } from "../../utils";
+import jwtDecode from "jwt-decode";
 const LOGIN_URL = "http://localhost:3001/api/auth/";
 
 export const returnAuthActionTypePayload = responseData => {
@@ -69,5 +70,91 @@ export const setAuthenticateManually = (boolValue, tokenInfo) => {
     type: actionTypes.SET_AUTHENTICATE_MANUALLY,
     boolValue: boolValue,
     tokenInfo: tokenInfo
+  };
+};
+
+export const returnTokenActionTypePayload = tokenInfo => {
+  return {
+    type: actionTypes.SET_CURRENT_USER_ON_SITE_RELOAD,
+    tokenInfo: tokenInfo
+  };
+};
+
+export const checkAuthenticateOnSiteReload = historyProps => {
+  return dispatch => {
+    // Handle situation where site is reloaded by user on browser
+    const token = localStorage.getItem("jsonwebtoken");
+    // console.log("test");
+    // const tokenInfo = jwtDecode(token);
+
+    let error = {};
+    let tokenInfo = {};
+
+    if (!token || token === "undefined") {
+      // side note - if not token nothing will be dispatched.
+      // error info in the authReducer.js
+      console.log("Not Authorized - auth.js - checkAuthenticateOnSiteReload");
+
+      error = {
+        // error: {
+        success: false,
+        message: "Token does not exist.  User not authenticated."
+        // }
+      };
+
+      tokenInfo = {
+        token: {}, // default empty token
+        error: error
+      };
+
+      console.log(error);
+    } else {
+      console.log("Authorized - auth.js - checkAuthenticateOnSiteReload");
+      // this.props.onAuthenticate();  // was causing error when no token available
+      error = {
+        // error: {
+        success: true,
+        message: "Token exist.  User authenticated."
+        // }
+      };
+
+      // console.log(token);
+      // Need to get payload userData from the token in localstore
+      // const tokenInfo = jwtDecode(token);
+      const tokenDecoded = jwtDecode(token);
+      // console.log(
+      //   "tokeninfo - auth.js - checkAuthenticateOnSiteReload ",
+      //   tokenInfo
+      // ); // {email: "sam@mail.com", name: "Sam", isAdmin: true, iat: 1545188894 }
+
+      console.log("tokendecoded", tokenDecoded);
+
+      tokenInfo = {
+        token: tokenDecoded,
+        error: error
+      };
+
+      console.log(
+        "tokeninfo - auth.js - checkAuthenticateOnSiteReload ",
+        tokenInfo
+      ); // {email: "sam@mail.com", name: "Sam", isAdmin: true, iat: 1545188894 }
+
+      // dispatch(returnTokenActionTypePayload(tokenInfo));
+
+      // const formattedTokenInfo = {
+      //   email: tokenInfo.email,
+      //   name: tokenInfo.name,
+      //   isAdmin: tokenInfo.isAdmin
+      // };
+
+      // If page "Refreshed" manually override redux property isAuth: true
+      // this.props.onAuthenticate();
+      // this.props.onAuthenticateManuallySet(true);  // before adding decode
+      // this.props.onAuthenticateManuallySet(true, formattedTokenInfo); //(commented for now)
+      // this.props.onAuthenticate()
+    }
+
+    // Disptch outside of if statement
+    dispatch(returnTokenActionTypePayload(tokenInfo));
   };
 };

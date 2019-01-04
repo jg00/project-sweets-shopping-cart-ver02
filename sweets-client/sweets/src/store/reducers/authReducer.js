@@ -67,6 +67,38 @@ const reducer = (state = initialState, action) => {
         isAuth: action.boolValue
       };
 
+    case actionTypes.SET_CURRENT_USER_ON_SITE_RELOAD:
+      console.log(
+        "finally at authReducer - token site reload",
+        action.tokenInfo
+      );
+
+      // On reload initialize
+      user = {};
+      isAuth = false;
+      error = {};
+
+      // console.log(action.tokenInfo.error.success);
+
+      if (!action.tokenInfo.error.success) {
+        user = {};
+        isAuth = false;
+        error = { success: false, message: "" }; // do not display any for token missing
+        // error = action.tokenInfo.error;
+      } else {
+        user = action.tokenInfo.token; // token: {email: "test1@mail.com", name: "test1", iat: 1546621722}
+        isAuth = true;
+        error = action.tokenInfo.error; // error: {success: true, message: "Token exist.  User authenticated."}token: {email: "test1@mail.com", name: "test1", iat: 1546621722}__proto__: Object
+      }
+
+      return {
+        ...state,
+        user: user, // {userData: {email, name, isAdmin}}
+        isAuth: isAuth,
+        // isAdmin: isAdmin
+        error: error
+      };
+
     default:
       return state;
   }

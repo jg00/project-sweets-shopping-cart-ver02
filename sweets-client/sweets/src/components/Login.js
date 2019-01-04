@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { setAuthenticationToken } from "../utils";
+// import axios from "axios";
+// import { setAuthenticationToken } from "../utils";
 import * as actionCreators from "../store/actions/auth";
-const LOGIN_URL = "http://localhost:3001/api/auth/";
+// const LOGIN_URL = "http://localhost:3001/api/auth/";
 
 class Login extends Component {
   constructor(props) {
@@ -20,9 +20,9 @@ class Login extends Component {
     const token = localStorage.getItem("jsonwebtoken");
     // console.log("test");
     if (!token || token === "undefined") {
-      console.log("Not Authorized");
+      console.log("Not Authorized - Login");
     } else {
-      console.log("Authorized");
+      console.log("Authorized - Login");
       // this.props.onAuthenticate();  // was causing error when no token available
 
       // Need to get payload userData from the token in localstore

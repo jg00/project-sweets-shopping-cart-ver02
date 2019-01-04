@@ -73,8 +73,8 @@ class Menu extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.isAuth,
-    userData: state.user
+    isAuth: state.auth.isAuth,
+    userData: state.auth.user
   };
 };
 
