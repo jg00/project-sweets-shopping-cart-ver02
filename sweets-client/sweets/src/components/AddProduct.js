@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import * as actionCreators from "../store/actions/products";
 const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
 const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 
@@ -149,7 +150,10 @@ class AddProduct extends Component {
           name="image"
           onChange={this.handleTextBoxOnChange}
         />
-        <button onClick={this.handleAddProductButtonClick}>Add Product</button>
+        {/* <button onClick={this.handleAddProductButtonClick}>Add Product</button> */}
+        <button onClick={() => this.props.onProductAdd(this.state.product)}>
+          Add Product
+        </button>
         <p>{this.state.result}</p>
       </div>
     );
@@ -177,6 +181,7 @@ const mapDispatchToProps = dispatch => {
         allProducts: allProducts
       }),
 
+    /* Original
     onProductAdd: product =>
       dispatch({
         type: "ADD_TO_PRODUCT_LIST",
@@ -184,6 +189,9 @@ const mapDispatchToProps = dispatch => {
         // productId: id,
         // DELETE_PRODUCT_URL: DELETE_PRODUCT_URL
       })
+      */
+
+    onProductAdd: product => dispatch(actionCreators.addToProductList(product))
   };
 };
 

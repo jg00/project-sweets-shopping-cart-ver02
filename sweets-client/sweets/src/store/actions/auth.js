@@ -48,7 +48,7 @@ export const setAuthenticate = (user, historyProps) => {
           // console.log(response.data);
           // this.props.history.push("/"); comment for now
 
-          /////// historyProps.push(`/`); // (comment for now but redirect works) new change to all products after login
+          historyProps.push(`/`); // (comment for now but redirect works) new change to all products after login
         }
 
         // window.location = "/";

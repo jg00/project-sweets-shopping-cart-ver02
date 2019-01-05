@@ -35,8 +35,10 @@ router.post("/add", (req, res) => {
 
     if (product)
       return res.json({
-        success: false,
-        message: "Product name already exits."
+        error: {
+          success: false,
+          message: "Product name already exits."
+        }
       });
 
     const newProduct = new Product({
@@ -50,7 +52,13 @@ router.post("/add", (req, res) => {
 
     newProduct
       .save()
-      .then(product => res.json(product)) // this is the working version
+      // .then(product => res.json(product)) // this is the working version
+      .then(product =>
+        res.json({
+          product: product,
+          error: { success: true, message: "New product added to database." }
+        })
+      ) // this is the working version
       // .then(product =>     // need to return the product object above to add to redux products array
       //   res.json({
       //     success: true,
@@ -59,9 +67,11 @@ router.post("/add", (req, res) => {
       // )
       .catch(err =>
         res.json({
-          success: false,
-          message:
-            "Product not added to database.  Check all fields required populated."
+          error: {
+            success: false,
+            message:
+              "Product not added to database.  Check all fields required populated."
+          }
         })
       );
 

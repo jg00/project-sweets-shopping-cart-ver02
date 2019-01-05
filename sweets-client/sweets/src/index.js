@@ -12,11 +12,13 @@ import reducer from "./store/reducer";
 
 import authReducer from "./store/reducers/authReducer";
 import registerReducer from "./store/reducers/registerReducer";
+import productReducer from "./store/reducers/productReducer";
 // import resultReducer from "./store/reducers/result";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
+  products: productReducer,
   red: reducer // needs to be broken down
 });
 

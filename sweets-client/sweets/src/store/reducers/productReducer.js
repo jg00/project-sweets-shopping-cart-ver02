@@ -1,5 +1,6 @@
 import axios from "axios";
-import * as actionTypes from "../store/actions/actionTypes";
+import * as actionTypes from "../actions/actionTypes";
+// import * as actionTypes from "../store/actions/actionTypes";
 
 const initialState = {
   // user: {},
@@ -9,25 +10,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  /* previous version before root reducer
-  if (action.type === actionTypes.SET_AUTHENTICATE) {
-    return {
-      ...state,
-      // isAuth: true
-      user: action.responseData.userData, // {userData: {email, name, isAdmin}}
-      isAuth: !state.isAuth
-    };
-  }
-  if (action.type === actionTypes.SET_AUTHENTICATE_MANUALLY) {
-    return {
-      ...state,
-      // isAuth: true
-      user: action.tokenInfo,
-      isAuth: action.boolValue
-    };
-  }
-*/
-
   if (action.type === actionTypes.SET_PRODUCTS_LIST) {
     // To avoid duplicating products array list populated during componentDidMount() in AllProducts.js
     const initialArrayLenght = state.products.length;
@@ -53,17 +35,55 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  /* Already moved to productReducer
   if (action.type === actionTypes.ADD_TO_PRODUCT_LIST) {
+    // console.log("finally at productReducer.js", action.product);  // no longer passing in just the product.  passing in responseData
+    // console.log(action);
+    console.log("finally at productReducer.js", action.responseData);
+    // console.log(action);
+
+    let product = {},
+      error = {};
+    if (!action.responseData.error.success) {
+      product = {};
+      error = action.responseData.error;
+
+      // On errors do not update products redux state
+      return {
+        ...state,
+        error: error
+      };
+    } else {
+      product = action.responseData.product;
+      error = action.responseData.error;
+
+      // Update products redux state if no errors
+      return {
+        ...state,
+        products: state.products.concat(product),
+        error: error
+      };
+    }
+
+    /*
     return {
+      //   ...state
+
+      // below was previous working two lines before changes include error handling above
+      //   ...state,
+      //   products: state.products.concat(action.product)
+
       ...state,
-      products: state.products.concat(action.product)
+      products: state.products.concat(product),
+      error: error
+
+      //   products: action.products
       // isAuth: true
       // user: action.tokenInfo,
       // isAuth: action.boolValue
+      //   error: action.error.error
     };
+*/
   }
-  */
 
   if (action.type === actionTypes.DELETE_PRODUCT) {
     console.log(action.productId);
@@ -104,18 +124,6 @@ const reducer = (state = initialState, action) => {
       products: newArray
     };
   }
-
-  /*
-  if (action.type === actionTypes.REGISTER) {
-    console.log("finally at reducer - REGISTER action", action.user2);
-    console.log("finally at reducer - REGISTER action", action.error);
-
-    return {
-      ...state,
-      error: action.error
-    };
-  }
-*/
 
   return state;
 };
