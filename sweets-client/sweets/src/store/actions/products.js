@@ -4,14 +4,23 @@ import * as actionTypes from "./actionTypes";
 // import jwtDecode from "jwt-decode";
 // const LOGIN_URL = "http://localhost:3001/api/auth/";
 const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
+const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 
-export const returnAddToProductListActionTypePayload = responseData => {
+/* Add product to database and add to product list */
+export const returnAddToProductListActionType = responseData => {
   return {
     type: actionTypes.ADD_TO_PRODUCT_LIST,
     // products: state.products.concat(action.product)
     // product: responseData  // before new change to return responseData to reducer and handle error handling before reducer updated
     responseData: responseData
     // error: responseData
+  };
+};
+
+export const returnAddToProductListActionTypeFetchError = error => {
+  return {
+    type: actionTypes.ADD_TO_PRODUCT_LIST_FETCH_ERROR,
+    error: error
   };
 };
 
@@ -46,7 +55,7 @@ __proto__: Object
         //   console.log("test");
         // }
 
-        dispatch(returnAddToProductListActionTypePayload(response.data));
+        dispatch(returnAddToProductListActionType(response.data));
 
         /*
 data:
@@ -69,7 +78,14 @@ error: {success: false, message: "Product name already exits."}
 */
       })
       .catch(rejected => {
-        console.log("Add product connection error: ", rejected);
+        // console.log("Add product connection error: ", rejected);
+
+        dispatch(
+          returnAddToProductListActionTypeFetchError({
+            success: false,
+            message: "Connection error.  Product was not added."
+          })
+        );
       });
   }; // end of dispatch
 
@@ -141,3 +157,37 @@ error: {success: false, message: "Product name already exits."}
   };
 */
 }; // end of product
+
+/* Initialize product list */
+export const returnLoadProductListActionType = responseData => {
+  return {
+    type: actionTypes.LOAD_PRODUCTS_LIST,
+    responseData: responseData
+  };
+};
+
+export const returnLoadProductListActionTypeFetchError = error => {
+  return {
+    type: actionTypes.LOAD_PRODUCTS_LIST_FETCH_ERROR,
+    error: error
+  };
+};
+
+export const loadProductList = () => {
+  return dispatch => {
+    // Load products from database and dispatch actions to initialize products array
+    axios(ALL_PRODUCTS_URL)
+      .then(response => {
+        console.log("Load Product List action", response.data); // array of product objects
+        dispatch(returnLoadProductListActionType(response.data));
+      })
+      .catch(rejected => {
+        dispatch(
+          returnLoadProductListActionTypeFetchError({
+            success: false,
+            message: "Error initializing product list."
+          })
+        );
+      });
+  };
+};

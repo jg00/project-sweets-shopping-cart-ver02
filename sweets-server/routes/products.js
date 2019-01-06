@@ -12,7 +12,15 @@ router.get("/display", (req, res) => {
   // res.json({ name: "GET api/products/display" });
 
   Product.find({})
-    .then(products => res.json(products)) // array
+    .then(products =>
+      res.json({
+        products: products,
+        error: {
+          success: true,
+          message: "Product list returned from database."
+        }
+      })
+    ) // array
     .catch(err =>
       res.json({
         success: false,

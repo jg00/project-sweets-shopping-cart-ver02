@@ -85,6 +85,70 @@ const reducer = (state = initialState, action) => {
 */
   }
 
+  if (action.type === actionTypes.ADD_TO_PRODUCT_LIST_FETCH_ERROR) {
+    // console.log("finally at productReducer.js", action.product);  // no longer passing in just the product.  passing in responseData
+    // console.log(action);
+    console.log(
+      "finally at productReducer.js ADD_TO_PRODUCT_LIST_FETCH_ERROR",
+      action.error
+    );
+
+    return {
+      ...state,
+      // products: [],
+      error: action.error
+    };
+  }
+
+  if (action.type === actionTypes.LOAD_PRODUCTS_LIST) {
+    // console.log("finally at productReducer.js", action.product);  // no longer passing in just the product.  passing in responseData
+    // console.log(action);
+    console.log(
+      "finally at productReducer.js LOAD_PRODUCTS_LIST",
+      action.responseData
+    );
+    // console.log(action);
+
+    // let product = {},
+    //   error = {};
+
+    if (!action.responseData.error.success) {
+      // product = {};
+      // error = action.responseData.error;
+
+      // On errors do not update products redux state
+      return {
+        ...state,
+        error: action.responseData.error
+      };
+    } else {
+      // product = action.responseData.product;
+      // error = action.responseData.error;
+
+      // Update products redux state if no errors
+      return {
+        ...state,
+        products: action.responseData.products,
+        error: action.responseData.error
+      };
+    }
+  }
+
+  if (action.type === actionTypes.LOAD_PRODUCTS_LIST_FETCH_ERROR) {
+    // console.log("finally at productReducer.js", action.product);  // no longer passing in just the product.  passing in responseData
+    // console.log(action);
+    console.log(
+      "finally at productReducer.js LOAD_PRODUCTS_LIST_FETCH_ERROR",
+      action.error
+    );
+
+    return {
+      ...state,
+      products: [],
+      error: action.error
+    };
+  }
+
   if (action.type === actionTypes.DELETE_PRODUCT) {
     console.log(action.productId);
     // console.log("in del", state.products);

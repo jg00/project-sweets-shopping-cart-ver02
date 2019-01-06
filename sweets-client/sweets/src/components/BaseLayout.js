@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import jwtDecode from "jwt-decode";
-import * as actionCreators from "../store/actions/auth";
+import * as authActionCreators from "../store/actions/auth";
+import * as productsActionCreators from "../store/actions/products";
 import Menu from "./Menu";
 import AllItems from "./AllItems";
 import AddItem from "./AddItem";
@@ -26,6 +27,8 @@ class BaseLayout extends Component {
 
     this.props.onSiteReload(this.props.history);
     // this.props.onSiteReload();
+
+    this.props.onLoadProductList();
   }
 
   /*
@@ -86,7 +89,9 @@ class BaseLayout extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onSiteReload: historyProps =>
-      dispatch(actionCreators.checkAuthenticateOnSiteReload(historyProps))
+      dispatch(authActionCreators.checkAuthenticateOnSiteReload(historyProps)),
+
+    onLoadProductList: () => dispatch(productsActionCreators.loadProductList())
   };
 };
 

@@ -18,6 +18,7 @@ class AddProduct extends Component {
     };
   }
 
+  /* NO LONGER NEED componentDidMount
   componentDidMount() {
     // If page "Refreshed" manually override redux property isAuth: true|false accordingly
     // console.log(this.props.isAuth);  // on refresh redux state is reset so do not use
@@ -43,6 +44,7 @@ class AddProduct extends Component {
       this.props.onAuthenticateManuallySet(true, formattedTokenInfo);
     }
   }
+  */
 
   handleTextBoxOnChange = e => {
     this.setState({
@@ -53,6 +55,7 @@ class AddProduct extends Component {
     });
   };
 
+  /* 
   handleAddProductButtonClick = () => {
     // console.log("button", this);
     // console.log(this.state.book);
@@ -66,7 +69,7 @@ class AddProduct extends Component {
     // put the token in the request header
     setAuthenticationToken(token);
 */
-
+  /*
     // need to move this to redux to update the products list
     axios
       .post(ADD_PRODUCT_URL, product)
@@ -119,6 +122,8 @@ class AddProduct extends Component {
       });
   };
 
+  */
+
   render() {
     // console.log(this.state.product._id);
     // let result = this.state.product.name;
@@ -154,7 +159,8 @@ class AddProduct extends Component {
         <button onClick={() => this.props.onProductAdd(this.state.product)}>
           Add Product
         </button>
-        <p>{this.state.result}</p>
+        {/* <p>{this.state.result}</p> */}
+        <div>{this.props.error.message}</div>
       </div>
     );
   }
@@ -162,18 +168,21 @@ class AddProduct extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products // array
+    // products: state.products // array
+    error: state.products.error // array
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    /*
     onAuthenticateManuallySet: (boolValue, tokenInfo) =>
       dispatch({
         type: "SET_AUTHENTICATE_MANUALLY",
         boolValue: boolValue,
         tokenInfo: tokenInfo
       }),
+      */
 
     onProductsChange: allProducts =>
       dispatch({
@@ -197,7 +206,6 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(
   mapStateToProps,
-
   mapDispatchToProps
 )(AddProduct);
 
