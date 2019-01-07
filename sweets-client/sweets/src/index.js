@@ -8,18 +8,15 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import BaseLayout from "./components/BaseLayout";
 import "./index.css";
-import reducer from "./store/reducer";
 
 import authReducer from "./store/reducers/authReducer";
 import registerReducer from "./store/reducers/registerReducer";
 import productReducer from "./store/reducers/productReducer";
-// import resultReducer from "./store/reducers/result";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
-  products: productReducer,
-  red: reducer // needs to be broken down
+  products: productReducer
 });
 
 const logger = store => {
@@ -40,15 +37,12 @@ const store = createStore(
   composeEnhancers(applyMiddleware(logger, thunk))
 );
 
-// const store = createStore(
-//   reducer,
-//   composeEnhancers(applyMiddleware(logger, thunk))
-// );
-
-// let store = createStore(
-//   reducer,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// );
+/*
+  let store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+*/
 
 ReactDOM.render(
   <Provider store={store}>

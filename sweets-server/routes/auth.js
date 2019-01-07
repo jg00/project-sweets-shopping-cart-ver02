@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
       return res.json({
         error: {
           success: false,
-          message: "User email not found."
+          message: "User email not found. Please register."
         }
       });
 

@@ -62,7 +62,8 @@ router.post("/register", (req, res) => {
           res.json({
             error: {
               success: false,
-              message: "Db error - Unable to save/register new user."
+              message:
+                "Unable to register new user.  Complete all required fields."
             }
           });
           // res.json({

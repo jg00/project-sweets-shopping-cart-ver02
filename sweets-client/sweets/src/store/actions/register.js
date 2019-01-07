@@ -16,65 +16,17 @@ export const register = (user, historyProps) => {
     axios
       .post(REGISTER_URL, user)
       .then(response => {
-        // data: {success: false, message: "Db error - Unable to save/register new user."}
         console.log("responsessss", response);
-        /*
-          responsessss 
-          {data: {…}, status: 200, statusText: "OK", headers: {…}, config: {…}, …}
-          config: {adapter: ƒ, transformRequest: {…}, transformResponse: {…}, timeout: 0, xsrfCookieName: "XSRF-TOKEN", …}
-          data:
-          error: {success: true, message: null}
-          __proto__: Object
-          headers: {content-type: "application/json; charset=utf-8"}
-          request: XMLHttpRequest {onreadystatechange: ƒ, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
-          status: 200
-          statusText: "OK"
-          __proto__: Object
-        */
-
-        dispatch(saveResult(user, response.data)); // After registering user we want to return the action in saveResult
-
-        // console.log(historyProps);
-        // console.log(response.data.success);
-        // console.log(response.data.error.success);
+        dispatch(saveResult(user, response.data));
 
         if (response.data.error.success === false) {
           console.log(response.data);
         } else {
           historyProps.push(`/Login`); // new change
         }
-
-        // if (response.data)
-        // historyProps.push(`/Login`); // new change
-        // console.log(response.data);
-        // this.props.history.push(`/Login`);  // error - will not work here b/c props is undefined
       })
       .catch(rejected => {
         console.log("Register user connection error: ", rejected);
       });
   };
-
-  //   // Test below works
-  //   // We want now to return a function
-  //   return dispatch => {
-  //     setTimeout(() => {
-  //       // const oldCounter = getState().ctr.counter;
-  //       console.log("tesssst", user);
-  //       dispatch(saveResult(user)); // This updates the state in the store. Need to execute as a function.
-  //     }, 2000);
-
-  // axios
-  // .post(REGISTER_URL, user)
-  // .then(response => {
-
-  //     dispatch(saveResult(user))  // After registering user we want to return the action in saveResult
-
-  // // console.log(response.data);
-  // this.props.history.push(`/Login`);
-
-  // })
-  // .catch(rejected => {
-  // console.log("Register user connection error: ", rejected);
-  // });
-  //   };
 };

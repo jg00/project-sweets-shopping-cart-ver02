@@ -22,20 +22,6 @@ class Register extends Component {
     // console.log(user);
   };
 
-  // handleRegisterButtonClick = () => {
-  //   let user = this.state.user;
-
-  //   axios
-  //     .post(REGISTER_URL, user)
-  //     .then(response => {
-  //       // console.log(response.data);
-  //       this.props.history.push(`/Login`);
-  //     })
-  //     .catch(rejected => {
-  //       console.log("Register user connection error: ", rejected);
-  //     });
-  // };
-
   render() {
     return (
       <div>
@@ -44,19 +30,19 @@ class Register extends Component {
           <div>
             <input
               type="text"
-              placeholder="Email As Username"
+              placeholder="Email As Username*"
               name="email"
               onChange={this.handleTextBoxOnChange}
             />
             <input
               type="text"
-              placeholder="Password"
+              placeholder="Password*"
               name="password"
               onChange={this.handleTextBoxOnChange}
             />
             <input
               type="text"
-              placeholder="First Name"
+              placeholder="First Name*"
               name="name"
               onChange={this.handleTextBoxOnChange}
             />

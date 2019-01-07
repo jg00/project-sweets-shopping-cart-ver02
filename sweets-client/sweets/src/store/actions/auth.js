@@ -40,15 +40,10 @@ export const setAuthenticate = (user, historyProps) => {
             __proto__: Object
           */
 
-          // this.props.onAuthenticate()  // before sendin param;
-
-          // this.props.onAuthenticate(response.data); // before
           dispatch(returnAuthActionTypePayload(response.data));
 
-          // console.log(response.data);
           // this.props.history.push("/"); comment for now
-
-          historyProps.push(`/`); // (comment for now but redirect works) new change to all products after login
+          historyProps.push(`/`);
         }
 
         // window.location = "/";
@@ -58,13 +53,9 @@ export const setAuthenticate = (user, historyProps) => {
         console.log("Login user connection error: ", rejected);
       });
   };
-
-  // return {
-  //   type: actionTypes.SET_AUTHENTICATE,
-  //   responseData: responseData
-  // };
 };
 
+/*
 export const setAuthenticateManually = (boolValue, tokenInfo) => {
   return {
     type: actionTypes.SET_AUTHENTICATE_MANUALLY,
@@ -72,6 +63,7 @@ export const setAuthenticateManually = (boolValue, tokenInfo) => {
     tokenInfo: tokenInfo
   };
 };
+*/
 
 export const returnTokenActionTypePayload = tokenInfo => {
   return {

@@ -4,7 +4,6 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   user: {},
   isAuth: false,
-  // isAdmin: false,
   error: {}
 };
 
@@ -12,23 +11,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_AUTHENTICATE:
       console.log("finally at authReducer", action.responseData);
-      // console.log(
-      //   "finally at authReducer",
-      //   typeof action.responseData.error.success // boolean
-      // );
 
       let user = {},
         isAuth = false,
         error = {};
 
-      // user = {},
-      // isAdmin = false
-      // }
-      // isAuth = false,
-      // isAdmin = false;
-
       if (!action.responseData.error.success) {
-        // console.log(typeof user22);
         user = {};
         isAuth = false;
         error = action.responseData.error;
@@ -36,36 +24,21 @@ const reducer = (state = initialState, action) => {
         user = action.responseData.userData;
         isAuth = true;
         error = action.responseData.error;
-
-        // // Check if admin user type
-        // if (isAdmin) {
-        //   isAdmin = true;
-        // } else {
-        //   isAdmin = false;
-        // }
       }
-
-      // const user22 = action.responseData.userData;
 
       return {
         ...state,
         user: user, // {userData: {email, name, isAdmin}}
         isAuth: isAuth,
-        // isAdmin: isAdmin
         error: error
       };
-    // return {
-    //   ...state,
-    //   user: action.responseData.userData, // {userData: {email, name, isAdmin}}
-    //   isAuth: !state.isAuth
-    // };
 
-    case actionTypes.SET_AUTHENTICATE_MANUALLY:
-      return {
-        ...state,
-        user: action.tokenInfo,
-        isAuth: action.boolValue
-      };
+    // case actionTypes.SET_AUTHENTICATE_MANUALLY:
+    //   return {
+    //     ...state,
+    //     user: action.tokenInfo,
+    //     isAuth: action.boolValue
+    //   };
 
     case actionTypes.SET_CURRENT_USER_ON_SITE_RELOAD:
       console.log(
@@ -78,13 +51,10 @@ const reducer = (state = initialState, action) => {
       isAuth = false;
       error = {};
 
-      // console.log(action.tokenInfo.error.success);
-
       if (!action.tokenInfo.error.success) {
         user = {};
         isAuth = false;
         error = { success: false, message: "" }; // do not display any for token missing
-        // error = action.tokenInfo.error;
       } else {
         user = action.tokenInfo.token; // token: {email: "test1@mail.com", name: "test1", iat: 1546621722}
         isAuth = true;
@@ -95,7 +65,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: user, // {userData: {email, name, isAdmin}}
         isAuth: isAuth,
-        // isAdmin: isAdmin
+
         error: error
       };
 
