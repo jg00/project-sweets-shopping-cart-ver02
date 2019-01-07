@@ -95,9 +95,61 @@ router.post("/delete/:id", (req, res) => {
   // res.json({ name: productId });
   // res.send("test");
 
+  Product.findByIdAndDelete({ _id: productId }, (err, product) => {
+    // console.log(err);
+    // console.log(res); // returns me the product
+    console.log(product);
+
+    if (product) {
+      // returns the product that was deleted
+      res.json({
+        product: product,
+        error: {
+          success: true,
+          message: "ProductId: " + productId + " deleted."
+        }
+      });
+    } else {
+      res.json({
+        error: {
+          success: false,
+          message: "Product id not found."
+        }
+      });
+    }
+  });
+
+  // Product.findByIdAndDelete({ _id: productId }, err => {
+  //   if (!err) {
+  //     res.json({
+  //       success: true,
+  //       message: "ProductId: " + productId + " deleted."
+  //     });
+  //   } else {
+  //     res.json({
+  //       success: false,
+  //       message: "Unable to delete productId: " + productId
+  //     });
+  //   }
+  // });
+
+  // res.send("testing");
+});
+
+/*
+// ORIGINAL DELETE VERSION BEFORE CHANGES
+// api/products/display
+router.post("/delete/:id", (req, res) => {
+  // res.json({ name: "GET api/products/delete/:id" });
+
+  const productId = req.params.id;
+  // res.json({ name: productId });
+  // res.send("test");
+
   Product.findByIdAndDelete({ _id: productId }, (err, doc) => {
     // console.log(err);
     // console.log(res); // returns me the product
+    console.log(doc);
 
     if (doc) {
       // returns me the product that was deleted
@@ -129,5 +181,6 @@ router.post("/delete/:id", (req, res) => {
 
   // res.send("testing");
 });
+*/
 
 module.exports = router;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import * as actionCreators from "../store/actions/products";
 const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
 
@@ -15,6 +16,7 @@ class AllProducts extends Component {
     };
   }
 
+  /*
   componentDidMount() {
     // If page "Refreshed" manually override redux property isAuth: true|false accordingly
     // console.log(this.props.isAuth);  // on refresh redux state is reset so do not use
@@ -55,6 +57,7 @@ class AllProducts extends Component {
         console.log("Unable to get all orders: ", rejected);
       });
   }
+  */
 
   handleDeleteProductButtonClick = ProductId => {
     console.log(ProductId);
@@ -106,7 +109,6 @@ class AllProducts extends Component {
               <div>admin show</div>
             )}
           </div> */}
-
           {/* <button
             onClick={() =>
               this.props.onProductDelete(product._id, DELETE_PRODUCT_URL)
@@ -115,7 +117,6 @@ class AllProducts extends Component {
           >
             Delete Product
           </button> */}
-
           {/* {this.props.isAuth && this.props.userData.isAdmin && (
             <button
               onClick={() =>
@@ -126,11 +127,11 @@ class AllProducts extends Component {
               Delete Product
             </button>
           )} */}
-
           {this.props.isAuth && this.props.userData.isAdmin ? (
             <button
               onClick={() =>
-                this.props.onProductDelete(product._id, DELETE_PRODUCT_URL)
+                // this.props.onProductDelete(product._id, DELETE_PRODUCT_URL)  //BEFORE ACTIONCREATOR
+                this.props.onProductDelete(product._id)
               }
               // onClick={() => this.handleDeleteProductButtonClick(product._id)} // for state
             >
@@ -193,7 +194,9 @@ class AllProducts extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.red.products, // array
+    products: state.products.products, // array
+    // error: state.products.error, // object
+
     // products: state.products, // array - before reducer
 
     isAuth: state.auth.isAuth,
@@ -203,6 +206,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    /*
     onAuthenticateManuallySet: (boolValue, tokenInfo) =>
       dispatch({
         type: "SET_AUTHENTICATE_MANUALLY",
@@ -215,7 +219,9 @@ const mapDispatchToProps = dispatch => {
         type: "SET_PRODUCTS_LIST",
         allProducts: allProducts
       }),
+      */
 
+    /* ORIGINAL BEFORE REDUX
     // onProductDelete: id => dispatch({ type: "DELETE_PRODUCT", productId: id }) // workes before adding url to delete
     onProductDelete: (id, DELETE_PRODUCT_URL) =>
       dispatch({
@@ -223,6 +229,9 @@ const mapDispatchToProps = dispatch => {
         productId: id,
         DELETE_PRODUCT_URL: DELETE_PRODUCT_URL
       })
+      */
+
+    onProductDelete: id => dispatch(actionCreators.deleteProduct(id))
   };
 };
 

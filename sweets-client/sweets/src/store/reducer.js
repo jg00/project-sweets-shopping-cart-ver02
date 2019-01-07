@@ -65,9 +65,10 @@ const reducer = (state = initialState, action) => {
   }
   */
 
+  /* THIS WAS ORIGINAL DELETE_PRODUCT from reducer.js.  We are replacing with redux dispatching
   if (action.type === actionTypes.DELETE_PRODUCT) {
     console.log(action.productId);
-    // console.log("in del", state.products);
+    console.log("redux products array", state.products.length);
     // console.log("in del2", state.product);
 
     const newArray = state.products.filter(
@@ -93,7 +94,7 @@ const reducer = (state = initialState, action) => {
 
         const result = response.data;
         console.log(result);
-        console.log(result.message);
+        console.log(result.error.message);
       })
       .catch(rejected => {
         console.log("Delete product connection error: ", rejected);
@@ -104,7 +105,7 @@ const reducer = (state = initialState, action) => {
       products: newArray
     };
   }
-
+*/
   /*
   if (action.type === actionTypes.REGISTER) {
     console.log("finally at reducer - REGISTER action", action.user2);

@@ -150,10 +150,69 @@ const reducer = (state = initialState, action) => {
   }
 
   if (action.type === actionTypes.DELETE_PRODUCT) {
-    console.log(action.productId);
+    // console.log(action.productId);
+    console.log(
+      "finally at productReducer.js DELETE_PRODUCT",
+      action.responseData
+    );
+
+    /*
+          1 response.data returned if product id was found and deleted
+            Product deleted:  
+            {product: {…}, error: {…}}
+            error: {success: true, message: "ProductId: 5c32a88b96285309ab32eea9 deleted."}
+            product: {product: {…}, _id: "5c32a88b96285309ab32eea9", __v: 0}
+            __proto__: Object
+            
+          2 response.data returned if product id was not found
+            Product deleted:  
+            {error: {…}}
+            error: {success: false, message: "Product id not found."}
+            __proto__: Object
+        */
+
+    console.log("can we access products array state from productReducer.js?");
+    console.log(state.products);
+
+    /*
+      can we access products array state from productReducer.js?
+      productReducer.js:175 
+      (2) [{…}, {…}]
+      0: {product: {…}, _id: "5c2a86e06b3be906c3c90071", __v: 0}
+      1:
+      product: {types: "t", name: "aaaa", price: 25, image: "https://www.royce.com/images/pc/english/product/namachocolate/white_m.jpg", entryDate: "2019-01-07T01:57:35.035Z"}
+      __v: 0
+      _id: "5c32b20f96285309ab32eeab"
+      __proto__: Object
+      length: 2
+      __proto__: Array(0)
+
+    */
+
+    if (!action.responseData.error.success) {
+      return {
+        ...state,
+        error: action.responseData.error
+      };
+    } else {
+      const newArray = state.products.filter(
+        // product => product._id !== action.productId
+        product => product._id !== action.responseData.product._id
+        // product => console.log(product._id)
+      );
+
+      console.log("newArray without deleted product ", newArray);
+      return {
+        ...state,
+        products: newArray,
+        error: action.responseData.error
+      };
+    }
+
     // console.log("in del", state.products);
     // console.log("in del2", state.product);
 
+    /* NEXT HANDLE PRODUCT LIST AFTER FILTERING OUT THE DELETED PRODUCT
     const newArray = state.products.filter(
       product => product._id !== action.productId
       // product => console.log(product._id)
@@ -187,6 +246,7 @@ const reducer = (state = initialState, action) => {
       ...state,
       products: newArray
     };
+*/
   }
 
   return state;
