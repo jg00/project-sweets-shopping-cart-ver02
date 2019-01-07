@@ -12,11 +12,13 @@ import "./index.css";
 import authReducer from "./store/reducers/authReducer";
 import registerReducer from "./store/reducers/registerReducer";
 import productReducer from "./store/reducers/productReducer";
+import cartItemsReducer from "./store/reducers/cartItemsReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
-  products: productReducer
+  products: productReducer,
+  cartItems: cartItemsReducer
 });
 
 const logger = store => {

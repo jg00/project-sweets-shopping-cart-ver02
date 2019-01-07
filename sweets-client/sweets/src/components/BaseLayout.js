@@ -7,7 +7,7 @@ import * as authActionCreators from "../store/actions/auth";
 import * as productsActionCreators from "../store/actions/products";
 import Menu from "./Menu";
 // import AllItems from "./AllItems";
-// import AddItem from "./AddItem";
+import AddItem from "./AddItem";
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
