@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
   products: productReducer,
-  cartItems: cartItemsReducer
+  cart: cartItemsReducer
 });
 
 const logger = store => {

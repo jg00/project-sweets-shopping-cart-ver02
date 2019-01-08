@@ -8,6 +8,7 @@ const products = require("./routes/products");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const donations = require("./routes/donations");
+const carts = require("./routes/carts");
 
 const db = require("./config/keys").mongoUrl;
 mongoose
@@ -27,6 +28,7 @@ app.use("/api/products", products);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 app.use("/api/donations", donations);
+app.use("/api/carts", carts);
 
 app.listen(PORT, () => {
   console.log("Server started on port ${PORT}", PORT);

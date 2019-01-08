@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 // import jwtDecode from "jwt-decode";
 // import axios from "axios";
 import * as actionCreators from "../store/actions/products";
-import Quantity from "./Quantity";
+import AddItem from "./AddItem";
 // const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 // const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
 
@@ -32,7 +32,7 @@ class AllProducts extends Component {
             </button>
           ) : (
             // <Quantity associatedItemProductId={product._id} />
-            <Quantity productItem={product} />
+            <AddItem productItem={product} />
 
             /*  BEFORE MOVING BUTTO TO QUANTITY COMPONENET
             <button
