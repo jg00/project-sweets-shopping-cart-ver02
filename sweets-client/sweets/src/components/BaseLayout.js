@@ -5,6 +5,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 // import jwtDecode from "jwt-decode";
 import * as authActionCreators from "../store/actions/auth";
 import * as productsActionCreators from "../store/actions/products";
+import * as cartItemsActionCreators from "../store/actions/cartItems";
 import Menu from "./Menu";
 // import AllItems from "./AllItems";
 import AddItem from "./AddItem";
@@ -19,6 +20,7 @@ class BaseLayout extends Component {
   componentDidMount() {
     this.props.onSiteReload(this.props.history);
     this.props.onLoadProductList();
+    this.props.onloadCartItems();
   }
 
   render() {
@@ -52,7 +54,9 @@ const mapDispatchToProps = dispatch => {
     onSiteReload: historyProps =>
       dispatch(authActionCreators.checkAuthenticateOnSiteReload(historyProps)),
 
-    onLoadProductList: () => dispatch(productsActionCreators.loadProductList())
+    onLoadProductList: () => dispatch(productsActionCreators.loadProductList()),
+
+    onloadCartItems: () => dispatch(cartItemsActionCreators.loadCartItems())
   };
 };
 

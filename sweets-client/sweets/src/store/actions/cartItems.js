@@ -1,7 +1,8 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED TO BUILD
-const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts/add"; // NEED TO BUILD
+const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
+const GET_CART_ITEMS_URL = "http://localhost:3001/api/carts/cart";
 
 /* Add user items to cart */
 export const returnAddItemToCartActionType = responseData => {
@@ -38,11 +39,19 @@ export const addItemToCart = cartItem => {
 
     let ADD_ITEM_URL = "";
     if (!localCart) {
-      console.log("noneddd");
+      // console.log("noneddd");
       ADD_ITEM_URL = ADD_ITEM_INIT_CART_URL;
+      console.log("noneddd ", ADD_ITEM_URL);
     } else {
-      console.log("one exists", localCart);
-      ADD_ITEM_URL = ADD_ITEM_TO_CART_URL;
+      // console.log("one exists", localCart);
+      // ADD_ITEM_URL = ADD_ITEM_TO_CART_URL;
+      // console.log("one exits ", ADD_ITEM_URL);
+
+      ADD_ITEM_URL = `${ADD_ITEM_TO_CART_URL}/${localCart}/add`;
+      console.log("Add to specific cart id ", ADD_ITEM_URL);
+
+      // "http://localhost:3001/api/carts/:cartid/add"
+      // ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts
     }
 
     // Include localCart id if available.  Value is null if not localCart is initially available.
@@ -118,3 +127,54 @@ export const addItemToCart = cartItem => {
         */
 //   };
 // };
+
+/* Initialize cartItems on site reload */
+export const returnLoadCartItemsActionType = responseData => {
+  return {
+    type: actionTypes.LOAD_CART_ITEMS,
+    responseData: responseData
+  };
+};
+
+export const returnLoadCartItemsActionTypeFetchError = error => {
+  return {
+    type: actionTypes.LOAD_CART_ITEMS_FETCH_ERROR,
+    error: error
+  };
+};
+
+export const loadCartItems = () => {
+  return dispatch => {
+    const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+    console.log("Is there a localcart on load? ", localCart); // null if not found
+
+    // let URL_WITH_CARTID_TO_RETRIEVE = "";
+    // if (!localCart) {
+    //   console.log("no local cart on load");
+    //   // ADD_ITEM_URL = ADD_ITEM_INIT_CART_URL;
+    // } else {
+    //   console.log("local cart exists on load ", localCart);
+
+    //   URL_WITH_CARTID_TO_RETRIEVE = `${GET_CART_ITEMS_URL}/${localCart}`;
+    //   console.log(URL_WITH_CARTID_TO_RETRIEVE);
+    // }
+
+    const URL_WITH_CARTID_TO_RETRIEVE = `${GET_CART_ITEMS_URL}/${localCart}`;
+    console.log(URL_WITH_CARTID_TO_RETRIEVE);
+
+    // Load cart items from database and dispatch actions to initialize cartItems array
+    axios(URL_WITH_CARTID_TO_RETRIEVE)
+      .then(response => {
+        console.log("Load Cart action", response.data); // array of cartItems objects
+        dispatch(returnLoadCartItemsActionType(response.data));
+      })
+      .catch(rejected => {
+        dispatch(
+          returnLoadCartItemsActionTypeFetchError({
+            success: false,
+            message: "Error initializing cart items list."
+          })
+        );
+      });
+  };
+};

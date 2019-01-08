@@ -87,7 +87,7 @@ router.post("/add", (req, res) => {
   });
 });
 
-// api/products/display
+// api/products/delete/:id
 router.post("/delete/:id", (req, res) => {
   // res.json({ name: "GET api/products/delete/:id" });
 
