@@ -23,6 +23,11 @@ export const returnAddItemToCartActionTypeFetchError = error => {
 export const addItemToCart = cartItem => {
   return dispatch => {
     console.log("cartItem", cartItem);
+    // console.log("cartItemsArray: ", cartItemsArray);
+
+    // let newcartitemsArray = cartItemsArray.push(cartItem);
+    // console.log("cartItemsArray2: ", newcartitemsArray);
+
     // dispatch(returnAddItemToCartActionType());
 
     /* TEST
@@ -43,12 +48,14 @@ export const addItemToCart = cartItem => {
       ADD_ITEM_URL = ADD_ITEM_INIT_CART_URL;
       console.log("noneddd ", ADD_ITEM_URL);
     } else {
+      // If a cart was created, we need to update the cartItems in that cart.
+
       // console.log("one exists", localCart);
       // ADD_ITEM_URL = ADD_ITEM_TO_CART_URL;
       // console.log("one exits ", ADD_ITEM_URL);
 
       ADD_ITEM_URL = `${ADD_ITEM_TO_CART_URL}/${localCart}/add`;
-      console.log("Add to specific cart id ", ADD_ITEM_URL);
+      console.log("ADD_ITEM_URL: ", ADD_ITEM_URL);
 
       // "http://localhost:3001/api/carts/:cartid/add"
       // ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts
@@ -83,7 +90,7 @@ export const addItemToCart = cartItem => {
         dispatch(
           returnAddItemToCartActionTypeFetchError({
             success: false,
-            message: "Connection error.  Cart item was not added."
+            message: "Connection error.  Cart item was not added. "
           })
         );
       });

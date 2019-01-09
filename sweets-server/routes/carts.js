@@ -41,6 +41,52 @@ router.post("/init", (req, res) => {
   // res.send("cart init route");
 });
 
+// This will be for updating Cart.CartItems array for a specific cart //
+router.post("/:cartid/add", (req, res) => {
+  // console.log(req.body);
+  const cartItem = req.body;
+  const cartId = req.params.cartid;
+  // console.log("At api/carts/:cartid/add route: ", cartId);
+  // res.send("api/carts/:cartid/add testing");
+
+  /*
+    1 find the cart id
+    2 concat new item to the cartItems Array
+    
+  */
+
+  Cart.findOneAndUpdate(
+    {
+      _id: cartId,
+      "cartItems.productItem._id": { $ne: cartItem.productItem._id }
+    },
+    { $addToSet: { cartItems: cartItem } },
+    { safe: true, upsert: true, new: true },
+    function(err, cart) {
+      if (err) {
+        res.json({
+          error: {
+            success: false,
+            message:
+              "Product item Id " +
+              cartItem.productItem._id +
+              " already added to cart or count is less than zero."
+          }
+        });
+      } else {
+        res.json({
+          cart: cart,
+          error: {
+            success: true,
+            message: "New cart item appended to cart in the database."
+          }
+        });
+      }
+    }
+  );
+});
+
+/*
 // NEED TO WORK ON THIS PART**************
 // api/carts/:cartid/add
 router.post("/:cartid/add", (req, res) => {
@@ -76,8 +122,8 @@ router.post("/:cartid/add", (req, res) => {
   //     })
   //   );
 });
+*/
 
-/* NEW SCTION*/
 // api/carts/cart/:id
 router.get("/cart/:id", (req, res) => {
   // res.json({ name: "GET api/products/delete/:id" });

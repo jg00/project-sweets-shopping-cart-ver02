@@ -53,10 +53,13 @@ class AddItem extends Component {
       productItem: this.state.productItem
     };
 
+    // const cartItems = this.props.cartItems;
+    // console.log("HERE ", cartItems);
+
     return (
       <div>
         <div>Quantity: {this.state.counter}</div>
-        <div>Associated Product Id: {this.props.productItem._id}</div>
+        {/* <div>Associated Product Id: {this.props.productItem._id}</div> */}
         <button onClick={() => this.handleIncrement(this.props.productItem)}>
           +
         </button>
@@ -73,10 +76,19 @@ class AddItem extends Component {
         >
           Add to cart22
         </button>
+        {/* <div>{this.props.error.message}</div> */}
+        {/* <div>{this.props.cart[0].counter}</div> */}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    // cartItems: state.cart.cartItems,
+    error: state.cart.error
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -86,6 +98,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddItem);

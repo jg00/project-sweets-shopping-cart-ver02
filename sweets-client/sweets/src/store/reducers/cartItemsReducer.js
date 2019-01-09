@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
       // Update products redux state if no errors
       return {
         ...state,
-        cartItems: cartItems, // updating the cartItems arrray and not adding a specific cart to the array
+        cartItems: cartItems, // updating the whole cartItems array returned from action.responseData.cart.cartItems
         // cartItems: state.products.concat(product),
         error: error
       };
