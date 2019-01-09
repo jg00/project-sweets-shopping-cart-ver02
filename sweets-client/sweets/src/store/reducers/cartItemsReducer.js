@@ -94,8 +94,31 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  // } // FOR TESTING
+  /* FOR UPDATING QUANTITY OF A CART ITEM*/
+  if (action.type === actionTypes.INCREMENT_CART_ITEM_QTY) {
+    console.log(
+      "finally at updateCartItemsReducer.js INCREMENT_CART_ITEM_QTY",
+      action.productObj
+    );
 
+    console.log(action.productObj.productItem._id);
+    // console.log(state.cartItems);
+
+    const productItemId = action.productObj.productItem._id;
+    console.log(state.cartItems);
+
+    // state.cartItems.   do something here
+    const cartObj = state.cartItems.find(
+      item => item.productItem._id === productItemId
+    );
+    console.log(cartObj); // STOPPED HERE FOR NOW
+    return {
+      ...state,
+      error: "Increment cart item qty error"
+    };
+  }
+
+  // ELSE RETURN PREVIOUS STATE
   return state;
 };
 

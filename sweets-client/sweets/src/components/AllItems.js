@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import UpdateCartItem from "./UpdateCartItem";
 
 class AllItems extends Component {
   displayItems() {
@@ -19,8 +20,9 @@ class AllItems extends Component {
               <div>{product.productItem.product.name} </div>
               <div>Type: {product.productItem.product.types} </div>
               <div>
-                Price: {product.productItem.product.price} * {product.counter}{" "}
+                Price: {product.productItem.product.price} * {product.counter}
               </div>
+              <UpdateCartItem product={product} />
             </div>
           );
         })}

@@ -185,3 +185,18 @@ export const loadCartItems = () => {
       });
   };
 };
+
+/* SECTION - update cart quantity */
+export const returnIncrementCartItemQtyActionType = productObj => {
+  return {
+    type: actionTypes.INCREMENT_CART_ITEM_QTY,
+    productObj: productObj
+  };
+};
+
+export const incrementCartItemQty = productObj => {
+  return dispatch => {
+    console.log("At updateCartItems.js ", productObj);
+    dispatch(returnIncrementCartItemQtyActionType(productObj));
+  };
+};
