@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./styles/Menu.css";
+import CartCounter from "./CartCounter";
 
 class Menu extends Component {
   render() {
@@ -62,6 +63,12 @@ class Menu extends Component {
 
           <li className="div-menu-li">
             <Link to="/Donate">Donate</Link>
+          </li>
+
+          <li className="div-menu-li">
+            <Link to="/AllItems">
+              <CartCounter />
+            </Link>
           </li>
 
           {/* <div>{this.props.isAuth ? "true" : "false"}</div> */}
