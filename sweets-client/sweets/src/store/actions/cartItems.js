@@ -3,6 +3,7 @@ import * as actionTypes from "./actionTypes";
 const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED TO BUILD
 const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
 const GET_CART_ITEMS_URL = "http://localhost:3001/api/carts/cart";
+const UPDATE_CART_ITEM_URL = "http://localhost:3001/api/carts";
 
 /* Add user items to cart */
 export const returnAddItemToCartActionType = responseData => {
@@ -199,6 +200,7 @@ export const loadCartItems = () => {
 };
 
 /* SECTION - update cart quantity */
+// Increment
 export const returnIncrementCartItemQtyActionType = productObj => {
   return {
     type: actionTypes.INCREMENT_CART_ITEM_QTY,
@@ -208,7 +210,87 @@ export const returnIncrementCartItemQtyActionType = productObj => {
 
 export const incrementCartItemQty = productObj => {
   return dispatch => {
-    console.log("At updateCartItems.js ", productObj);
+    console.log("At updateCartItems.js increment", productObj);
     dispatch(returnIncrementCartItemQtyActionType(productObj));
+  };
+};
+
+// Decrement
+export const returnDecrementCartItemQtyActionType = productObj => {
+  return {
+    type: actionTypes.DECREMENT_CART_ITEM_QTY,
+    productObj: productObj
+  };
+};
+
+export const decrementCartItemQty = productObj => {
+  return dispatch => {
+    console.log("At updateCartItems.js decrement", productObj);
+    dispatch(returnDecrementCartItemQtyActionType(productObj));
+  };
+};
+
+// Update cart item with new quantity
+// updateCartItem
+
+export const returnUpdateCartItemActionType = productObj => {
+  return {
+    type: actionTypes.UPDATE_CART_ITEM,
+    productObj: productObj
+  };
+};
+
+export const updateCartItem = productObj => {
+  return dispatch => {
+    console.log("At updateCartItems.js updateCartItem ", productObj);
+    /*
+      {counter: 5, productItem: {…}, localCart: null}
+      counter: 5
+      localCart: null
+      productItem:
+        product: {types: "White", name: "Nama White", price: 25, image: "https://www.royce.com/images/pc/english/product/namachocolate/white_m.jpg", entryDate: "2019-01-10T11:57:31.303Z"}
+        __v: 0
+        _id: "5c37332b85deca08c1f1d556"
+    */
+
+    // For updating cart item there should be a localCart
+    const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+    //  console.log("Is there a localcart? ", localCart);
+
+    let UPDATE_ITEM_URL = "";
+    UPDATE_ITEM_URL = `${UPDATE_CART_ITEM_URL}/${localCart}/update`;
+    console.log("UPDATE_ITEM_URL: ", UPDATE_ITEM_URL);
+
+    // Include localCart id if available.  Value is null if not localCart is initially available.
+    productObj.localCart = localCart; // not sure if we need this.
+
+    // axios next
+    axios.post(UPDATE_ITEM_URL, productObj).then(response => {
+      console.log(
+        "Cart item added responsesss UPDATE_ITEM_URL: ",
+        response.data
+      );
+
+      // the whole cart is returned and not just the cartItems array property
+
+      // console.log("Cart id: ", response.data.cart._id);
+      console.log("Cart info returned?: ", response.data);
+
+      dispatch(returnUpdateCartItemActionType(productObj)); // does not exists in reducer yet
+    });
+
+    /*
+    //  ADD THIS CATCH NEXT.  STILL NEEDS TO BE UPDATED
+    .catch(rejected => {
+      dispatch(
+        returnAddItemToCartActionTypeFetchError({
+          success: false,
+          message: "Connection error.  Cart item was not added. "
+        })
+      );
+    });
+    */
+
+    // dispatch(returnUpdateCartItemActionType(productObj));  // this is now inside axios
   };
 };

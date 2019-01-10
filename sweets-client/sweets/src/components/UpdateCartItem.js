@@ -38,15 +38,36 @@ class UpdateCartItem extends Component {
         >
           +
         </button>
+        <button
+          onClick={() => this.props.onDecrementCartItemQty(this.props.product)}
+        >
+          -
+        </button>
+        <button onClick={() => this.props.onUpdateCartItem(this.props.product)}>
+          Update Cart Item
+        </button>
+        {/* <div>{this.props.error.message}</div> */}
       </div>
     );
   }
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     error: state.cart.error // array
+//   };
+// };
+
 const mapDispatchToProps = dispatch => {
   return {
     onIncrementCartItemQty: productObj =>
-      dispatch(actionCreators.incrementCartItemQty(productObj))
+      dispatch(actionCreators.incrementCartItemQty(productObj)),
+
+    onDecrementCartItemQty: productObj =>
+      dispatch(actionCreators.decrementCartItemQty(productObj)),
+
+    onUpdateCartItem: productObj =>
+      dispatch(actionCreators.updateCartItem(productObj))
   };
 };
 

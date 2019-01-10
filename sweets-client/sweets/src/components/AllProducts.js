@@ -19,8 +19,8 @@ class AllProducts extends Component {
           </div>
           <div>ProductId: {product._id} </div>
           <div>{product.product.name} </div>
-          <div>{product.product.types} </div>
-          <div>{product.product.price} </div>
+          <div>Type: {product.product.types} </div>
+          <div>Price: {product.product.price} </div>
 
           {/* <div>
             <Quantity associatedItemProductId={product._id} />

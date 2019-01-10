@@ -154,6 +154,65 @@ const reducer = (state = initialState, action) => {
     };
   }
 
+  /* FOR DECREMENTING QUANTITY OF A SPECIFIC CART ITEM OBJECT */
+  if (action.type === actionTypes.DECREMENT_CART_ITEM_QTY) {
+    console.log(
+      "finally at updateCartItemsReducer.js DECREMENT_CART_ITEM_QTY",
+      action.productObj
+    );
+
+    /*
+      action.productObj ->
+        counter: 4, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+        counter: 4
+        localCart: "5c3622fc3e31db024be15240"
+        productItem:
+        product: {types: "White", name: "aaaa", price: 50, image: "https://www.royce.com/images/pc/english/product/namachocolate/ole_m.jpg", entryDate: "2019-01-08T16:20:25.094Z"}
+        __v: 0
+        _id: "5c34cdc92132c304ee86452a"
+    */
+
+    // Specific product item id will be used to identify and replace the object in the state
+    const productItemId = action.productObj.productItem._id; // _id: "5c34cdc92132c304ee86452a"
+
+    // Make a copy of action.productObj (ie object) and return an updated object with counter value incremented
+    let updatedActionProductObj = {
+      ...action.productObj,
+      counter: action.productObj.counter - 1
+    };
+
+    // console.log("updatedActionProductObj ", updatedActionProductObj); // {counter: 7, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+    // console.log("action.productObj ", action.productObj); // {counter: 6, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+
+    // Make a copy of state.cartItems (ie array of objects)
+    let copyStateCartItems = [...state.cartItems];
+
+    // console.log("copyStateCartItems ", copyStateCartItems);
+    // console.log("state.cartItems ", state.cartItems);
+
+    // Update copyStateCartItems (ie copy of array of objects) and replace the specific product with the new updated productObj
+    let updatedStateCartItems = copyStateCartItems.map(item =>
+      item.productItem._id === productItemId ? updatedActionProductObj : item
+    );
+
+    /* 
+      Check
+        let n = copyStateCartItems.map(item =>
+          item.productItem._id === productItemId ? "y" : "n"
+        );
+    */
+
+    // console.log("copyStateCartItems2 ", copyStateCartItems);
+    // console.log("state.cartItems2 ", state.cartItems);
+    // console.log("updatedStateCartItems2 ", updatedStateCartItems);
+
+    return {
+      ...state,
+      cartItems: updatedStateCartItems,
+      error: "Decrement cart item qty error"
+    };
+  }
+
   // ELSE RETURN PRESENT STATE
   return state;
 };
