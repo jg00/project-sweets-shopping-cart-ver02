@@ -76,7 +76,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: action.responseData.cart.cartItems,
-        error: action.responseData.error
+        error: action.responseData.error // maybe do not display any errors on load if no issues
+        // error: "non"
       };
     }
   }
@@ -94,31 +95,66 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  /* FOR UPDATING QUANTITY OF A CART ITEM*/
+  /* FOR INCREMENTING QUANTITY OF A SPECIFIC CART ITEM OBJECT */
   if (action.type === actionTypes.INCREMENT_CART_ITEM_QTY) {
     console.log(
       "finally at updateCartItemsReducer.js INCREMENT_CART_ITEM_QTY",
       action.productObj
     );
 
-    console.log(action.productObj.productItem._id);
-    // console.log(state.cartItems);
+    /*
+      action.productObj ->
+        counter: 4, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+        counter: 4
+        localCart: "5c3622fc3e31db024be15240"
+        productItem:
+        product: {types: "White", name: "aaaa", price: 50, image: "https://www.royce.com/images/pc/english/product/namachocolate/ole_m.jpg", entryDate: "2019-01-08T16:20:25.094Z"}
+        __v: 0
+        _id: "5c34cdc92132c304ee86452a"
+    */
 
-    const productItemId = action.productObj.productItem._id;
-    console.log(state.cartItems);
+    // Specific product item id will be used to identify and replace the object in the state
+    const productItemId = action.productObj.productItem._id; // _id: "5c34cdc92132c304ee86452a"
 
-    // state.cartItems.   do something here
-    const cartObj = state.cartItems.find(
-      item => item.productItem._id === productItemId
+    // Make a copy of action.productObj (ie object) and return an updated object with counter value incremented
+    let updatedActionProductObj = {
+      ...action.productObj,
+      counter: action.productObj.counter + 1
+    };
+
+    // console.log("updatedActionProductObj ", updatedActionProductObj); // {counter: 7, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+    // console.log("action.productObj ", action.productObj); // {counter: 6, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
+
+    // Make a copy of state.cartItems (ie array of objects)
+    let copyStateCartItems = [...state.cartItems];
+
+    // console.log("copyStateCartItems ", copyStateCartItems);
+    // console.log("state.cartItems ", state.cartItems);
+
+    // Update copyStateCartItems (ie copy of array of objects) and replace the specific product with the new updated productObj
+    let updatedStateCartItems = copyStateCartItems.map(item =>
+      item.productItem._id === productItemId ? updatedActionProductObj : item
     );
-    console.log(cartObj); // STOPPED HERE FOR NOW
+
+    /* 
+      Check
+        let n = copyStateCartItems.map(item =>
+          item.productItem._id === productItemId ? "y" : "n"
+        );
+    */
+
+    // console.log("copyStateCartItems2 ", copyStateCartItems);
+    // console.log("state.cartItems2 ", state.cartItems);
+    // console.log("updatedStateCartItems2 ", updatedStateCartItems);
+
     return {
       ...state,
+      cartItems: updatedStateCartItems,
       error: "Increment cart item qty error"
     };
   }
 
-  // ELSE RETURN PREVIOUS STATE
+  // ELSE RETURN PRESENT STATE
   return state;
 };
 

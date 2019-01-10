@@ -74,7 +74,7 @@ class AddItem extends Component {
             this.props.onCartItemAdd(cartItem)
           }
         >
-          Add to cart22
+          Add to cart
         </button>
         {/* <div>{this.props.error.message}</div> */}
         {/* <div>{this.props.cart[0].counter}</div> */}

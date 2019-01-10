@@ -37,6 +37,18 @@ export const addItemToCart = cartItem => {
     );
     */
 
+    // Check quantity greater than zero
+    console.log(cartItem.counter);
+    if (cartItem.counter < 1) {
+      dispatch(
+        returnAddItemToCartActionTypeFetchError({
+          success: false,
+          message: "Update quantity"
+        })
+      );
+      return;
+    }
+
     const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
     console.log("Is there a localcart? ", localCart); // null if not found
 
