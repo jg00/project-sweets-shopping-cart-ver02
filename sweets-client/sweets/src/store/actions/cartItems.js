@@ -54,6 +54,10 @@ export const addItemToCart = cartItem => {
     console.log("Is there a localcart? ", localCart); // null if not found
 
     // If localstore cart id exits update cart items to existing cart object in the database
+    /*
+        const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init";
+        const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts";
+    */
 
     let ADD_ITEM_URL = "";
     if (!localCart) {
@@ -299,5 +303,29 @@ export const updateCartItem = productObj => {
       });
 
     // dispatch(returnUpdateCartItemActionType(productObj));  // this is now inside axios
+  };
+};
+
+/* NEW SECTION FOR CHECKOUT */
+export const checkoutCart = historyProps => {
+  return dispatch => {
+    console.log("At checkoutCart.js checkoutCart ");
+
+    historyProps.push(`/Checkout`); // new change
+    // axios
+    //   .post(REGISTER_URL, user)
+    //   .then(response => {
+    //     console.log("responsessss", response);
+    //     dispatch(saveResult(user, response.data));
+
+    //     if (response.data.error.success === false) {
+    //       console.log(response.data);
+    //     } else {
+    //       historyProps.push(`/Login`); // new change
+    //     }
+    //   })
+    //   .catch(rejected => {
+    //     console.log("Register user connection error: ", rejected);
+    //   });
   };
 };

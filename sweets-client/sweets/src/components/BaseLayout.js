@@ -8,13 +8,14 @@ import * as productsActionCreators from "../store/actions/products";
 import * as cartItemsActionCreators from "../store/actions/cartItems";
 import Menu from "./Menu";
 import AllItems from "./AllItems";
-import AddItem from "./AddItem";
+// import AddItem from "./AddItem";
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import AddProduct from "./AddProduct";
 import AllProducts from "./AllProducts";
 import CartCounter from "./CartCounter";
+import Checkout from "./Checkout";
 import Donate from "./Donate";
 
 class BaseLayout extends Component {
@@ -40,6 +41,7 @@ class BaseLayout extends Component {
               <Route path="/AddProduct" component={AddProduct} />
               <Route path="/CartCounter" component={CartCounter} />
               <Route path="/AllItems" component={AllItems} />
+              <Route path="/Checkout" component={Checkout} />
               {/* <Route path="/AllProducts" component={AllProducts} /> */}
               {/* <Elements> */}
               <Route path="/Donate" component={Donate} />
