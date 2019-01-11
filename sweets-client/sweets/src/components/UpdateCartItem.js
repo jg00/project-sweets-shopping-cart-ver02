@@ -52,11 +52,11 @@ class UpdateCartItem extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     error: state.cart.error // array
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    error: state.cart.error // array
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -72,6 +72,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(UpdateCartItem);

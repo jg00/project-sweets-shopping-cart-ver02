@@ -150,7 +150,11 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       cartItems: updatedStateCartItems,
-      error: "Increment cart item qty error"
+      // error: "Increment cart item qty error"
+      error: {
+        success: true,
+        message: null
+      }
     };
   }
 
@@ -209,7 +213,38 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       cartItems: updatedStateCartItems,
-      error: "Decrement cart item qty error"
+      // error: "Decrement cart item qty error",
+      error: {
+        success: true,
+        message: null
+      }
+    };
+  }
+
+  // Update cart item //
+  if (action.type === actionTypes.UPDATE_CART_ITEM) {
+    console.log(
+      "finally at cartItemsReducer.js UPDATE_CART_ITEM",
+      action.responseData
+    );
+
+    // Update products redux state if no errors
+    return {
+      ...state,
+      cartItems: action.responseData.cart.cartItems,
+      error: action.responseData.error // maybe do not display any errors on load if no issues
+    };
+  }
+
+  if (action.type === actionTypes.UPDATE_CART_ITEM_FETCH_ERROR) {
+    console.log(
+      "finally at cartItemsReducer.js UPDATE_CART_ITEM_FETCH_ERROR",
+      action.error
+    );
+
+    return {
+      ...state,
+      error: action.error
     };
   }
 

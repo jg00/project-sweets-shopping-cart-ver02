@@ -52,6 +52,7 @@ class AllProducts extends Component {
     return (
       <div>
         <div>Display All Products Page</div>
+        {/* <div>{this.props.error.message}</div> */}
         {productItems}
       </div>
     );
@@ -62,7 +63,8 @@ const mapStateToProps = state => {
   return {
     products: state.products.products, // array
     isAuth: state.auth.isAuth,
-    userData: state.auth.user
+    userData: state.auth.user,
+    error: state.cart.error //
   };
 };
 

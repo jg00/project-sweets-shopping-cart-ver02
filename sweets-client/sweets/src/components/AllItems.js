@@ -10,6 +10,7 @@ class AllItems extends Component {
     const displayItems = (
       // <div>{cartItems.map(item => item.productItem._id)}</div>
       <div>
+        {/* <div>{this.props.error.message}</div> */}
         {cartItems.map(product => {
           return (
             <div key={product.productItem._id}>
@@ -42,6 +43,7 @@ class AllItems extends Component {
     return (
       <div>
         <div>Display All Items Page</div>
+        {/* <div>{this.props.error.message}</div> */}
         {this.displayItems()}
         {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
       </div>

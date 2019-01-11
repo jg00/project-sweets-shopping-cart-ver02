@@ -142,14 +142,16 @@ router.get("/cart/:id", (req, res) => {
         cart: cart,
         error: {
           success: true,
-          message: "CartID: " + cartId + "  found."
+          message: null
+          // message: "CartID: " + cartId + "  found."
         }
       });
     } else {
       res.json({
         error: {
           success: false,
-          message: "Cart id not found."
+          message: null
+          // message: "Cart id not found."
         }
       });
     }

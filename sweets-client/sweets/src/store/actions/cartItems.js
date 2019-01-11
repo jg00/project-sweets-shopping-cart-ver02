@@ -103,7 +103,7 @@ export const addItemToCart = cartItem => {
         dispatch(
           returnAddItemToCartActionTypeFetchError({
             success: false,
-            message: "Connection error.  Cart item was not added. "
+            message: "Item already exists in cart."
           })
         );
       });
@@ -233,10 +233,17 @@ export const decrementCartItemQty = productObj => {
 // Update cart item with new quantity
 // updateCartItem
 
-export const returnUpdateCartItemActionType = productObj => {
+export const returnUpdateCartItemActionType = responseData => {
   return {
     type: actionTypes.UPDATE_CART_ITEM,
-    productObj: productObj
+    responseData: responseData
+  };
+};
+
+export const returnUpdateCartItemActionTypeFetchError = error => {
+  return {
+    type: actionTypes.UPDATE_CART_ITEM_FETCH_ERROR,
+    error: error
   };
 };
 
@@ -265,31 +272,31 @@ export const updateCartItem = productObj => {
     productObj.localCart = localCart; // not sure if we need this.
 
     // axios next
-    axios.post(UPDATE_ITEM_URL, productObj).then(response => {
-      console.log(
-        "Cart item added responsesss UPDATE_ITEM_URL: ",
-        response.data
-      );
+    axios
+      .post(UPDATE_ITEM_URL, productObj)
+      .then(response => {
+        console.log(
+          "Cart item added responsesss UPDATE_ITEM_URL: ",
+          response.data
+        );
 
-      // the whole cart is returned and not just the cartItems array property
+        // the whole cart is returned and not just the cartItems array property
 
-      // console.log("Cart id: ", response.data.cart._id);
-      console.log("Cart info returned?: ", response.data);
+        // console.log("Cart id: ", response.data.cart._id);
+        console.log("Cart info returned?: ", response.data);
 
-      dispatch(returnUpdateCartItemActionType(productObj)); // does not exists in reducer yet
-    });
+        dispatch(returnUpdateCartItemActionType(response.data)); // does not exists in reducer yet
+      })
 
-    /*
-    //  ADD THIS CATCH NEXT.  STILL NEEDS TO BE UPDATED
-    .catch(rejected => {
-      dispatch(
-        returnAddItemToCartActionTypeFetchError({
-          success: false,
-          message: "Connection error.  Cart item was not added. "
-        })
-      );
-    });
-    */
+      //  ADD THIS CATCH NEXT.  STILL NEEDS TO BE UPDATED
+      .catch(rejected => {
+        dispatch(
+          returnUpdateCartItemActionTypeFetchError({
+            success: false,
+            message: "Connection error.  Cart item quantity was not updated. "
+          })
+        );
+      });
 
     // dispatch(returnUpdateCartItemActionType(productObj));  // this is now inside axios
   };
