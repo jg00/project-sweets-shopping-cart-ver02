@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 // import axios from "axios";
 // import { setAuthenticationToken } from "../utils";
 import * as actionCreators from "../store/actions/auth";
+import { SET_AUTH_REDIRECT_PATH } from "../store/actions/actionTypes";
 // const LOGIN_URL = "http://localhost:3001/api/auth/";
 
 class Login extends Component {
@@ -15,6 +16,12 @@ class Login extends Component {
       user: {}
     };
   }
+
+  // componentDidMount() {
+  //   // if (this.props.authRedirectPath !== "/") {
+  //   this.props.onSetAuthRedirectPath(); // reset if not checkout from cart
+  //   // }
+  // }
 
   handleTextBoxOnChange = e => {
     let user = { ...this.state.user };
@@ -44,13 +51,18 @@ class Login extends Component {
             {/* <button onClick={this.handleLoginButtonClick}>Login</button> */}
             <button
               onClick={() =>
-                this.props.onAuthenticate(this.state.user, this.props.history)
+                this.props.onAuthenticate(
+                  this.state.user,
+                  this.props.history,
+                  this.props.authRedirectPath
+                )
               }
             >
               Login
             </button>
 
             <div>{this.props.error.message}</div>
+            <div>{this.props.authRedirectPath}</div>
           </div>
         </div>
       </div>
@@ -60,14 +72,19 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.auth.error // object
+    error: state.auth.error, // object
+    authRedirectPath: state.auth.authRedirectPath
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuthenticate: (user, historyProps) =>
-      dispatch(actionCreators.setAuthenticate(user, historyProps))
+    onAuthenticate: (user, historyProps, authRedirectPath) =>
+      dispatch(
+        actionCreators.setAuthenticate(user, historyProps, authRedirectPath)
+      )
+    // onSetAuthRedirectPath: () =>
+    //   dispatch(actionCreators.setAuthRedirectPath("/")) // reset
   };
 };
 

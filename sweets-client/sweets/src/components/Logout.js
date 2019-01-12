@@ -4,6 +4,7 @@ import React, { Component } from "react";
 class Logout extends Component {
   componentDidMount() {
     localStorage.removeItem("jsonwebtoken");
+    localStorage.removeItem("jsonwebtokenpayload");
   }
 
   render() {

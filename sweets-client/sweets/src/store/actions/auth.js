@@ -12,7 +12,7 @@ export const returnAuthActionTypePayload = responseData => {
 };
 
 // Action creators
-export const setAuthenticate = (user, historyProps) => {
+export const setAuthenticate = (user, historyProps, authRedirectPath) => {
   return dispatch => {
     axios
       .post(LOGIN_URL, user)
@@ -27,7 +27,13 @@ export const setAuthenticate = (user, historyProps) => {
           console.log("Login.js > handleLoginButtonClick - true");
 
           // save the token to localStorage so we can access it later on
-          localStorage.setItem("jsonwebtoken", response.data.token);
+          localStorage.setItem("jsonwebtoken", response.data.token); // original only stored the token.
+          localStorage.setItem(
+            "jsonwebtokenpayload",
+            JSON.stringify(response.data.userData)
+          ); // original only stored the token.
+          // localStorage.setItem("jsonwebtoken", JSON.stringify(response.data)); // now storing token and userData payload for additional information
+
           // put the token in the request header
           setAuthenticationToken(response.data.token);
           console.log(response.data); // response.data
@@ -42,8 +48,10 @@ export const setAuthenticate = (user, historyProps) => {
 
           dispatch(returnAuthActionTypePayload(response.data));
 
+          // console.log(redirectTo)
           // this.props.history.push("/"); comment for now
-          historyProps.push(`/`);
+          // historyProps.push(`/`);
+          historyProps.push(authRedirectPath);
         }
 
         // window.location = "/";
@@ -148,5 +156,12 @@ export const checkAuthenticateOnSiteReload = historyProps => {
 
     // Disptch outside of if statement
     dispatch(returnTokenActionTypePayload(tokenInfo));
+  };
+};
+
+export const setAuthRedirectPath = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
   };
 };

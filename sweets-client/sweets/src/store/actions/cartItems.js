@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import * as actionTypes from "./actionTypes";
 const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED TO BUILD
 const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
@@ -307,10 +308,77 @@ export const updateCartItem = productObj => {
 };
 
 /* NEW SECTION FOR CHECKOUT */
-export const checkoutCart = historyProps => {
-  return dispatch => {
-    console.log("At checkoutCart.js checkoutCart ", historyProps);
-
-    historyProps.push(`/AllItems`); // new change
+/* Checkout cart button */
+export const returnCheckoutCarttActionType = responseData => {
+  return {
+    type: actionTypes.CHECKOUT_CART,
+    responseData: responseData
   };
+};
+
+export const returnCheckoutCartActionTypeFetchError = error => {
+  return {
+    type: actionTypes.CHECKOUT_CART_FETCH_ERROR,
+    error: error
+  };
+};
+
+export const checkoutCart = (historyProps, localCartItems) => {
+  return dispatch => {
+    console.log("At checkoutCart.js checkoutCart ", localCartItems);
+
+    // historyProps.push(`/AllItems`); // new change
+
+    // If not logged in redirect to login page
+    const token = localStorage.getItem("jsonwebtoken");
+    // const tokenPayload = localStorage.getItem("jsonwebtokenpayload");
+
+    if (!token || token === "undefined") {
+      historyProps.push(`/Login`); // new change
+      return;
+    }
+    // else {
+    //   console.log("has token");
+    //   // historyProps.push(`/AllItems`); // new change
+    //   // this.props.history.push("/AllItems");
+
+    //   // mergeUserCart(tokenPayload);
+    //   mergeUserCart();
+    //   return;
+    // }
+
+    /* 
+      Once logged in we need to 
+        1 capture user's original cart 
+        2 merge current cart and 
+        3 finally redirect to summary page 
+    */
+
+    mergeUserCart(localCartItems);
+    // return;
+  };
+};
+
+export const mergeUserCart = localCartItems => {
+  console.log("at mergeUserCart ");
+
+  const tokenPayload = JSON.parse(localStorage.getItem("jsonwebtokenpayload"));
+
+  const userData = tokenPayload;
+  // console.log(typeof userData);
+  console.log("userData ", userData);
+  // console.log(userData.cartItems.length);
+
+  /*
+    {email: "test1@mail.com", name: "test1", cartItems: Array(0)}
+  */
+
+  console.log("localCartItems ", localCartItems);
+
+  // AT THIS POINT I HAVE USER CART ITEMS VS ANONYMOUS USER CART ITEMS
+  // CONTINUE FROM HERE......
+
+  // For updating cart item there should be a localCart
+  // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+  //  console.log("Is there a localcart? ", localCart);
 };

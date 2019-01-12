@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
       });
 
     if (user) {
-      // console.log("who is ths", user);
+      console.log("who is ths", user);
       let persistedUser = user;
 
       // check for the password
@@ -52,7 +52,8 @@ router.post("/", (req, res) => {
             userData: {
               email: persistedUser.email,
               name: persistedUser.name,
-              isAdmin: persistedUser.isAdmin
+              isAdmin: persistedUser.isAdmin,
+              cartItems: user.cartItems
             },
             error: {
               success: true,

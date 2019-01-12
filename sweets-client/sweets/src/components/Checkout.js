@@ -1,75 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import * as actionCreators from "../store/actions/cartItems";
+import * as cartActionCreators from "../store/actions/cartItems";
+import * as authActionCreators from "../store/actions/auth";
 
 class Checkout extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   user: {}
-    // };
   }
 
-  // componentDidMount() {
-  //   if (true) {
-  //     this.props.onCheckout(this.props.history);
-  //   } else {
-  //     console.log("testing");
-  //   }
-  //   console.log("well well");
-  // }
-
-  //   countCartItems() {
-  //     // let cartItemsCount = this.props.cart.cartItems.length;
-  //     return this.props.cart.cartItems.length;
-  //   }
+  onHandleCheckout = (historyProps, localCartItems) => {
+    this.props.onSetAuthRedirectPath("/AllItems");
+    this.props.onCheckout(historyProps, localCartItems); // localCartItems - current local cart items
+    // console.log("here ", this.props.cart);
+    // console.log("here ", localCartItems);
+  };
 
   render() {
-    // console.log(this.props.cartItems[0]); // works
-    // console.log(this.props.cart.cartItems.length); // works
-    // console.log(this.props.cart.cartItems[0]); // works
     return (
       <div>
-        {/* <div>Checkout</div> */}
-        {/* <button onClick={() => this.props.onCheckout()}>Check Out</button> */}
-        <button onClick={() => this.props.onCheckout(this.props.history)}>
+        <button
+          onClick={() =>
+            this.onHandleCheckout(this.props.history, this.props.cart)
+          }
+        >
           Checkout
         </button>
-        {/* <div onClick={() => this.props.onCheckout(this.props.history)}>
-          Checkout */}
-        {/* <a href="">Checkout</a> */}
-        {/* </div> */}
+        {/* <button onClick={() => this.props.onCheckout(this.props.history)}>
+          Checkout
+        </button> */}
       </div>
     );
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     cart: state.cart,
-//     error: state.cart.error
-
-//     // error: state.products.error
-//   };
-// };
-
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    onCheckout: historyProps =>
-      dispatch(actionCreators.checkoutCart(historyProps))
+    cart: state.cart
   };
 };
 
-// export default connect(
-//   null,
-//   mapDispatchToProps
-// )(Checkout);
+const mapDispatchToProps = dispatch => {
+  return {
+    onCheckout: (historyProps, localCartItems) =>
+      dispatch(cartActionCreators.checkoutCart(historyProps, localCartItems)),
+
+    onSetAuthRedirectPath: path =>
+      dispatch(authActionCreators.setAuthRedirectPath(path))
+  };
+};
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withRouter(Checkout));
-
-// export default Checkout;

@@ -4,7 +4,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   user: {},
   isAuth: false,
-  error: {}
+  error: {},
+  authRedirectPath: "/"
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,8 +66,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: user, // {userData: {email, name, isAdmin}}
         isAuth: isAuth,
-
         error: error
+      };
+
+    case actionTypes.SET_AUTH_REDIRECT_PATH:
+      return {
+        ...state,
+        authRedirectPath: action.path
+
+        // user: user, // {userData: {email, name, isAdmin}}
+        // isAuth: isAuth,
+        // error: error
       };
 
     default:
