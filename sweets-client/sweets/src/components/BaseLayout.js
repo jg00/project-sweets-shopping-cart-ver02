@@ -15,7 +15,7 @@ import Register from "./Register";
 import AddProduct from "./AddProduct";
 import AllProducts from "./AllProducts";
 import CartCounter from "./CartCounter";
-import Checkout from "./Checkout";
+// import Checkout from "./Checkout";
 import Donate from "./Donate";
 
 class BaseLayout extends Component {
@@ -41,7 +41,7 @@ class BaseLayout extends Component {
               <Route path="/AddProduct" component={AddProduct} />
               <Route path="/CartCounter" component={CartCounter} />
               <Route path="/AllItems" component={AllItems} />
-              <Route path="/Checkout" component={Checkout} />
+              {/* <Route path="/Checkout" component={Checkout} /> */}
               {/* <Route path="/AllProducts" component={AllProducts} /> */}
               {/* <Elements> */}
               <Route path="/Donate" component={Donate} />

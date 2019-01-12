@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import UpdateCartItem from "./UpdateCartItem";
-// import Checkout from "./Checkout";
+import Checkout from "./Checkout";
 
 class AllItems extends Component {
   displayItems() {
@@ -48,6 +48,8 @@ class AllItems extends Component {
         {/* <div>{this.props.error.message}</div> */}
         {this.displayItems()}
         {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
+        <hr />
+        <Checkout />
       </div>
     );
   }

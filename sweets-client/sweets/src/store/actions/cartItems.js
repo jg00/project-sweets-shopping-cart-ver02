@@ -309,23 +309,8 @@ export const updateCartItem = productObj => {
 /* NEW SECTION FOR CHECKOUT */
 export const checkoutCart = historyProps => {
   return dispatch => {
-    console.log("At checkoutCart.js checkoutCart ");
+    console.log("At checkoutCart.js checkoutCart ", historyProps);
 
-    historyProps.push(`/Checkout`); // new change
-    // axios
-    //   .post(REGISTER_URL, user)
-    //   .then(response => {
-    //     console.log("responsessss", response);
-    //     dispatch(saveResult(user, response.data));
-
-    //     if (response.data.error.success === false) {
-    //       console.log(response.data);
-    //     } else {
-    //       historyProps.push(`/Login`); // new change
-    //     }
-    //   })
-    //   .catch(rejected => {
-    //     console.log("Register user connection error: ", rejected);
-    //   });
+    historyProps.push(`/AllItems`); // new change
   };
 };

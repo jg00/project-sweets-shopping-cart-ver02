@@ -12,10 +12,14 @@ class Checkout extends Component {
     // };
   }
 
-  //   componentDidMount() {
+  // componentDidMount() {
+  //   if (true) {
   //     this.props.onCheckout(this.props.history);
-  //     console.log("well well");
+  //   } else {
+  //     console.log("testing");
   //   }
+  //   console.log("well well");
+  // }
 
   //   countCartItems() {
   //     // let cartItemsCount = this.props.cart.cartItems.length;
@@ -30,12 +34,13 @@ class Checkout extends Component {
       <div>
         {/* <div>Checkout</div> */}
         {/* <button onClick={() => this.props.onCheckout()}>Check Out</button> */}
-        {/* <div onClick={() => this.props.onCheckout(this.props.history)}>
+        <button onClick={() => this.props.onCheckout(this.props.history)}>
           Checkout
-        </div> */}
-        <div onClick={() => this.props.onCheckout(this.props.history)}>
-          <a href="">Checkout</a>
-        </div>
+        </button>
+        {/* <div onClick={() => this.props.onCheckout(this.props.history)}>
+          Checkout */}
+        {/* <a href="">Checkout</a> */}
+        {/* </div> */}
       </div>
     );
   }
@@ -57,8 +62,14 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(Checkout);
+
 export default connect(
   null,
   mapDispatchToProps
 )(withRouter(Checkout));
+
 // export default Checkout;
