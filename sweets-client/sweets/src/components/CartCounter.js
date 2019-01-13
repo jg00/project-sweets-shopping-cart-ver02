@@ -17,7 +17,7 @@ class CartCounter extends Component {
     // console.log(this.props.cart.cartItems[0]); // works
     return (
       <div>
-        <div>Cart {this.countCartItems()}</div>
+        <div>Cart ({this.countCartItems()})</div>
         {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
         {/* <div>Cart: {this.props.error.message}</div> */}
       </div>

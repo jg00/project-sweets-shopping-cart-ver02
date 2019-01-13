@@ -35,9 +35,9 @@ class Checkout extends Component {
               this.onHandleCheckout(this.props.history, this.props.cart)
             }
           >
-            Proceed To Checkout
-          </button>
-          <div> */}
+            Save Changes
+          </button> */}
+          {/* <div> */}
           <CartPlaceOrder />
           {/* </div> */}
         </div>
