@@ -5,6 +5,7 @@ class Logout extends Component {
   componentDidMount() {
     localStorage.removeItem("jsonwebtoken");
     localStorage.removeItem("jsonwebtokenpayload");
+    localStorage.removeItem("sweetsLocalStoreCart");
   }
 
   render() {

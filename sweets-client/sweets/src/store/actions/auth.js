@@ -1,8 +1,10 @@
 import * as actionTypes from "./actionTypes";
+import * as cartActionCreators from "./cartItems";
 import axios from "axios";
 import { setAuthenticationToken } from "../../utils";
 import jwtDecode from "jwt-decode";
 const LOGIN_URL = "http://localhost:3001/api/auth/";
+const UPDATE_USER_CART_ID = "http://localhost:3001/api/auth/updateusercartid";
 
 export const returnAuthActionTypePayload = responseData => {
   return {
@@ -34,6 +36,25 @@ export const setAuthenticate = (user, historyProps, authRedirectPath) => {
           ); // original only stored the token.
           // localStorage.setItem("jsonwebtoken", JSON.stringify(response.data)); // now storing token and userData payload for additional information
 
+          // localStorage.setItem(
+          //   "sweetsLocalStoreCart",
+          //   JSON.stringify(response.data.userData.cartId)
+          // ); // original only stored the token.
+
+          // If user already has a cartid associated to it pull the user's items
+          console.log(
+            "does use already have a cart?",
+            response.data.userData.cartId
+          );
+
+          if (response.data.userData.cartId) {
+            localStorage.setItem(
+              "sweetsLocalStoreCart",
+              JSON.stringify(response.data.userData.cartId)
+            ); // original only stored the token.
+            dispatch(cartActionCreators.loadCartItems());
+          }
+
           // put the token in the request header
           setAuthenticationToken(response.data.token);
           console.log(response.data); // response.data
@@ -48,6 +69,29 @@ export const setAuthenticate = (user, historyProps, authRedirectPath) => {
 
           dispatch(returnAuthActionTypePayload(response.data));
 
+          // Added to auto add user id
+          let localStoreCartId = JSON.parse(
+            localStorage.getItem("sweetsLocalStoreCart")
+          );
+          let localJsonWebTokenPayload = JSON.parse(
+            localStorage.getItem("jsonwebtokenpayload.cartId")
+          );
+          // console.log(localStoreCartId, localJsonWebTokenPayload);
+
+          // If localStoreCartId exists and a user is logged in but user CartId is null, set the Cart Id.
+          if (localStoreCartId && !localJsonWebTokenPayload) {
+            console.log(
+              "Set the cart id: ",
+              localStoreCartId,
+              localJsonWebTokenPayload
+            );
+            // Dispatch set user id
+            dispatch(setUserCartId());
+          }
+
+          // maybe
+
+          // dispatch(cartActionCreators.loadCartItems());
           // console.log(redirectTo)
           // this.props.history.push("/"); comment for now
           // historyProps.push(`/`);
@@ -163,5 +207,78 @@ export const setAuthRedirectPath = path => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
     path: path
+  };
+};
+
+// For updating user cart id
+export const returnSetUserCartIdActionType = userData => {
+  return {
+    type: actionTypes.SET_USER_CART_ID,
+    userData: userData
+  };
+};
+
+export const returnSetUserCartIdActionTypeFetchError = error => {
+  return {
+    type: actionTypes.SET_USER_CART_ID_FETCH_ERROR,
+    error: error
+  };
+};
+
+export const setUserCartId = () => {
+  return dispatch => {
+    const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+    console.log("here at setUserCartid localCart: ", localCart);
+
+    const userData = JSON.parse(localStorage.getItem("jsonwebtokenpayload"));
+    // console.log("here at setUserCartid userData: ", userData);
+
+    console.log("here at setUserCartid userData w/localcart: ", userData);
+
+    if (userData) {
+      console.log("lets see if we can then set up userData.cartId");
+      userData.cartId = localCart;
+      console.log("updated userData.cartId/localCart ", userData);
+      // update database
+      // api/auth/updateusercartid
+
+      axios
+        .post(UPDATE_USER_CART_ID, userData)
+        .then(response => {
+          console.log(
+            "User cart id responsesss UPDATE_USER_CART_ID: ",
+            response.data
+          );
+
+          // the whole cart is returned and not just the cartItems array property
+
+          // console.log("Cart id: ", response.data.cart._id);
+          console.log("User info returned?: ", response.data);
+
+          // dispatch(returnUpdateCartItemActionType(response.data)); // does not exists in reducer yet
+          // dispatch
+
+          dispatch(returnSetUserCartIdActionType(userData));
+        })
+
+        //  ADD THIS CATCH NEXT.  STILL NEEDS TO BE UPDATED
+        .catch(rejected => {
+          dispatch(
+            returnSetUserCartIdActionTypeFetchError({
+              success: false,
+              message: "Connection error.  User cart id was not updated. "
+            })
+          );
+        });
+
+      // // dispatch - moved to axios
+      // console.log(userData);
+      // dispatch(returnSetUserCartIdActionType(userData));
+    }
+
+    // return {
+    //   type: actionTypes.SET_USER_CART_ID,
+    //   userData: userData
+    // };
   };
 };

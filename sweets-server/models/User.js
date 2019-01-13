@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   name: { type: String, required: true },
   isAdmin: Boolean,
+  cartId: { type: String, default: null },
   cartItems: { type: Array }
 });
 

@@ -6,6 +6,7 @@ const initialState = {
   isAuth: false,
   error: {},
   authRedirectPath: "/"
+  // cartId: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -77,6 +78,34 @@ const reducer = (state = initialState, action) => {
         // user: user, // {userData: {email, name, isAdmin}}
         // isAuth: isAuth,
         // error: error
+      };
+
+    case actionTypes.SET_USER_CART_ID:
+      console.log("here at SET_USER_CART_ID reducer ", action.userData);
+      return {
+        ...state,
+        // cartId: action.userData.cartId
+        user: action.userData
+      };
+    // return {
+    //   ...state,
+    //   authRedirectPath: action.path
+
+    // user: user, // {userData: {email, name, isAdmin}}
+    // isAuth: isAuth,
+    // error: error
+    // };
+
+    case action.type === actionTypes.SET_USER_CART_ID_FETCH_ERROR:
+      console.log(
+        "finally at authReducer.js SET_USER_CART_ID_FETCH_ERROR",
+        action.error
+      );
+
+      return {
+        ...state,
+        // cartItems: [],
+        error: action.error
       };
 
     default:

@@ -14,6 +14,11 @@ class Checkout extends Component {
     this.props.onCheckout(historyProps, localCartItems); // localCartItems - current local cart items
     // console.log("here ", this.props.cart);
     // console.log("here ", localCartItems);
+    // if (!this.props.auth) {
+    if (Object.keys(this.props.auth).length !== 0) {
+      console.log("auth ", this.props.auth);
+      this.props.onSetUserCartId();
+    }
   };
 
   render() {
@@ -36,7 +41,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    auth: state.auth.user
   };
 };
 
@@ -46,7 +52,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(cartActionCreators.checkoutCart(historyProps, localCartItems)),
 
     onSetAuthRedirectPath: path =>
-      dispatch(authActionCreators.setAuthRedirectPath(path))
+      dispatch(authActionCreators.setAuthRedirectPath(path)),
+
+    onSetUserCartId: () => dispatch(authActionCreators.setUserCartId())
   };
 };
 

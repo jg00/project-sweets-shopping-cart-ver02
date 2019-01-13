@@ -1,3 +1,4 @@
+import * as authActionCreators from "./auth";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import * as actionTypes from "./actionTypes";
@@ -101,6 +102,28 @@ export const addItemToCart = cartItem => {
           JSON.stringify(response.data.cart._id)
         );
 
+        // Added to auto add user id
+        let localStoreCartId = JSON.parse(
+          localStorage.getItem("sweetsLocalStoreCart")
+        );
+        let localJsonWebTokenPayload = JSON.parse(
+          localStorage.getItem("jsonwebtokenpayload.cartId")
+        );
+        // console.log(localStoreCartId, localJsonWebTokenPayload);
+
+        // If localStoreCartId exists and a user is logged in but user CartId is null, set the Cart Id.
+        if (localStoreCartId && !localJsonWebTokenPayload) {
+          console.log(
+            "Set the cart id: ",
+            localStoreCartId,
+            localJsonWebTokenPayload
+          );
+          // Dispatch set user id
+          dispatch(authActionCreators.setUserCartId());
+        }
+
+        // maybe
+
         dispatch(returnAddItemToCartActionType(response.data));
       })
 
@@ -170,8 +193,27 @@ export const returnLoadCartItemsActionTypeFetchError = error => {
 
 export const loadCartItems = () => {
   return dispatch => {
-    const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
-    console.log("Is there a localcart on load? ", localCart); // null if not found
+    const tokenPayload = JSON.parse(
+      localStorage.getItem("jsonwebtokenpayload")
+    );
+
+    const userData = tokenPayload;
+    // console.log(typeof userData);
+    console.log("userData ", userData);
+    // console.log(userData.cartItems.length);
+
+    let localCart = null;
+    if (userData) {
+      localCart = userData.cartId;
+      // localStorage.setItem("sweetsLocalStoreCart", JSON.stringify(localCart));
+    } else {
+      localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+      console.log("Is there a localcart on load? ", localCart); // null if not found
+    }
+
+    // ORIGINAL TWO LINES BELOW
+    // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+    // console.log("Is there a localcart on load? ", localCart); // null if not found
 
     // let URL_WITH_CARTID_TO_RETRIEVE = "";
     // if (!localCart) {
@@ -354,8 +396,12 @@ export const checkoutCart = (historyProps, localCartItems) => {
         3 finally redirect to summary page 
     */
 
-    mergeUserCart(localCartItems);
+    mergeUserCart(localCartItems); // NOT USING FOR NOW
     // return;
+
+    // mergeUserCartInfo();
+
+    historyProps.push("/Donate"); //test
   };
 };
 
@@ -378,7 +424,45 @@ export const mergeUserCart = localCartItems => {
   // AT THIS POINT I HAVE USER CART ITEMS VS ANONYMOUS USER CART ITEMS
   // CONTINUE FROM HERE......
 
+  let combineLocalCartWithUserCart = [
+    ...localCartItems.cartItems,
+    ...userData.cartItems
+  ];
+  console.log(combineLocalCartWithUserCart);
+
+  // Replaces the whole specifc cart
+  updateCartItem(combineLocalCartWithUserCart);
+
+  // Also need to update the logged in users' cartid to match the current sweetsLocalStoreCart
+
   // For updating cart item there should be a localCart
   // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
   //  console.log("Is there a localcart? ", localCart);
 };
+
+/*
+// PREVIOUS VERSION
+export const mergeUserCart = localCartItems => {
+  console.log("at mergeUserCart ");
+
+  const tokenPayload = JSON.parse(localStorage.getItem("jsonwebtokenpayload"));
+
+  const userData = tokenPayload;
+  // console.log(typeof userData);
+  console.log("userData ", userData);
+  // console.log(userData.cartItems.length);
+
+  
+    // {email: "test1@mail.com", name: "test1", cartItems: Array(0)}
+  
+
+  console.log("localCartItems ", localCartItems);
+
+  // AT THIS POINT I HAVE USER CART ITEMS VS ANONYMOUS USER CART ITEMS
+  // CONTINUE FROM HERE......
+
+  // For updating cart item there should be a localCart
+  // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+  //  console.log("Is there a localcart? ", localCart);
+};
+*/

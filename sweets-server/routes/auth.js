@@ -53,6 +53,7 @@ router.post("/", (req, res) => {
               email: persistedUser.email,
               name: persistedUser.name,
               isAdmin: persistedUser.isAdmin,
+              cartId: user.cartId,
               cartItems: user.cartItems
             },
             error: {
@@ -140,5 +141,41 @@ router.post("/", (req, res) => {
 });
 
 */
+
+// api/auth/updateusercartid
+router.post("/updateusercartid", (req, res) => {
+  const email = req.body.email;
+  // const password = req.body.password;
+  // const name = req.body.name;
+  // const isAdmin = req.body.isAdmin;
+  const cartid = req.body.cartId;
+  console.log("cartid ", req.body);
+
+  User.findOneAndUpdate(
+    {
+      email: email
+    },
+    { $set: { cartId: cartid } },
+    { safe: true, upsert: true, new: true },
+    function(err, user) {
+      if (err) {
+        res.json({
+          error: {
+            success: false,
+            message: "User cartid was not updated."
+          }
+        });
+      } else {
+        res.json({
+          user: user,
+          error: {
+            success: true,
+            message: "User cartid updated in the database."
+          }
+        });
+      }
+    }
+  );
+});
 
 module.exports = router;
