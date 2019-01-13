@@ -202,8 +202,14 @@ export const loadCartItems = () => {
     console.log("userData ", userData);
     // console.log(userData.cartItems.length);
 
+    // if (userData && userData.cartId !== null) {
+    //   console.log("load test - THERE IS USERDATA BUT NULL CARTID", userData);
+    // } else {
+    //   console.log("load test2 ", userData);
+    // }
+
     let localCart = null;
-    if (userData) {
+    if (userData && userData.cartId !== null) {
       localCart = userData.cartId;
       // localStorage.setItem("sweetsLocalStoreCart", JSON.stringify(localCart));
     } else {
@@ -367,7 +373,7 @@ export const returnCheckoutCartActionTypeFetchError = error => {
 
 export const checkoutCart = (historyProps, localCartItems) => {
   return dispatch => {
-    console.log("At checkoutCart.js checkoutCart ", localCartItems);
+    console.log("At checkoutCart.js checkoutCart--- ", localCartItems);
 
     // historyProps.push(`/AllItems`); // new change
 
@@ -396,12 +402,12 @@ export const checkoutCart = (historyProps, localCartItems) => {
         3 finally redirect to summary page 
     */
 
-    mergeUserCart(localCartItems); // NOT USING FOR NOW
+    // mergeUserCart(localCartItems); // NOT USING FOR NOW
     // return;
 
     // mergeUserCartInfo();
 
-    historyProps.push("/Donate"); //test
+    historyProps.push("/AllItems"); //test
   };
 };
 

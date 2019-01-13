@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as cartActionCreators from "../store/actions/cartItems";
 import * as authActionCreators from "../store/actions/auth";
+import CartPlaceOrder from "./CartPlaceOrder";
 
 class Checkout extends Component {
   constructor(props) {
@@ -21,9 +22,26 @@ class Checkout extends Component {
     }
   };
 
-  render() {
-    return (
-      <div>
+  toggleCheckoutButton() {
+    // console.log(this.props.isAuth);
+    console.log(this.props.cart.cartItems.length);
+
+    const toggleButton =
+      this.props.cart.cartItems.length < 1 ? null : (this.props.isAuth &&
+          this.props.cart.cartItems.length) > 0 ? (
+        <div>
+          {/* <button
+            onClick={() =>
+              this.onHandleCheckout(this.props.history, this.props.cart)
+            }
+          >
+            Proceed To Checkout
+          </button>
+          <div> */}
+          <CartPlaceOrder />
+          {/* </div> */}
+        </div>
+      ) : (
         <button
           onClick={() =>
             this.onHandleCheckout(this.props.history, this.props.cart)
@@ -31,9 +49,46 @@ class Checkout extends Component {
         >
           Checkout
         </button>
+      );
+
+    // original
+    // const toggleButton =
+    //   this.props.isAuth && this.props.cart.length !== -1 ? (
+    //     <button
+    //       onClick={() =>
+    //         this.onHandleCheckout(this.props.history, this.props.cart)
+    //       }
+    //     >
+    //       Proceed To Checkout
+    //     </button>
+    //   ) : (
+    //     <button
+    //       onClick={() =>
+    //         this.onHandleCheckout(this.props.history, this.props.cart)
+    //       }
+    //     >
+    //       Checkout
+    //     </button>
+    //   );
+
+    return toggleButton;
+  }
+
+  render() {
+    return (
+      <div>
+        {/* <button
+          onClick={() =>
+            this.onHandleCheckout(this.props.history, this.props.cart)
+          }
+        >
+          Checkout
+        </button> */}
         {/* <button onClick={() => this.props.onCheckout(this.props.history)}>
           Checkout
         </button> */}
+
+        {this.toggleCheckoutButton()}
       </div>
     );
   }
@@ -42,7 +97,8 @@ class Checkout extends Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart,
-    auth: state.auth.user
+    auth: state.auth.user,
+    isAuth: state.auth.isAuth
   };
 };
 
