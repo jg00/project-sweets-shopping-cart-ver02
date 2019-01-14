@@ -6,9 +6,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import BaseLayout from "./components/BaseLayout";
 import "./index.css";
 
+/*
+  One way to using Bootstrap vs adding CDN from public > index.html
+  npm i bootstrap@4.1.1
+  import 'bootstrap/dist/bootstrap.css
+*/
+
+import BaseLayout from "./components/BaseLayout";
 import authReducer from "./store/reducers/authReducer";
 import registerReducer from "./store/reducers/registerReducer";
 import productReducer from "./store/reducers/productReducer";

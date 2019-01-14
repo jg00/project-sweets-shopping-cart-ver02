@@ -52,8 +52,10 @@ class AllProducts extends Component {
     return (
       <div>
         <div>Display All Products Page</div>
+        {/* <section className="container"> */}
         {/* <div>{this.props.error.message}</div> */}
         {productItems}
+        {/* </section> */}
       </div>
     );
   }
