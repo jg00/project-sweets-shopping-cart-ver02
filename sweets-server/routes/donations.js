@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require("stripe")("sk_test_Ok17MK57yvmiPgTaGXrm2ern");
+// const stripe = require("stripe")("sk_test_Ok17MK57yvmiPgTaGXrm2ern"); // old
+const stripe = require("stripe")("sk_test_yfSYgR85Qwqw9Nhj81cZsEKj");
 // const Product = require("../models/Product");
 
 // api/donations/test

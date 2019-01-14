@@ -62,9 +62,9 @@ class Menu extends Component {
             </li>
           )}
 
-          <li className="div-menu-li">
+          {/* <li className="div-menu-li">
             <Link to="/Donate">Donate</Link>
-          </li>
+          </li> */}
 
           <li className="div-menu-li">
             <Link to="/AllItems">

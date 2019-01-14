@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PlaceOrder from "./PlaceOrder";
 
 class CartPlaceOrder extends Component {
   countCartItems() {
@@ -9,11 +10,17 @@ class CartPlaceOrder extends Component {
 
   displayCartItems() {
     console.log(this.props.cart);
+
     const cartItems = this.props.cart.cartItems;
 
     let cartItemTotal = cartItems.reduce((sum, item) => {
       return sum + item.productItem.product.price * item.counter;
     }, 0);
+
+    let cartItemTotalConverted = cartItems.reduce((sum, item) => {
+      return sum + item.productItem.product.price * item.counter * 100;
+    }, 0);
+    console.log(cartItemTotalConverted);
 
     let displayItems = (
       <div>
@@ -32,6 +39,7 @@ class CartPlaceOrder extends Component {
           );
         })}
         <div>Total: {cartItemTotal} </div>
+        <PlaceOrder totalAmount={cartItemTotalConverted} />
       </div>
     );
 
