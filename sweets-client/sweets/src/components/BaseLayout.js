@@ -6,6 +6,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import * as authActionCreators from "../store/actions/auth";
 import * as productsActionCreators from "../store/actions/products";
 import * as cartItemsActionCreators from "../store/actions/cartItems";
+// import Header from "./Header";
 import Menu from "./Menu";
 import AllItems from "./AllItems";
 // import AddItem from "./AddItem";
@@ -30,6 +31,7 @@ class BaseLayout extends Component {
       // <StripeProvider apiKey="pk_test_Zd781mNaLE5XM1ReSpgpOhI7">
       //   <Elements>
       <div>
+        {/* <Header /> */}
         <Menu />
         <Switch>
           <Route exact path="/" component={AllProducts} />

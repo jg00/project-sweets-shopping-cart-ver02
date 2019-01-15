@@ -18,6 +18,7 @@ class AllProducts extends Component {
     // console.log(this.props.products);
 
     let productItems = this.props.products.map(product => {
+      console.log("check ", product._id);
       return (
         // <div className="col-lg-3">
         // Place each item in a card
@@ -38,7 +39,6 @@ class AllProducts extends Component {
               </p>
               <div className="card-text">Type: {product.product.types} </div>
               <div className="card-text">Price: {product.product.price} </div>
-
               {/* <div>
             <Quantity associatedItemProductId={product._id} />
           </div> */}
@@ -50,17 +50,6 @@ class AllProducts extends Component {
               ) : (
                 // <Quantity associatedItemProductId={product._id} />
                 <AddItem productItem={product} />
-
-                /*  BEFORE MOVING BUTTO TO QUANTITY COMPONENET
-            <button
-            // onClick={() =>
-            //   this.props.onProductDelete(product._id, DELETE_PRODUCT_URL)
-            // }
-            // onClick={() => this.handleDeleteProductButtonClick(product._id)} // for state
-            >
-              Add to cart
-            </button>
-            */
               )}
             </div>
           </div>

@@ -11,7 +11,10 @@ class Logout extends Component {
   render() {
     return (
       <div>
-        <div>Logged out! Thank you!!</div>
+        <section className="container">
+          <h3 className="mt-2 text-muted">Logged out! Thank you!!</h3>
+          {/* <div>Logged out! Thank you!!</div> */}
+        </section>
       </div>
     );
   }
