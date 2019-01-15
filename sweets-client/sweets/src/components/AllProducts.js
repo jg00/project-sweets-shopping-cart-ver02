@@ -33,10 +33,9 @@ class AllProducts extends Component {
             <div className="card-body">
               {/* <div>ProductId: {product._id} </div> */}
               <h5 className="card-title">{product.product.name} </h5>
-              {/* <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p> */}
+              <p className="card-text">
+                Store at 10℃. Each box comes with 20pcs.
+              </p>
               <div className="card-text">Type: {product.product.types} </div>
               <div className="card-text">Price: {product.product.price} </div>
 
@@ -71,7 +70,7 @@ class AllProducts extends Component {
 
     return (
       <div>
-        <section className="container">
+        <section className="container ">
           <h3 className="mt-2 text-muted">Welcome!</h3>
           {/* <div className="display-4 text-muted">Display All Products Page</div> */}
           {/* <h3 className="text-muted">Welcome</h3> */}

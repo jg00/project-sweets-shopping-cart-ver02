@@ -10,21 +10,43 @@ class AllItems extends Component {
 
     const displayItems = (
       // <div>{cartItems.map(item => item.productItem._id)}</div>
-      <div>
+      <div className="row">
+        {/* <div> */}
         {/* <div>{this.props.error.message}</div> */}
         {cartItems.map(product => {
           return (
-            <div key={product.productItem._id}>
-              <div>
-                <img src={product.productItem.product.image} />
+            <div
+              key={product.productItem._id}
+              className="col-md-6 col-lg-4 col-xl-4"
+            >
+              <div className="card border-0 px-sm-3 py-sm-3 mb-4">
+                {/* <div key={product.productItem._id}> */}
+                <img
+                  className="card-img-top"
+                  src={product.productItem.product.image}
+                />
+                {/* </div> */}
+
+                <div className="card-body">
+                  {/* <h5 className="card-title">
+                    ProductId: {product.productItem._id}
+                  </h5> */}
+                  <div className="card-title">
+                    {product.productItem.product.name}
+                  </div>
+                  <p className="card-text">
+                    Store at 10℃. Each box comes with 20pcs.
+                  </p>
+                  <div className="card-title">
+                    Type: {product.productItem.product.types}
+                  </div>
+                  <div className="card-title">
+                    Price: {product.productItem.product.price} *
+                    {product.counter}
+                  </div>
+                  <UpdateCartItem product={product} />
+                </div>
               </div>
-              <div>ProductId: {product.productItem._id} </div>
-              <div>{product.productItem.product.name} </div>
-              <div>Type: {product.productItem.product.types} </div>
-              <div>
-                Price: {product.productItem.product.price} * {product.counter}
-              </div>
-              <UpdateCartItem product={product} />
             </div>
           );
         })}
@@ -43,13 +65,16 @@ class AllItems extends Component {
   render() {
     return (
       <div>
-        <div>Display All Items Page</div>
-        {/* <Checkout /> */}
-        {/* <div>{this.props.error.message}</div> */}
-        {this.displayItems()}
-        {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
-        <hr />
-        <Checkout />
+        <section className="container">
+          <h3 className="mt-2 text-muted">Your Cart Items</h3>
+          {/* <div>Display All Items Page</div> */}
+          {/* <Checkout /> */}
+          {/* <div>{this.props.error.message}</div> */}
+          {this.displayItems()}
+          {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
+          <hr />
+          <Checkout />
+        </section>
       </div>
     );
   }

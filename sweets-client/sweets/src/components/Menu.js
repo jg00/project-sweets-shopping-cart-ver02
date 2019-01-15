@@ -97,7 +97,7 @@ class Menu extends Component {
 
         <div
           // id="div-menu"
-          className="div-menu jumbotron jumbotron-fluid bg-yellow pb-2 pt-3 mb-3"
+          className="div-menu jumbotron jumbotron-fluid bg-yellow pb-2 pt-3 mb-0"
         >
           <div className="container ">
             <div className="display-4">Nama Chocolates</div>

@@ -17,7 +17,8 @@ router.get("/display", (req, res) => {
         products: products,
         error: {
           success: true,
-          message: "Product list returned from database."
+          message: ""
+          // message: "Product list returned from database."
         }
       })
     ) // array
