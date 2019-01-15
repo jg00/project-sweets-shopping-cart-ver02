@@ -25,41 +25,44 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <div>Register</div>
-        <div>
+        <section className="container">
+          {/* <div>Register</div> */}
+          <h3 className="mt-2 text-muted">Register</h3>
           <div>
-            <input
-              type="text"
-              placeholder="Email As Username*"
-              name="email"
-              onChange={this.handleTextBoxOnChange}
-            />
-            <input
-              type="text"
-              placeholder="Password*"
-              name="password"
-              onChange={this.handleTextBoxOnChange}
-            />
-            <input
-              type="text"
-              placeholder="First Name*"
-              name="name"
-              onChange={this.handleTextBoxOnChange}
-            />
-            <button
-              onClick={() =>
-                this.props.onRegister(this.state.user, this.props.history)
-              }
-            >
-              Register User
-            </button>
-            {/* <button onClick={this.handleRegisterButtonClick}>
+            <div>
+              <input
+                type="text"
+                placeholder="Email As Username*"
+                name="email"
+                onChange={this.handleTextBoxOnChange}
+              />
+              <input
+                type="text"
+                placeholder="Password*"
+                name="password"
+                onChange={this.handleTextBoxOnChange}
+              />
+              <input
+                type="text"
+                placeholder="First Name*"
+                name="name"
+                onChange={this.handleTextBoxOnChange}
+              />
+              <button
+                onClick={() =>
+                  this.props.onRegister(this.state.user, this.props.history)
+                }
+              >
+                Register User
+              </button>
+              {/* <button onClick={this.handleRegisterButtonClick}>
               Register User
             </button> */}
 
-            <div>{this.props.error.message}</div>
+              <div>{this.props.error.message}</div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }

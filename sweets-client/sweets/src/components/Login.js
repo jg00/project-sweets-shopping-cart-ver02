@@ -32,39 +32,41 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div>Login</div>
-        <div>
+        <section className="container">
+          <h3 className="mt-2 text-muted">Login</h3>
           <div>
-            <input
-              type="text"
-              placeholder="Email As Username*"
-              name="email"
-              onChange={this.handleTextBoxOnChange}
-            />
-            <input
-              type="text"
-              placeholder="Password*"
-              name="password"
-              onChange={this.handleTextBoxOnChange}
-            />
+            <div>
+              <input
+                type="text"
+                placeholder="Email As Username*"
+                name="email"
+                onChange={this.handleTextBoxOnChange}
+              />
+              <input
+                type="text"
+                placeholder="Password*"
+                name="password"
+                onChange={this.handleTextBoxOnChange}
+              />
 
-            {/* <button onClick={this.handleLoginButtonClick}>Login</button> */}
-            <button
-              onClick={() =>
-                this.props.onAuthenticate(
-                  this.state.user,
-                  this.props.history,
-                  this.props.authRedirectPath
-                )
-              }
-            >
-              Login
-            </button>
+              {/* <button onClick={this.handleLoginButtonClick}>Login</button> */}
+              <button
+                onClick={() =>
+                  this.props.onAuthenticate(
+                    this.state.user,
+                    this.props.history,
+                    this.props.authRedirectPath
+                  )
+                }
+              >
+                Login
+              </button>
 
-            <div>{this.props.error.message}</div>
-            <div>{this.props.authRedirectPath}</div>
+              <div>{this.props.error.message}</div>
+              {/* <div>{this.props.authRedirectPath}</div> */}
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }

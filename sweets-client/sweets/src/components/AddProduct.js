@@ -27,37 +27,40 @@ class AddProduct extends Component {
   render() {
     return (
       <div>
-        <div>App Product - Admin Page Only</div>
-        <input
-          type="text"
-          placeholder="Product Name*"
-          name="name"
-          onChange={this.handleTextBoxOnChange}
-        />
-        <input
-          type="text"
-          placeholder="Price*"
-          name="price"
-          onChange={this.handleTextBoxOnChange}
-        />
-        <input
-          type="text"
-          placeholder="Types"
-          name="types"
-          onChange={this.handleTextBoxOnChange}
-        />
-        <input
-          type="text"
-          placeholder="Image Url*"
-          name="image"
-          onChange={this.handleTextBoxOnChange}
-        />
+        <section className="container">
+          {/* <div>App Product - Admin Page Only</div> */}
+          <h3 className="mt-2 text-muted">Add Product - Admin Only</h3>
+          <input
+            type="text"
+            placeholder="Product Name*"
+            name="name"
+            onChange={this.handleTextBoxOnChange}
+          />
+          <input
+            type="text"
+            placeholder="Price*"
+            name="price"
+            onChange={this.handleTextBoxOnChange}
+          />
+          <input
+            type="text"
+            placeholder="Types"
+            name="types"
+            onChange={this.handleTextBoxOnChange}
+          />
+          <input
+            type="text"
+            placeholder="Image Url*"
+            name="image"
+            onChange={this.handleTextBoxOnChange}
+          />
 
-        <button onClick={() => this.props.onProductAdd(this.state.product)}>
-          Add Product
-        </button>
+          <button onClick={() => this.props.onProductAdd(this.state.product)}>
+            Add Product
+          </button>
 
-        <div>{this.props.error.message}</div>
+          <div>{this.props.error.message}</div>
+        </section>
       </div>
     );
   }
