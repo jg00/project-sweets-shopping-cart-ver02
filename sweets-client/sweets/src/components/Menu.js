@@ -101,7 +101,14 @@ class Menu extends Component {
         >
           <div className="container">
             <div className="display-4">Nama Chocolates</div>
-            <p className="lead">These you have to try!</p>
+            <p className="lead">
+              These you have to try!
+              <span className="text-capitalize font-weight-bold text-muted">
+                {" "}
+                {this.props.userData.name}
+              </span>
+            </p>
+            {/* <div>{this.props.userData.name}</div> */}
           </div>
         </div>
 
@@ -178,11 +185,27 @@ class Menu extends Component {
             <Link to="/Donate">Donate</Link>
           </li> */}
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/AllItems" className="nav-link">
                   <CartCounter />
                 </Link>
-              </li>
+              </li> */}
+
+              {this.props.isAuth && this.props.userData.isAdmin ? null : (
+                <li className="nav-item">
+                  <Link to="/AllItems" className="nav-link">
+                    <CartCounter />
+                  </Link>
+                </li>
+              )}
+
+              {/* <li className="nav-item">{this.props.userData.name}</li> */}
+
+              {/* <li className="nav-item">
+                <Link to="" className="nav-link">
+                  <a href="">{this.props.userData.name}</a>
+                </Link>
+              </li> */}
 
               {/* <li className="div-menu-li">
             <Link to="/Checkout">Checkout</Link>
