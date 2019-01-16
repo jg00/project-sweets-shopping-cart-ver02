@@ -249,6 +249,245 @@ router.post("/:cartid/update", (req, res) => {
   );
 });
 
+// // api/carts/delete/:id
+// router.post("/delete/:id", (req, res) => {
+//   // res.json({ name: "GET api/products/delete/:id" });
+//   console.log("here at db product to remove ------", req.params);
+//   console.log("here at db payload cartid product associated to ----", req.body);
+
+//   const cartId = req.body.cartIdPlayload;
+//   const productId = req.params.id;
+//   // res.json({ name: productId });
+//   // res.send("test");
+
+// 1 START - Good check to find the specific product and cart id to be deleted
+// Cart.find(
+//   {
+//     _id: cartId,
+//     "cartItems.productItem._id": { $eq: productId }
+
+//     // original
+//     // _id: cartId,
+//     // "cartItems.productItem._id": { $eq: productId }
+//   },
+//   (err, cart) => {
+//     console.log("was product within cart found? ", cart);
+//   }
+// );
+// 1 END
+
+// 2 START
+// Cart.findOne(
+//   {
+//     _id: cartId,
+//     "cartItems.productItem._id": { $eq: productId }
+//   },
+
+//   (err, product) => {
+//     // console.log("-", product);
+
+//     // console.log("---", product.cartItems[0]);
+
+//     // works
+//     // let a = product.cartItems.map(product => {
+//     //   // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
+//     //   // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//     //   return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//     // });
+
+//     // let cartItemsArray = product.cartItems.filter(product => {
+//     //   return product.productItem._id !== productId; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//     // });
+
+//     // let a = product.cartItems.map(product => {
+//     //   // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
+//     //   // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//     //   return product.productItem; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//     // });
+
+//     let a = product.cartItems
+//       .map(product => {
+//         // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
+//         // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//         return product.productItem; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+//       })
+//       .filter(product => {
+//         return product._id !== productId;
+//         /*
+//           [ { product:
+//               { types: 'White',
+//                 name: 'Nama White',
+//                 price: 25,
+//                 image:
+//                   'https://www.royce.com/images/pc/english/product/namachocolate/white_m.jpg',
+//                 entryDate: '2019-01-10T11:57:31.303Z' },
+//               _id: '5c37332b85deca08c1f1d556',
+//               __v: 0 } ]
+//         */
+//       });
+
+//     // console.log(a);
+
+//     const newCartItem = new Cart({
+//       cartItems: a
+//     });
+//     console.log("newCartItem ", newCartItem);
+
+//     // STOPPING HERE NOT WORKING
+//     Cart.findOneAndUpdate(
+//       {
+//         _id: cartId,
+//         "cartItems.productItem._id": { $eq: productId }
+//       },
+//       { $set: { cartItems: newCartItem } },
+//       { safe: true, upsert: false, new: true },
+//       function(err, cart) {
+//         if (err) {
+//           res.json({
+//             error: {
+//               success: false,
+//               message:
+//                 "Product item Id " +
+//                 // cartItem.productItem._id +
+//                 " already added to cart or count is less than zero."
+//             }
+//           });
+//         } else {
+//           res.json({
+//             cart: cart,
+//             error: {
+//               success: true,
+//               message: "New cart item appended to cart in the database."
+//             }
+//           });
+//         }
+//       }
+//     );
+
+//     // this adds a new one
+//     // newCartItem
+//     //   .save()
+//     //   .then(cart =>
+//     //     // cart is an arrray
+//     //     res.json({
+//     //       cart: cart,
+//     //       error: {
+//     //         success: true,
+//     //         message: "New cart item added to database."
+//     //       }
+//     //     })
+//     //   )
+//     //   .catch(err =>
+//     //     res.json({
+//     //       error: {
+//     //         success: false,
+//     //         message: "Cart item not added to database. Check cart item sent."
+//     //       }
+//     //     })
+//     //   );
+
+//     // return { blah: a };
+
+//     // console.log("a--", a);
+//     // },
+//     // (err, test) => {
+//     //   console.log("test--", test);
+
+//     /////////////
+
+//     // Cart.findByIdAndDelete(
+//     //   {
+//     //     // this remove whole cart and not the specific array item
+//     //     // _id: cartId,
+//     //     // "cartItems.productItem.product._id": { $eq: productId }
+
+//     //     // original
+//     //     _id: cartId,
+//     //     "cartItems.productItem._id": { $eq: productId }
+//     //   },
+//     //   // { $pop: { "cartItems.$": productId } }, // works as well // updates the whole object
+//     //   // { $pull: { "cartItems.productItem._id": productId } }, // works as well // updates the whole object
+
+//     //   { $set: { "cartItems.$": a } },
+//     //   { safe: true, upsert: true, new: true },
+
+//     //   (err, product) => {
+//     //     // console.log(err);
+//     //     // console.log(res); // returns me the product
+//     //     console.log(product);
+
+//     //     if (product) {
+//     //       // returns the product that was deleted from the cart
+//     //       res.json({
+//     //         product: product,
+//     //         error: {
+//     //           success: true,
+//     //           message: "ProductId: " + productId + " deleted."
+//     //         }
+//     //       });
+//     //     } else {
+//     //       res.json({
+//     //         error: {
+//     //           success: false,
+//     //           message: "Product id not found."
+//     //         }
+//     //       });
+//     //     }
+//     //   }
+//     // );
+
+//     ///////////////////
+//   }
+
+//   // ,
+//   // (err, a) => {
+//   //   console.log(a);
+//   // }
+// );
+// 2 END
+
+// Delete the product - ORIGINAL
+// Cart.findByIdAndDelete(
+//   {
+//     // this remove whole cart and not the specific array item
+//     // _id: cartId,
+//     // "cartItems.productItem.product._id": { $eq: productId }
+
+//     // original
+//     _id: cartId,
+//     "cartItems.productItem._id": { $eq: productId }
+//   },
+//   // { $pop: { "cartItems.$": productId } }, // works as well // updates the whole object
+//   // { $pull: { "cartItems.productItem._id": productId } }, // works as well // updates the whole object
+
+//   // { safe: true, upsert: true, new: true },
+
+//   (err, product) => {
+//     // console.log(err);
+//     // console.log(res); // returns me the product
+//     console.log(product);
+
+//     if (product) {
+//       // returns the product that was deleted from the cart
+//       res.json({
+//         product: product,
+//         error: {
+//           success: true,
+//           message: "ProductId: " + productId + " deleted."
+//         }
+//       });
+//     } else {
+//       res.json({
+//         error: {
+//           success: false,
+//           message: "Product id not found."
+//         }
+//       });
+//     }
+//   }
+// );
+// });
+
 // api/carts/delete/:id
 router.post("/delete/:id", (req, res) => {
   // res.json({ name: "GET api/products/delete/:id" });
@@ -257,97 +496,74 @@ router.post("/delete/:id", (req, res) => {
 
   const cartId = req.body.cartIdPlayload;
   const productId = req.params.id;
-  // res.json({ name: productId });
-  // res.send("test");
+  console.log("cartId    +++", cartId);
+  console.log("productId +++", productId);
+  // res.send({ response1: test });
 
-  // Good check to find the specific product and cart id to be deleted
   Cart.find(
     {
-      _id: cartId,
-      "cartItems.productItem._id": { $eq: productId }
-
-      // original
-      // _id: cartId,
-      // "cartItems.productItem._id": { $eq: productId }
+      _id: cartId
     },
-    (err, cart) => {
-      console.log("was product within cart found? ", cart);
-    }
-  );
+    // { $pull: { "cartItems.productItem._id": { $eq: productId } } }
+    // ,{ $pull: { "cartItems.productItem._id": { $eq: productId } } }
+    // { $pull: { "cartItems.$": productId } }, // works as well // updates the whole object
+    // { $pull: { "cartItems.$": {} } }, // works as well // updates the whole object
 
-  Cart.findOne(
-    {
-      _id: cartId,
-      "cartItems.productItem._id": { $eq: productId }
-    },
+    // , { $pull: { "cartItems.productItem._id": { $eq: productId } } },
 
     (err, product) => {
-      // console.log("-", product);
+      // console.log(product[0].cartItems[0]);
+      console.log("product-- ", product);
+      console.log("product---", product[0]);
+      // console.log("product----", product[0].cartItems.productItem._id);// no
 
-      // console.log("---", product.cartItems[0]);
+      // for (let i in product[0].cartItems) {
+      //   console.log(product[0].cartItems[i].productItem._id);  // gives us the product id
+      // }
 
-      // works
-      // let a = product.cartItems.map(product => {
-      //   // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
-      //   // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-      //   return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-      // });
+      // let cartFound = product[0].cartItems;
+      let cartFound = product[0];
+      console.log("cartFound-- ", cartFound);
 
-      // let cartItemsArray = product.cartItems.filter(product => {
-      //   return product.productItem._id !== productId; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-      // });
+      // console.log(cartFound[0].productItem._id);
+      // console.log(cartFound[1].productItem._id);
 
-      // let a = product.cartItems.map(product => {
-      //   // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
-      //   // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-      //   return product.productItem; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-      // });
-
-      let a = product.cartItems
+      // Remove the cart product from the cart
+      let newCartItems = cartFound.cartItems
         .map(product => {
-          // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
-          // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
-          return product.productItem; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+          return product; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
         })
-        .filter(product => {
-          return product._id !== productId;
-          /*
-            [ { product:
-                { types: 'White',
-                  name: 'Nama White',
-                  price: 25,
-                  image:
-                    'https://www.royce.com/images/pc/english/product/namachocolate/white_m.jpg',
-                  entryDate: '2019-01-10T11:57:31.303Z' },
-                _id: '5c37332b85deca08c1f1d556',
-                __v: 0 } ]
-          */
+        .filter(productArray => {
+          return productArray.productItem._id !== productId;
         });
 
-      // console.log(a);
+      console.log("from a--", newCartItems); // object to delete
 
-      const newCartItem = new Cart({
-        cartItems: a
-      });
-      console.log("newCartItem ", newCartItem);
-
-      // STOPPING HERE NOT WORKING
+      // Update the cart with the new cart items list
+      ///////START//////
       Cart.findOneAndUpdate(
         {
-          _id: cartId,
-          "cartItems.productItem._id": { $eq: productId }
+          _id: cartId
+          // "cartItems.productItem._id": { $eq: productId }
         },
-        { $set: { cartItems: newCartItem } },
-        { safe: true, upsert: false, new: true },
-        function(err, cart) {
+        // { $pull: { "cartItems.productItem._id": { $eq: productId } } }
+        // ,{ $pull: { "cartItems.productItem._id": { $eq: productId } } }
+        // { $pull: { "cartItems.$": productId } }, // works as well // updates the whole object
+        // { $pull: { "cartItems.$": {} } }, // works as well // updates the whole object
+
+        { $set: { cartItems: newCartItems } }, // works as well // updates the whole object
+        { safe: true, upsert: true, new: true },
+        (err, cart) => {
+          // res.json(cart);
+
           if (err) {
             res.json({
               error: {
                 success: false,
                 message:
                   "Product item Id " +
-                  // cartItem.productItem._id +
-                  " already added to cart or count is less than zero."
+                  cartItem.productItem._id +
+                  " does not exits.  No update."
               }
             });
           } else {
@@ -355,134 +571,113 @@ router.post("/delete/:id", (req, res) => {
               cart: cart,
               error: {
                 success: true,
-                message: "New cart item appended to cart in the database."
+                message: "Cart item updated in the database."
               }
             });
           }
         }
       );
 
-      // this adds a new one
-      // newCartItem
-      //   .save()
-      //   .then(cart =>
-      //     // cart is an arrray
-      //     res.json({
-      //       cart: cart,
-      //       error: {
-      //         success: true,
-      //         message: "New cart item added to database."
-      //       }
-      //     })
-      //   )
-      //   .catch(err =>
-      //     res.json({
-      //       error: {
-      //         success: false,
-      //         message: "Cart item not added to database. Check cart item sent."
-      //       }
-      //     })
-      //   );
+      ///////END//////
 
-      // return { blah: a };
+      // // console.log(cartFound[0].productItem._id);
+      // // console.log(cartFound[1].productItem._id);
 
-      // console.log("a--", a);
-      // },
-      // (err, test) => {
-      //   console.log("test--", test);
+      // let productObjToDelete = cartFound
+      //   .map(product => {
+      //     // return product.productItem.product.name;  // returns [ 'Nama White', 'Nama Milk' ]
+      //     // return product.productItem._id; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+      //     return product.productItem; // return [ '5c37332b85deca08c1f1d556', '5c37334a85deca08c1f1d557' ]
+      //   })
+      //   .filter(product => {
+      //     return product._id !== productId;
+      //   });
 
-      /////////////
+      // console.log("from a--", productObjToDelete); // object to delete
 
-      // Cart.findByIdAndDelete(
+      // Cart.find(
       //   {
-      //     // this remove whole cart and not the specific array item
-      //     // _id: cartId,
-      //     // "cartItems.productItem.product._id": { $eq: productId }
-
-      //     // original
-      //     _id: cartId,
-      //     "cartItems.productItem._id": { $eq: productId }
+      //     productObjToDelete
       //   },
-      //   // { $pop: { "cartItems.$": productId } }, // works as well // updates the whole object
-      //   // { $pull: { "cartItems.productItem._id": productId } }, // works as well // updates the whole object
-
-      //   { $set: { "cartItems.$": a } },
-      //   { safe: true, upsert: true, new: true },
-
-      //   (err, product) => {
-      //     // console.log(err);
-      //     // console.log(res); // returns me the product
-      //     console.log(product);
-
-      //     if (product) {
-      //       // returns the product that was deleted from the cart
-      //       res.json({
-      //         product: product,
-      //         error: {
-      //           success: true,
-      //           message: "ProductId: " + productId + " deleted."
-      //         }
-      //       });
-      //     } else {
-      //       res.json({
-      //         error: {
-      //           success: false,
-      //           message: "Product id not found."
-      //         }
-      //       });
-      //     }
+      //   (err, someValue) => {
+      //     res.json(someValue);
       //   }
       // );
 
-      ///////////////////
+      // Cart.findOneAndUpdate(
+      //   {
+      //     _id: cartId,
+      //     "cartItems.productItem._id": { $eq: productId }
+      //   },
+      //   // { $pull: { "cartItems.productItem._id": { $eq: productId } } }
+      //   // ,{ $pull: { "cartItems.productItem._id": { $eq: productId } } }
+      //   // { $pull: { "cartItems.$": productId } }, // works as well // updates the whole object
+      //   // { $pull: { "cartItems.$": {} } }, // works as well // updates the whole object
+
+      //   { $pull: { "cartItems.productItem._id": { $eq: productId } } },
+      //   (err, product) => {
+      //     res.json(product);
+      //   }
+      // );
     }
 
-    // ,
-    // (err, a) => {
-    //   console.log(a);
+    // ,(err, product) => {
+    //   res.json(product);
     // }
   );
-
-  // Delete the product - ORIGINAL
-  // Cart.findByIdAndDelete(
-  //   {
-  //     // this remove whole cart and not the specific array item
-  //     // _id: cartId,
-  //     // "cartItems.productItem.product._id": { $eq: productId }
-
-  //     // original
-  //     _id: cartId,
-  //     "cartItems.productItem._id": { $eq: productId }
-  //   },
-  //   // { $pop: { "cartItems.$": productId } }, // works as well // updates the whole object
-  //   // { $pull: { "cartItems.productItem._id": productId } }, // works as well // updates the whole object
-
-  //   // { safe: true, upsert: true, new: true },
-
-  //   (err, product) => {
-  //     // console.log(err);
-  //     // console.log(res); // returns me the product
-  //     console.log(product);
-
-  //     if (product) {
-  //       // returns the product that was deleted from the cart
-  //       res.json({
-  //         product: product,
-  //         error: {
-  //           success: true,
-  //           message: "ProductId: " + productId + " deleted."
-  //         }
-  //       });
-  //     } else {
-  //       res.json({
-  //         error: {
-  //           success: false,
-  //           message: "Product id not found."
-  //         }
-  //       });
-  //     }
-  //   }
-  // );
 });
+
+//   Cart.findOneAndUpdate(
+//     {
+//       _id: cartId,
+//       "cartItems.productItem._id": { $eq: productId }
+//     },
+//     // { $pull: { "cartItems.productItem._id": { $eq: productId } } }
+//     // ,{ $pull: { "cartItems.productItem._id": { $eq: productId } } }
+//     // { $pull: { "cartItems.$": productId } }, // works as well // updates the whole object
+//     // { $pull: { "cartItems.$": {} } }, // works as well // updates the whole object
+
+//     { $pull: { "cartItems.productItem._id": { $eq: productId } } },
+//     (err, product) => {
+//       res.json(product);
+//     }
+//   );
+
+// });
+
+// db.Cart.update(
+//   { },
+//   { $pull: { "cartItems.productItem._id": { score: 8 , item: "B" } } },
+//   { multi: true }
+// )
+
+// Cart.findOneAndUpdate(
+//   {
+//     _id: cartId,
+//     "cartItems.productItem._id": { $eq: productId }
+//   },
+//   // { $pull: { "cartItems.productItem._id": { $eq: productId } } }
+//   // ,{ $pull: { "cartItems.productItem._id": { $eq: productId } } }
+//   // { $pull: { "cartItems.$": productId } }, // works as well // updates the whole object
+//   // { $pull: { "cartItems.$": {} } }, // works as well // updates the whole object
+
+//   { $pull: { "cartItems.productItem._id": { $eq: productId } } },
+//   (err, product) => {
+//     res.json(product);
+//   }
+// );
+
+// Cart.update(
+//   { $pull: {
+//     _id: cartId,
+//     "cartItems.productItem._id": { $eq: productId }
+//   }},
+//   {
+//    $unset : {}
+//   },
+//   { multi: false }
+// );
+
+// });
 
 module.exports = router;
