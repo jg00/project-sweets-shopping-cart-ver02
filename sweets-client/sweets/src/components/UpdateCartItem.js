@@ -46,6 +46,9 @@ class UpdateCartItem extends Component {
         <button onClick={() => this.props.onUpdateCartItem(this.props.product)}>
           Update Cart Item
         </button>
+        <button onClick={() => this.props.onDeleteCartItem(this.props.product)}>
+          Delete Cart Item
+        </button>
         {/* <div>{this.props.error.message}</div> */}
       </div>
     );
@@ -67,7 +70,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.decrementCartItemQty(productObj)),
 
     onUpdateCartItem: productObj =>
-      dispatch(actionCreators.updateCartItem(productObj))
+      dispatch(actionCreators.updateCartItem(productObj)),
+
+    onDeleteCartItem: productObj =>
+      dispatch(actionCreators.deleteCartItem(productObj))
   };
 };
 

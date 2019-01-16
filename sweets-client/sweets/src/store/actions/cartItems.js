@@ -6,6 +6,7 @@ const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED T
 const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
 const GET_CART_ITEMS_URL = "http://localhost:3001/api/carts/cart";
 const UPDATE_CART_ITEM_URL = "http://localhost:3001/api/carts";
+const DELETE_CART_ITEM_URL = "http://localhost:3001/api/carts/delete";
 
 /* Add user items to cart */
 export const returnAddItemToCartActionType = responseData => {
@@ -472,3 +473,66 @@ export const mergeUserCart = localCartItems => {
   //  console.log("Is there a localcart? ", localCart);
 };
 */
+
+// For deleting cart item //
+/* Delete product from database and remove from product list */
+export const returnDeleteCartItemActionType = responseData => {
+  return {
+    type: actionTypes.DELETE_CART_ITEM,
+    responseData: responseData
+  };
+};
+
+export const returnDeleteCartItemActionTypeFetchError = error => {
+  return {
+    type: actionTypes.DELETE_CART_ITEM_FETCH_ERROR,
+    error: error
+  };
+};
+
+export const deleteCartItem = productObj => {
+  const URL_WITH_ID_TO_DELETE = `${DELETE_CART_ITEM_URL}/${
+    productObj.productItem._id
+  }`;
+  console.log(URL_WITH_ID_TO_DELETE);
+
+  /*
+    At time user clicks the 'Delete Cart Item' button this will be the current cart we want to delete from
+  */
+  const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
+  console.log("Is there a localcart TO DELETE ---- ? ", localCart); // null if not found
+
+  // Delete cart item from database and dispatch action to update the cart array state
+  return dispatch => {
+    // console.log("BEFORE SENT - ", productObj);
+
+    axios
+      .post(URL_WITH_ID_TO_DELETE, { cartIdPlayload: localCart })
+      .then(response => {
+        console.log("Cart item deleted responsesss: ", response.data);
+        /*
+          1 response.data returned if product id was found and deleted
+            Product deleted:
+            {product: {…}, error: {…}}
+            error: {success: true, message: "ProductId: 5c32a88b96285309ab32eea9 deleted."}
+            product: {product: {…}, _id: "5c32a88b96285309ab32eea9", __v: 0}
+            __proto__: Object
+          2 response.data returned if product id was not found
+            Product deleted:
+            {error: {…}}
+            error: {success: false, message: "Product id not found."}
+            __proto__: Object
+        */
+        // Dispatch action to delete product if found.  If not update error.
+        dispatch(returnDeleteCartItemActionType(response.data));
+      })
+      .catch(rejected => {
+        dispatch(
+          returnDeleteCartItemActionTypeFetchError({
+            success: false,
+            message: "Connection error.  Cart item was not deleted."
+          })
+        );
+      });
+  };
+};

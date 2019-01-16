@@ -8,6 +8,10 @@ class AllItems extends Component {
     const { cartItems } = this.props.cart; // array
     // let displayItems = <div>cart</div>;
 
+    console.log("cartItems ----- ", cartItems);
+    console.log("cartItems _id ----- ", this.props.cart);
+    console.log(localStorage.getItem("sweetsLocalStoreCart"));
+
     const displayItems = (
       // <div>{cartItems.map(item => item.productItem._id)}</div>
       <div className="row">
