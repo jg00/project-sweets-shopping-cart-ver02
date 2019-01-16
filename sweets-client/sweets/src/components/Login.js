@@ -17,6 +17,11 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    // console.log("test");
+    this.props.onResetError();
+  }
+
   // componentDidMount() {
   //   // if (this.props.authRedirectPath !== "/") {
   //   this.props.onSetAuthRedirectPath(); // reset if not checkout from cart
@@ -84,9 +89,11 @@ const mapDispatchToProps = dispatch => {
     onAuthenticate: (user, historyProps, authRedirectPath) =>
       dispatch(
         actionCreators.setAuthenticate(user, historyProps, authRedirectPath)
-      )
+      ),
     // onSetAuthRedirectPath: () =>
     //   dispatch(actionCreators.setAuthRedirectPath("/")) // reset
+
+    onResetError: () => dispatch(actionCreators.resetError())
   };
 };
 

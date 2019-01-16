@@ -124,6 +124,21 @@ const reducer = (state = initialState, action) => {
     }
   }
 
+  // Reset error message as we move from page to page
+  if (action.type === actionTypes.RESET_ERROR) {
+    console.log(
+      "finally at productReducer.js RESET_ERROR"
+      // action.responseData
+    );
+
+    // Reset error message only
+    return {
+      ...state,
+      error: ""
+    };
+  }
+
+  // ELSE RETURN PRESENT STATE
   return state;
 };
 

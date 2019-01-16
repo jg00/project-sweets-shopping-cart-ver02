@@ -130,3 +130,17 @@ export const deleteProduct = productId => {
       });
   };
 };
+
+// Reset Error Message
+export const returnResetErrorActionType = () => {
+  return {
+    type: actionTypes.RESET_ERROR
+  };
+};
+
+export const resetError = () => {
+  return dispatch => {
+    console.log("At products.js resetError");
+    dispatch(returnResetErrorActionType());
+  };
+};

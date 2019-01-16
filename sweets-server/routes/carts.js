@@ -79,7 +79,7 @@ router.post("/:cartid/add", (req, res) => {
           cart: cart,
           error: {
             success: true,
-            message: "New cart item appended to cart in the database."
+            message: "Added to cart."
           }
         });
       }

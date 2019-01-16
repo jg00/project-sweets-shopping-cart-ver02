@@ -511,18 +511,16 @@ export const deleteCartItem = productObj => {
       .then(response => {
         console.log("Cart item deleted responsesss: ", response.data);
         /*
-          1 response.data returned if product id was found and deleted
-            Product deleted:
-            {product: {…}, error: {…}}
-            error: {success: true, message: "ProductId: 5c32a88b96285309ab32eea9 deleted."}
-            product: {product: {…}, _id: "5c32a88b96285309ab32eea9", __v: 0}
+            {cart: {…}, error: {…}}
+            cart:
+            cartItems: (2) [{…}, {…}]
+            __v: 0
+            _id: "5c3f77e24ab81c0a28360f69"
             __proto__: Object
-          2 response.data returned if product id was not found
-            Product deleted:
-            {error: {…}}
-            error: {success: false, message: "Product id not found."}
+            error: {success: true, message: "Cart item updated in the database."}
             __proto__: Object
         */
+
         // Dispatch action to delete product if found.  If not update error.
         dispatch(returnDeleteCartItemActionType(response.data));
       })
@@ -534,5 +532,19 @@ export const deleteCartItem = productObj => {
           })
         );
       });
+  };
+};
+
+// Reset Error Message
+export const returnResetErrorActionType = () => {
+  return {
+    type: actionTypes.RESET_ERROR
+  };
+};
+
+export const resetError = () => {
+  return dispatch => {
+    console.log("At cartItems.js resetError");
+    dispatch(returnResetErrorActionType());
   };
 };

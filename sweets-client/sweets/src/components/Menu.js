@@ -108,6 +108,7 @@ class Menu extends Component {
         <div>
           {/* <div className="div-menu"> */}
           <div className="container custom-font mb-10">
+            {/* <div className="container custom-font mb-10"> */}
             <ul className="nav pt-0">
               <li className="nav-item">
                 <Link to="/" className="nav-link pl-0">

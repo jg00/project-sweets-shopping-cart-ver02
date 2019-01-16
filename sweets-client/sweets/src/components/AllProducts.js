@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 // import jwtDecode from "jwt-decode";
 // import axios from "axios";
 import * as actionCreators from "../store/actions/products";
+import * as cartActionCreators from "../store/actions/cartItems";
 import AddItem from "./AddItem";
 // const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 // const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
@@ -14,16 +15,22 @@ class AllProducts extends Component {
   // resizeMode: "cover"
   // };
 
+  componentDidMount() {
+    console.log("test");
+    this.props.onResetError();
+  }
+
   render() {
     // console.log(this.props.products);
 
     let productItems = this.props.products.map(product => {
-      console.log("check ", product._id);
+      // console.log("check ", product._id);
       return (
         // <div className="col-lg-3">
         // Place each item in a card
         <div key={product._id} className="col-md-6 col-lg-4 col-xl-4">
           <div className="card border-0 px-sm-3 py-sm-3 mb-4">
+            {/* <div className="card border-0 px-sm-3 py-sm-3 mb-4"> */}
             <div>
               <img
                 className="card-img-top"
@@ -63,7 +70,7 @@ class AllProducts extends Component {
           <h3 className="mt-2 text-muted">Welcome!</h3>
           {/* <div className="display-4 text-muted">Display All Products Page</div> */}
           {/* <h3 className="text-muted">Welcome</h3> */}
-          {/* <div>{this.props.error.message}</div> */}
+          <div>{this.props.error.message}</div>
           <div className="row">{productItems}</div>
         </section>
       </div>
@@ -82,7 +89,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onProductDelete: id => dispatch(actionCreators.deleteProduct(id))
+    onProductDelete: id => dispatch(actionCreators.deleteProduct(id)),
+
+    onResetError: () => dispatch(cartActionCreators.resetError())
   };
 };
 

@@ -282,3 +282,17 @@ export const setUserCartId = () => {
     // };
   };
 };
+
+// Reset Error Message
+export const returnResetErrorActionType = () => {
+  return {
+    type: actionTypes.RESET_ERROR
+  };
+};
+
+export const resetError = () => {
+  return dispatch => {
+    console.log("At auth.js resetError");
+    dispatch(returnResetErrorActionType());
+  };
+};

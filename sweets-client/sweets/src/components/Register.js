@@ -15,6 +15,11 @@ class Register extends Component {
     };
   }
 
+  componentDidMount() {
+    // console.log("test");
+    this.props.onResetError();
+  }
+
   handleTextBoxOnChange = e => {
     let user = { ...this.state.user };
     user[e.target.name] = e.target.value;
@@ -77,7 +82,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onRegister: (user, historyProps) =>
-      dispatch(actionCreators.register(user, historyProps))
+      dispatch(actionCreators.register(user, historyProps)),
+
+    onResetError: () => dispatch(actionCreators.resetError())
   };
 };
 

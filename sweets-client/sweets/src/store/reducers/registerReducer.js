@@ -15,6 +15,14 @@ const reducer = (state = initialState, action) => {
         error: action.error.error
       };
 
+    case actionTypes.RESET_ERROR:
+      console.log("finally at registerReducer.js - RESET ACTION");
+
+      return {
+        ...state,
+        error: ""
+      };
+
     default:
       return state;
   }

@@ -30,3 +30,17 @@ export const register = (user, historyProps) => {
       });
   };
 };
+
+// Reset Error Message
+export const returnResetErrorActionType = () => {
+  return {
+    type: actionTypes.RESET_ERROR
+  };
+};
+
+export const resetError = () => {
+  return dispatch => {
+    console.log("At register.js resetError");
+    dispatch(returnResetErrorActionType());
+  };
+};

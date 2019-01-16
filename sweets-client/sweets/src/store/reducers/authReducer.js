@@ -108,6 +108,14 @@ const reducer = (state = initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.RESET_ERROR:
+      console.log("finally at authReducer.js - RESET ACTION");
+
+      return {
+        ...state,
+        error: ""
+      };
+
     default:
       return state;
   }

@@ -15,6 +15,11 @@ class AddProduct extends Component {
     };
   }
 
+  componentDidMount() {
+    // console.log("test");
+    this.props.onResetError();
+  }
+
   handleTextBoxOnChange = e => {
     this.setState({
       product: {
@@ -80,7 +85,9 @@ const mapDispatchToProps = dispatch => {
         allProducts: allProducts
       }),
 
-    onProductAdd: product => dispatch(actionCreators.addToProductList(product))
+    onProductAdd: product => dispatch(actionCreators.addToProductList(product)),
+
+    onResetError: () => dispatch(actionCreators.resetError())
   };
 };
 

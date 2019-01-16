@@ -222,7 +222,7 @@ const reducer = (state = initialState, action) => {
     };
   }
 
-  // Update cart item //
+  // Update cart items (This update the full cart so could be used when cart items are deleted as well) //
   if (action.type === actionTypes.UPDATE_CART_ITEM) {
     console.log(
       "finally at cartItemsReducer.js UPDATE_CART_ITEM",
@@ -246,6 +246,48 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       error: action.error
+    };
+  }
+
+  // Delete cart items (Same as update since we are updating the full cart array) //
+  if (action.type === actionTypes.DELETE_CART_ITEM) {
+    console.log(
+      "finally at cartItemsReducer.js DELETE_CART_ITEM",
+      action.responseData
+    );
+
+    // Update products redux state if no errors
+    return {
+      ...state,
+      cartItems: action.responseData.cart.cartItems,
+      error: action.responseData.error // maybe do not display any errors on load if no issues
+    };
+  }
+
+  // NEED TO CHANGE THIS TO DELETE_CART_ITEM_FETCH_ERROR (COME BACK TO THIS)
+  // if (action.type === actionTypes.UPDATE_CART_ITEM_FETCH_ERROR) {
+  //   console.log(
+  //     "finally at cartItemsReducer.js UPDATE_CART_ITEM_FETCH_ERROR",
+  //     action.error
+  //   );
+
+  //   return {
+  //     ...state,
+  //     error: action.error
+  //   };
+  // }
+
+  // Reset error message as we move from page to page
+  if (action.type === actionTypes.RESET_ERROR) {
+    console.log(
+      "finally at cartItemsReducer.js RESET_ERROR"
+      // action.responseData
+    );
+
+    // Reset error message only
+    return {
+      ...state,
+      error: ""
     };
   }
 
