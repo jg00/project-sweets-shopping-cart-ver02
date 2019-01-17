@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import jwtDecode from "jwt-decode";
-// import axios from "axios";
 import * as actionCreators from "../store/actions/products";
-// const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
-// const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -33,7 +29,6 @@ class AddProduct extends Component {
     return (
       <div>
         <section className="container">
-          {/* <div>App Product - Admin Page Only</div> */}
           <h3 className="mt-2 text-muted">Add Product - Admin Only</h3>
           <input
             type="text"

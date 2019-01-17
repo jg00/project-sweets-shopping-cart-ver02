@@ -87,21 +87,6 @@ const reducer = (state = initialState, action) => {
       action.responseData
     );
 
-    /*
-        1 response.data returned if product id was found and deleted
-          Product deleted:  
-          {product: {…}, error: {…}}
-          error: {success: true, message: "ProductId: 5c32a88b96285309ab32eea9 deleted."}
-          product: {product: {…}, _id: "5c32a88b96285309ab32eea9", __v: 0}
-          __proto__: Object
-          
-        2 response.data returned if product id was not found
-          Product deleted:  
-          {error: {…}}
-          error: {success: false, message: "Product id not found."}
-          __proto__: Object
-    */
-
     console.log("can we access products array state from productReducer.js?");
     console.log(state.products);
 

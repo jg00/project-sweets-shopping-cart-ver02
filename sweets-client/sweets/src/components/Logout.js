@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
 
 class Logout extends Component {
   componentDidMount() {
@@ -13,7 +12,6 @@ class Logout extends Component {
       <div>
         <section className="container">
           <h3 className="mt-2 text-muted">Logged out! Thank you!!</h3>
-          {/* <div>Logged out! Thank you!!</div> */}
         </section>
       </div>
     );

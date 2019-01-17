@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   cartItems: [],
-  // cartId: null,
+
   error: {}
 };
 
@@ -14,13 +14,6 @@ const reducer = (state = initialState, action) => {
       "finally at cartItemsReducer.js ADD_ITEM_TO_CART",
       action.responseData
     );
-    // I GET TO THIS POINT.  HOWEVERMAYBE WE NEED TO INTIALIZE A CART OBJECT THAT HAVE CART ITEMS LIST, ERRORS
-
-    // return {
-    //   ...state
-    // };
-
-    // console.log("finally at cartItemsReducer.js", action.responseData);
 
     let cartItems = [],
       error = {};
@@ -103,17 +96,6 @@ const reducer = (state = initialState, action) => {
       action.productObj
     );
 
-    /*
-      action.productObj ->
-        counter: 4, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-        counter: 4
-        localCart: "5c3622fc3e31db024be15240"
-        productItem:
-        product: {types: "White", name: "aaaa", price: 50, image: "https://www.royce.com/images/pc/english/product/namachocolate/ole_m.jpg", entryDate: "2019-01-08T16:20:25.094Z"}
-        __v: 0
-        _id: "5c34cdc92132c304ee86452a"
-    */
-
     // Specific product item id will be used to identify and replace the object in the state
     const productItemId = action.productObj.productItem._id; // _id: "5c34cdc92132c304ee86452a"
 
@@ -123,30 +105,13 @@ const reducer = (state = initialState, action) => {
       counter: action.productObj.counter + 1
     };
 
-    // console.log("updatedActionProductObj ", updatedActionProductObj); // {counter: 7, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-    // console.log("action.productObj ", action.productObj); // {counter: 6, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-
     // Make a copy of state.cartItems (ie array of objects)
     let copyStateCartItems = [...state.cartItems];
-
-    // console.log("copyStateCartItems ", copyStateCartItems);
-    // console.log("state.cartItems ", state.cartItems);
 
     // Update copyStateCartItems (ie copy of array of objects) and replace the specific product with the new updated productObj
     let updatedStateCartItems = copyStateCartItems.map(item =>
       item.productItem._id === productItemId ? updatedActionProductObj : item
     );
-
-    /* 
-      Check
-        let n = copyStateCartItems.map(item =>
-          item.productItem._id === productItemId ? "y" : "n"
-        );
-    */
-
-    // console.log("copyStateCartItems2 ", copyStateCartItems);
-    // console.log("state.cartItems2 ", state.cartItems);
-    // console.log("updatedStateCartItems2 ", updatedStateCartItems);
 
     return {
       ...state,
@@ -166,17 +131,6 @@ const reducer = (state = initialState, action) => {
       action.productObj
     );
 
-    /*
-      action.productObj ->
-        counter: 4, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-        counter: 4
-        localCart: "5c3622fc3e31db024be15240"
-        productItem:
-        product: {types: "White", name: "aaaa", price: 50, image: "https://www.royce.com/images/pc/english/product/namachocolate/ole_m.jpg", entryDate: "2019-01-08T16:20:25.094Z"}
-        __v: 0
-        _id: "5c34cdc92132c304ee86452a"
-    */
-
     // Specific product item id will be used to identify and replace the object in the state
     const productItemId = action.productObj.productItem._id; // _id: "5c34cdc92132c304ee86452a"
 
@@ -186,30 +140,13 @@ const reducer = (state = initialState, action) => {
       counter: action.productObj.counter - 1
     };
 
-    // console.log("updatedActionProductObj ", updatedActionProductObj); // {counter: 7, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-    // console.log("action.productObj ", action.productObj); // {counter: 6, productItem: {…}, localCart: "5c3622fc3e31db024be15240"}
-
     // Make a copy of state.cartItems (ie array of objects)
     let copyStateCartItems = [...state.cartItems];
-
-    // console.log("copyStateCartItems ", copyStateCartItems);
-    // console.log("state.cartItems ", state.cartItems);
 
     // Update copyStateCartItems (ie copy of array of objects) and replace the specific product with the new updated productObj
     let updatedStateCartItems = copyStateCartItems.map(item =>
       item.productItem._id === productItemId ? updatedActionProductObj : item
     );
-
-    /* 
-      Check
-        let n = copyStateCartItems.map(item =>
-          item.productItem._id === productItemId ? "y" : "n"
-        );
-    */
-
-    // console.log("copyStateCartItems2 ", copyStateCartItems);
-    // console.log("state.cartItems2 ", state.cartItems);
-    // console.log("updatedStateCartItems2 ", updatedStateCartItems);
 
     return {
       ...state,
@@ -263,19 +200,6 @@ const reducer = (state = initialState, action) => {
       error: action.responseData.error // maybe do not display any errors on load if no issues
     };
   }
-
-  // NEED TO CHANGE THIS TO DELETE_CART_ITEM_FETCH_ERROR (COME BACK TO THIS)
-  // if (action.type === actionTypes.UPDATE_CART_ITEM_FETCH_ERROR) {
-  //   console.log(
-  //     "finally at cartItemsReducer.js UPDATE_CART_ITEM_FETCH_ERROR",
-  //     action.error
-  //   );
-
-  //   return {
-  //     ...state,
-  //     error: action.error
-  //   };
-  // }
 
   // Reset error message as we move from page to page
   if (action.type === actionTypes.RESET_ERROR) {

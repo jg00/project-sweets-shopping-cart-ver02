@@ -6,23 +6,14 @@ import * as cartActionCreators from "../store/actions/cartItems";
 
 class AllItems extends Component {
   componentDidMount() {
-    // console.log("test");
     this.props.onResetError();
   }
 
   displayItems() {
     const { cartItems } = this.props.cart; // array
-    // let displayItems = <div>cart</div>;
-
-    console.log("cartItems ----- ", cartItems);
-    console.log("cartItems _id ----- ", this.props.cart);
-    console.log(localStorage.getItem("sweetsLocalStoreCart"));
 
     const displayItems = (
-      // <div>{cartItems.map(item => item.productItem._id)}</div>
       <div className="row">
-        {/* <div> */}
-        {/* <div>{this.props.error.message}</div> */}
         {cartItems.map(product => {
           return (
             <div
@@ -30,17 +21,12 @@ class AllItems extends Component {
               className="col-md-6 col-lg-4 col-xl-4"
             >
               <div className="card border-0 px-sm-3 py-sm-3 mb-4">
-                {/* <div key={product.productItem._id}> */}
                 <img
                   className="card-img-top"
                   src={product.productItem.product.image}
                 />
-                {/* </div> */}
 
                 <div className="card-body">
-                  {/* <h5 className="card-title">
-                    ProductId: {product.productItem._id}
-                  </h5> */}
                   <div className="card-title">
                     {product.productItem.product.name}
                   </div>
@@ -63,12 +49,6 @@ class AllItems extends Component {
       </div>
     );
 
-    // let displayItems = <div>{cartItems.length}</div>;
-    // let displayItems = cartItems.map(item => {
-    //   <div>
-    //     <div>{item.length}</div>
-    //   </div>;
-    // });
     return displayItems;
   }
 
@@ -77,11 +57,10 @@ class AllItems extends Component {
       <div>
         <section className="container">
           <h3 className="mt-2 text-muted">Your Cart Items</h3>
-          {/* <div>Display All Items Page</div> */}
-          {/* <Checkout /> */}
+
           <div>{this.props.error.message}</div>
           {this.displayItems()}
-          {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
+
           <hr />
           <Checkout />
         </section>

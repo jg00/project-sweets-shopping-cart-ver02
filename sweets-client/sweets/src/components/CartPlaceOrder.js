@@ -27,14 +27,10 @@ class CartPlaceOrder extends Component {
         {cartItems.map(item => {
           return (
             <div key={item.productItem._id}>
-              {/* <div> {item.counter} </div> */}
               <div>
                 {item.productItem.product.name} ($
                 {item.productItem.product.price} * {item.counter})
               </div>
-              {/* <div>
-                (${item.productItem.product.price} * {item.counter})
-              </div> */}
             </div>
           );
         })}
@@ -47,18 +43,12 @@ class CartPlaceOrder extends Component {
   }
 
   render() {
-    // console.log(this.props.cartItems[0]); // works
-    // console.log(this.props.cart.cartItems.length); // works
-    // console.log(this.props.cart.cartItems[0]); // works
-
     this.displayCartItems();
 
     return (
       <div>
         <div>Cart ({this.countCartItems()}) </div>
         <div>{this.displayCartItems()}</div>
-        {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
-        {/* <div>Cart: {this.props.error.message}</div> */}
       </div>
     );
   }
@@ -68,8 +58,6 @@ const mapStateToProps = state => {
   return {
     cart: state.cart,
     error: state.cart.error
-
-    // error: state.products.error
   };
 };
 

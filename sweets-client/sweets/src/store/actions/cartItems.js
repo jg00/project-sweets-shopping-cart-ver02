@@ -27,19 +27,6 @@ export const returnAddItemToCartActionTypeFetchError = error => {
 export const addItemToCart = cartItem => {
   return dispatch => {
     console.log("cartItem", cartItem);
-    // console.log("cartItemsArray: ", cartItemsArray);
-
-    // let newcartitemsArray = cartItemsArray.push(cartItem);
-    // console.log("cartItemsArray2: ", newcartitemsArray);
-
-    // dispatch(returnAddItemToCartActionType());
-
-    /* TEST
-    localStorage.setItem(
-      "sweetsLocalStoreCart",
-      JSON.stringify({ error: "error", products: [{ id: 123 }, { id: 456 }] })
-    );
-    */
 
     // Check quantity greater than zero
     console.log(cartItem.counter);
@@ -70,10 +57,6 @@ export const addItemToCart = cartItem => {
     } else {
       // If a cart was created, we need to update the cartItems in that cart.
 
-      // console.log("one exists", localCart);
-      // ADD_ITEM_URL = ADD_ITEM_TO_CART_URL;
-      // console.log("one exits ", ADD_ITEM_URL);
-
       ADD_ITEM_URL = `${ADD_ITEM_TO_CART_URL}/${localCart}/add`;
       console.log("ADD_ITEM_URL: ", ADD_ITEM_URL);
 
@@ -93,8 +76,6 @@ export const addItemToCart = cartItem => {
           response.data
         );
 
-        // the whole cart is returned and not just the cartItems array property
-
         console.log("Cart id: ", response.data.cart._id);
 
         // Set sweetsLocalStoreCart with the cart id
@@ -110,7 +91,6 @@ export const addItemToCart = cartItem => {
         let localJsonWebTokenPayload = JSON.parse(
           localStorage.getItem("jsonwebtokenpayload.cartId")
         );
-        // console.log(localStoreCartId, localJsonWebTokenPayload);
 
         // If localStoreCartId exists and a user is logged in but user CartId is null, set the Cart Id.
         if (localStoreCartId && !localJsonWebTokenPayload) {
@@ -122,8 +102,6 @@ export const addItemToCart = cartItem => {
           // Dispatch set user id
           dispatch(authActionCreators.setUserCartId());
         }
-
-        // maybe
 
         dispatch(returnAddItemToCartActionType(response.data));
       })
@@ -138,44 +116,6 @@ export const addItemToCart = cartItem => {
       });
   };
 };
-
-/* SAMPLE CODE ONLY
-    localStorage.setItem(
-      "sweetsLocalStoreCart",
-      JSON.stringify({ error: "error", products: [{ id: 123 }, { id: 456 }] })
-    );
-    const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
-    if (!localCart) {
-      console.log("noneddd");
-    } else {
-      console.log("one exists", localCart);
-    }
-    */
-
-// If no localstore cart id exits, save cart items to database and return new cart id
-
-// dispatch(returnAddItemToCartActionType(response.data)); // NO RESPONSE DATA YET
-// dispatch(returnAddItemToCartActionType());
-
-/*
-      // Persist product to database prior to updating redux state
-      axios
-        .post(ADD_PRODUCT_URL, product)
-        .then(response => {
-          console.log("Product added responsesss: ", response.data);
-          dispatch(returnAddToProductListActionType(response.data));
-        })
-        .catch(rejected => {
-          dispatch(
-            returnAddToProductListActionTypeFetchError({
-              success: false,
-              message: "Connection error.  Product was not added."
-            })
-          );
-        });
-        */
-//   };
-// };
 
 /* Initialize cartItems on site reload */
 export const returnLoadCartItemsActionType = responseData => {
@@ -203,12 +143,6 @@ export const loadCartItems = () => {
     console.log("userData ", userData);
     // console.log(userData.cartItems.length);
 
-    // if (userData && userData.cartId !== null) {
-    //   console.log("load test - THERE IS USERDATA BUT NULL CARTID", userData);
-    // } else {
-    //   console.log("load test2 ", userData);
-    // }
-
     let localCart = null;
     if (userData && userData.cartId !== null) {
       localCart = userData.cartId;
@@ -217,21 +151,6 @@ export const loadCartItems = () => {
       localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
       console.log("Is there a localcart on load? ", localCart); // null if not found
     }
-
-    // ORIGINAL TWO LINES BELOW
-    // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
-    // console.log("Is there a localcart on load? ", localCart); // null if not found
-
-    // let URL_WITH_CARTID_TO_RETRIEVE = "";
-    // if (!localCart) {
-    //   console.log("no local cart on load");
-    //   // ADD_ITEM_URL = ADD_ITEM_INIT_CART_URL;
-    // } else {
-    //   console.log("local cart exists on load ", localCart);
-
-    //   URL_WITH_CARTID_TO_RETRIEVE = `${GET_CART_ITEMS_URL}/${localCart}`;
-    //   console.log(URL_WITH_CARTID_TO_RETRIEVE);
-    // }
 
     const URL_WITH_CARTID_TO_RETRIEVE = `${GET_CART_ITEMS_URL}/${localCart}`;
     console.log(URL_WITH_CARTID_TO_RETRIEVE);
@@ -284,9 +203,6 @@ export const decrementCartItemQty = productObj => {
   };
 };
 
-// Update cart item with new quantity
-// updateCartItem
-
 export const returnUpdateCartItemActionType = responseData => {
   return {
     type: actionTypes.UPDATE_CART_ITEM,
@@ -304,15 +220,6 @@ export const returnUpdateCartItemActionTypeFetchError = error => {
 export const updateCartItem = productObj => {
   return dispatch => {
     console.log("At updateCartItems.js updateCartItem ", productObj);
-    /*
-      {counter: 5, productItem: {…}, localCart: null}
-      counter: 5
-      localCart: null
-      productItem:
-        product: {types: "White", name: "Nama White", price: 25, image: "https://www.royce.com/images/pc/english/product/namachocolate/white_m.jpg", entryDate: "2019-01-10T11:57:31.303Z"}
-        __v: 0
-        _id: "5c37332b85deca08c1f1d556"
-    */
 
     // For updating cart item there should be a localCart
     const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
@@ -334,8 +241,6 @@ export const updateCartItem = productObj => {
           response.data
         );
 
-        // the whole cart is returned and not just the cartItems array property
-
         // console.log("Cart id: ", response.data.cart._id);
         console.log("Cart info returned?: ", response.data);
 
@@ -351,8 +256,6 @@ export const updateCartItem = productObj => {
           })
         );
       });
-
-    // dispatch(returnUpdateCartItemActionType(productObj));  // this is now inside axios
   };
 };
 
@@ -376,8 +279,6 @@ export const checkoutCart = (historyProps, localCartItems) => {
   return dispatch => {
     console.log("At checkoutCart.js checkoutCart--- ", localCartItems);
 
-    // historyProps.push(`/AllItems`); // new change
-
     // If not logged in redirect to login page
     const token = localStorage.getItem("jsonwebtoken");
     // const tokenPayload = localStorage.getItem("jsonwebtokenpayload");
@@ -387,14 +288,6 @@ export const checkoutCart = (historyProps, localCartItems) => {
       return;
     }
     // else {
-    //   console.log("has token");
-    //   // historyProps.push(`/AllItems`); // new change
-    //   // this.props.history.push("/AllItems");
-
-    //   // mergeUserCart(tokenPayload);
-    //   mergeUserCart();
-    //   return;
-    // }
 
     /* 
       Once logged in we need to 
@@ -405,8 +298,7 @@ export const checkoutCart = (historyProps, localCartItems) => {
 
     // mergeUserCart(localCartItems); // NOT USING FOR NOW
     // return;
-
-    // mergeUserCartInfo();
+    // }
 
     historyProps.push("/AllItems"); //test
   };
@@ -447,33 +339,6 @@ export const mergeUserCart = localCartItems => {
   //  console.log("Is there a localcart? ", localCart);
 };
 
-/*
-// PREVIOUS VERSION
-export const mergeUserCart = localCartItems => {
-  console.log("at mergeUserCart ");
-
-  const tokenPayload = JSON.parse(localStorage.getItem("jsonwebtokenpayload"));
-
-  const userData = tokenPayload;
-  // console.log(typeof userData);
-  console.log("userData ", userData);
-  // console.log(userData.cartItems.length);
-
-  
-    // {email: "test1@mail.com", name: "test1", cartItems: Array(0)}
-  
-
-  console.log("localCartItems ", localCartItems);
-
-  // AT THIS POINT I HAVE USER CART ITEMS VS ANONYMOUS USER CART ITEMS
-  // CONTINUE FROM HERE......
-
-  // For updating cart item there should be a localCart
-  // const localCart = JSON.parse(localStorage.getItem("sweetsLocalStoreCart"));
-  //  console.log("Is there a localcart? ", localCart);
-};
-*/
-
 // For deleting cart item //
 /* Delete product from database and remove from product list */
 export const returnDeleteCartItemActionType = responseData => {
@@ -510,16 +375,6 @@ export const deleteCartItem = productObj => {
       .post(URL_WITH_ID_TO_DELETE, { cartIdPlayload: localCart })
       .then(response => {
         console.log("Cart item deleted responsesss: ", response.data);
-        /*
-            {cart: {…}, error: {…}}
-            cart:
-            cartItems: (2) [{…}, {…}]
-            __v: 0
-            _id: "5c3f77e24ab81c0a28360f69"
-            __proto__: Object
-            error: {success: true, message: "Cart item updated in the database."}
-            __proto__: Object
-        */
 
         // Dispatch action to delete product if found.  If not update error.
         dispatch(returnDeleteCartItemActionType(response.data));

@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-// import axios from "axios";
-// import { setAuthenticationToken } from "../utils";
+
 import * as actionCreators from "../store/actions/auth";
 import { SET_AUTH_REDIRECT_PATH } from "../store/actions/actionTypes";
-// const LOGIN_URL = "http://localhost:3001/api/auth/";
 
 class Login extends Component {
   constructor(props) {
@@ -18,15 +16,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    // console.log("test");
     this.props.onResetError();
   }
-
-  // componentDidMount() {
-  //   // if (this.props.authRedirectPath !== "/") {
-  //   this.props.onSetAuthRedirectPath(); // reset if not checkout from cart
-  //   // }
-  // }
 
   handleTextBoxOnChange = e => {
     let user = { ...this.state.user };
@@ -54,7 +45,6 @@ class Login extends Component {
                 onChange={this.handleTextBoxOnChange}
               />
 
-              {/* <button onClick={this.handleLoginButtonClick}>Login</button> */}
               <button
                 onClick={() =>
                   this.props.onAuthenticate(
@@ -68,7 +58,6 @@ class Login extends Component {
               </button>
 
               <div>{this.props.error.message}</div>
-              {/* <div>{this.props.authRedirectPath}</div> */}
             </div>
           </div>
         </section>
@@ -79,7 +68,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.auth.error, // object
+    error: state.auth.error,
     authRedirectPath: state.auth.authRedirectPath
   };
 };
@@ -90,8 +79,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(
         actionCreators.setAuthenticate(user, historyProps, authRedirectPath)
       ),
-    // onSetAuthRedirectPath: () =>
-    //   dispatch(actionCreators.setAuthRedirectPath("/")) // reset
 
     onResetError: () => dispatch(actionCreators.resetError())
   };
