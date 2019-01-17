@@ -1,8 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
-// import { setAuthenticationToken } from "../../utils";
-// import jwtDecode from "jwt-decode";
-// const LOGIN_URL = "http://localhost:3001/api/auth/";
+
 const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
 const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
 const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
@@ -101,21 +99,6 @@ export const deleteProduct = productId => {
       .post(URL_WITH_ID_TO_DELETE)
       .then(response => {
         console.log("Product deleted responsesss: ", response.data);
-
-        /*
-          1 response.data returned if product id was found and deleted
-            Product deleted:  
-            {product: {…}, error: {…}}
-            error: {success: true, message: "ProductId: 5c32a88b96285309ab32eea9 deleted."}
-            product: {product: {…}, _id: "5c32a88b96285309ab32eea9", __v: 0}
-            __proto__: Object
-
-          2 response.data returned if product id was not found
-            Product deleted:  
-            {error: {…}}
-            error: {success: false, message: "Product id not found."}
-            __proto__: Object
-        */
 
         // Dispatch action to delete product if found.  If not update error.
         dispatch(returnDeleteProductActionType(response.data));

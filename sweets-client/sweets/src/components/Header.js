@@ -7,10 +7,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div
-        // id="div-menu"
-        className="div-menu jumbotron jumbotron-fluid bg-yellow pb-2 pt-3 mb-0"
-      >
+      <div className="div-menu jumbotron jumbotron-fluid bg-yellow pb-2 pt-3 mb-0">
         <div className="container">
           <div className="display-4">Nama Chocolates</div>
           <p className="lead">These you have to try!</p>

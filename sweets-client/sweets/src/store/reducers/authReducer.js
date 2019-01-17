@@ -35,13 +35,6 @@ const reducer = (state = initialState, action) => {
         error: error
       };
 
-    // case actionTypes.SET_AUTHENTICATE_MANUALLY:
-    //   return {
-    //     ...state,
-    //     user: action.tokenInfo,
-    //     isAuth: action.boolValue
-    //   };
-
     case actionTypes.SET_CURRENT_USER_ON_SITE_RELOAD:
       console.log(
         "finally at authReducer - token site reload",
@@ -74,10 +67,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authRedirectPath: action.path
-
-        // user: user, // {userData: {email, name, isAdmin}}
-        // isAuth: isAuth,
-        // error: error
       };
 
     case actionTypes.SET_USER_CART_ID:
@@ -87,14 +76,6 @@ const reducer = (state = initialState, action) => {
         // cartId: action.userData.cartId
         user: action.userData
       };
-    // return {
-    //   ...state,
-    //   authRedirectPath: action.path
-
-    // user: user, // {userData: {email, name, isAdmin}}
-    // isAuth: isAuth,
-    // error: error
-    // };
 
     case action.type === actionTypes.SET_USER_CART_ID_FETCH_ERROR:
       console.log(
@@ -119,7 +100,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-  //   return state;
 };
 
 export default reducer;

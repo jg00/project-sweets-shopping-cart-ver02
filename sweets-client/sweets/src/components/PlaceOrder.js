@@ -29,18 +29,6 @@ class PlaceOrder extends Component {
       });
   };
 
-  // original
-  //   onToken = token => {
-  //     fetch(CHECKOUT_CHARGE_URL, {
-  //       method: "POST",
-  //       body: JSON.stringify(token)
-  //     }).then(response => {
-  //       response.json().then(data => {
-  //         alert(`We are in business, ${data.email}`);
-  //       });
-  //     });
-  //   };
-
   render() {
     console.log("TOTAL AMOUNT FROM CartPlaceOrder.js ", this.props.totalAmount);
     console.log("CHARGE RESPONSE - ", this.state.chargeResponse);
