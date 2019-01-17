@@ -51,7 +51,7 @@ Anonymous Users:
 ###### Authentication
 :coffee: **_JSON Web Tokens_**
 
-## Nama Chocolates Shopping Cart Demo (Click .gif to view complete YouTube demo ~3mins)
+## Nama Shopping Cart Demo (Click .gif to view YouTube demo ~3mins)
 <a href="https://youtu.be/BZs19k3MByI"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
 
