@@ -56,7 +56,3 @@ Anonymous Users:
 <a href="https://youtu.be/BZs19k3MByI" target="_blank"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
 
-
-
-
-
