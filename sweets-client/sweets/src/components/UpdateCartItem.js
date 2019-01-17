@@ -47,7 +47,7 @@ class UpdateCartItem extends Component {
           Update Cart Item
         </button>
         <button onClick={() => this.props.onDeleteCartItem(this.props.product)}>
-          Delete Cart Item
+          Remove Cart Item
         </button>
         {/* <div>{this.props.error.message}</div> */}
       </div>

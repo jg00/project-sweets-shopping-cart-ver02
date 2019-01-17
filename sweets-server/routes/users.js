@@ -15,7 +15,6 @@ router.post("/register", (req, res) => {
   const name = req.body.name;
 
   User.findOne({ email: email }).then(user => {
-    // if (user) return res.send("User email already exits");
     if (user)
       return res.json({
         error: {
@@ -24,11 +23,6 @@ router.post("/register", (req, res) => {
         }
       });
 
-    // return res.json({
-    //   success: false,
-    //   message: "User email already exits"
-    // });
-
     const newUser = new User({
       email: email,
       password: password,
@@ -36,7 +30,6 @@ router.post("/register", (req, res) => {
     });
 
     bcrypt.hash(password, 10, (err, hash) => {
-      // if (err) return res.json({ error: "Unable to create user", err });
       if (err)
         return res.json({
           error: {
@@ -48,7 +41,7 @@ router.post("/register", (req, res) => {
       newUser.password = hash;
       newUser
         .save()
-        // .then(user => res.json(user))
+
         .then(user =>
           res.json({
             // user: user,
@@ -66,10 +59,6 @@ router.post("/register", (req, res) => {
                 "Unable to register new user.  Complete all required fields."
             }
           });
-          // res.json({
-          //   error: "Db error - Unable to save/register new user",
-          //   err
-          // });
         });
     });
   });

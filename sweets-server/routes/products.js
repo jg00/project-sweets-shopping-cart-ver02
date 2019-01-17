@@ -9,8 +9,6 @@ router.get("/test", (req, res) => {
 
 // api/products/display
 router.get("/display", (req, res) => {
-  // res.json({ name: "GET api/products/display" });
-
   Product.find({})
     .then(products =>
       res.json({
@@ -67,13 +65,7 @@ router.post("/add", (req, res) => {
           product: product,
           error: { success: true, message: "New product added to database." }
         })
-      ) // this is the working version
-      // .then(product =>     // need to return the product object above to add to redux products array
-      //   res.json({
-      //     success: true,
-      //     message: "Product added to database."
-      //   })
-      // )
+      )
       .catch(err =>
         res.json({
           error: {
@@ -83,24 +75,14 @@ router.post("/add", (req, res) => {
           }
         })
       );
-
-    // res.json(newProduct);
   });
 });
 
 // api/products/delete/:id
 router.post("/delete/:id", (req, res) => {
-  // res.json({ name: "GET api/products/delete/:id" });
-
   const productId = req.params.id;
-  // res.json({ name: productId });
-  // res.send("test");
 
   Product.findByIdAndDelete({ _id: productId }, (err, product) => {
-    // console.log(err);
-    // console.log(res); // returns me the product
-    console.log(product);
-
     if (product) {
       // returns the product that was deleted
       res.json({
@@ -119,69 +101,6 @@ router.post("/delete/:id", (req, res) => {
       });
     }
   });
-
-  // Product.findByIdAndDelete({ _id: productId }, err => {
-  //   if (!err) {
-  //     res.json({
-  //       success: true,
-  //       message: "ProductId: " + productId + " deleted."
-  //     });
-  //   } else {
-  //     res.json({
-  //       success: false,
-  //       message: "Unable to delete productId: " + productId
-  //     });
-  //   }
-  // });
-
-  // res.send("testing");
 });
-
-/*
-// ORIGINAL DELETE VERSION BEFORE CHANGES
-// api/products/display
-router.post("/delete/:id", (req, res) => {
-  // res.json({ name: "GET api/products/delete/:id" });
-
-  const productId = req.params.id;
-  // res.json({ name: productId });
-  // res.send("test");
-
-  Product.findByIdAndDelete({ _id: productId }, (err, doc) => {
-    // console.log(err);
-    // console.log(res); // returns me the product
-    console.log(doc);
-
-    if (doc) {
-      // returns me the product that was deleted
-      res.json({
-        success: true,
-        message: "ProductId: " + productId + " deleted."
-      });
-    } else {
-      res.json({
-        success: false,
-        message: "Product id not found."
-      });
-    }
-  });
-
-  // Product.findByIdAndDelete({ _id: productId }, err => {
-  //   if (!err) {
-  //     res.json({
-  //       success: true,
-  //       message: "ProductId: " + productId + " deleted."
-  //     });
-  //   } else {
-  //     res.json({
-  //       success: false,
-  //       message: "Unable to delete productId: " + productId
-  //     });
-  //   }
-  // });
-
-  // res.send("testing");
-});
-*/
 
 module.exports = router;
