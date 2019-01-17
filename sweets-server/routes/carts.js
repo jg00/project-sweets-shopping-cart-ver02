@@ -26,7 +26,7 @@ router.post("/init", (req, res) => {
       // cart is an arrray
       res.json({
         cart: cart,
-        error: { success: true, message: "New cart item added to database." }
+        error: { success: true, message: "Added to cart." }
       })
     )
     .catch(err =>
@@ -241,7 +241,7 @@ router.post("/:cartid/update", (req, res) => {
           cart: cart,
           error: {
             success: true,
-            message: "Cart item updated in the database."
+            message: "Cart item updated."
           }
         });
       }
@@ -571,7 +571,7 @@ router.post("/delete/:id", (req, res) => {
               cart: cart,
               error: {
                 success: true,
-                message: "Cart item updated in the database."
+                message: "Cart item updated."
               }
             });
           }

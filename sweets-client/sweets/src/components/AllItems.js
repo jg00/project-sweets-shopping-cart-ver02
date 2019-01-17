@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import UpdateCartItem from "./UpdateCartItem";
 import Checkout from "./Checkout";
+import * as cartActionCreators from "../store/actions/cartItems";
 
 class AllItems extends Component {
+  componentDidMount() {
+    // console.log("test");
+    this.props.onResetError();
+  }
+
   displayItems() {
     const { cartItems } = this.props.cart; // array
     // let displayItems = <div>cart</div>;
@@ -73,7 +79,7 @@ class AllItems extends Component {
           <h3 className="mt-2 text-muted">Your Cart Items</h3>
           {/* <div>Display All Items Page</div> */}
           {/* <Checkout /> */}
-          {/* <div>{this.props.error.message}</div> */}
+          <div>{this.props.error.message}</div>
           {this.displayItems()}
           {/* <div>Cart: {this.props.cart.cartItems.length}</div> */}
           <hr />
@@ -91,4 +97,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AllItems);
+const mapDispatchToProps = dispatch => {
+  return {
+    onResetError: () => dispatch(cartActionCreators.resetError())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllItems);
