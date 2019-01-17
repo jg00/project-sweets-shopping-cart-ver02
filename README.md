@@ -32,8 +32,7 @@
 
 ###### Nama Chocolates Shopping Cart Demo (Click YouTube link for demo ~3mins)
 <br>
-<a href="https://youtu.be/BZs19k3MByI"><img src="https://youtu.be/BZs19k3MByI" title="Shopping Cart Demo"/></a>
-<a href="https://youtu.be/BZs19k3MByI"><img src="https://i.imgflip.com/2rdrhh.gif" title="made at imgflip.com"/></a>
+<a href="https://youtu.be/BZs19k3MByI"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
 
 
