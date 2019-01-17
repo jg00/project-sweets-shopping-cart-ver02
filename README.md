@@ -7,7 +7,7 @@ Once a user has registered, the first time the user logs in, the current cart is
 From their the cart follows the user.
 
 Authentication:
-Login/authentication (by user or admin).
+- Login/authentication (by user or admin).
 
 Admins:
 - View products
