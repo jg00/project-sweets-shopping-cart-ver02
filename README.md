@@ -26,6 +26,10 @@
 
 :coffee: **_MongoDB_**
 
-###### Gif Placeholder
+###### Stripe Api
 
-Gif placeholder
+:coffee: **_Stripe Api_**
+
+###### Nama Chocolates Shopping Cart Demo
+<br>
+<a href="https://youtu.be/BZs19k3MByI"><img src="https://youtu.be/BZs19k3MByI" title="Shopping Cart Demo"/></a>
