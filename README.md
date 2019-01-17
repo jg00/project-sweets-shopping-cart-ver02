@@ -2,9 +2,25 @@
 
 ## Shopping cart features
 
-- Login/authentication (by user or admin)
-- Admins can add/delete products
-- Users can view products, add/update their cart
+Created a shopping cart that allowed anonymous users to save cart state and maintain cart on page reloads.
+Once a user has registered, the first time the user logs in, the current cart is associated to them at checkout.
+From their the cart follows the user.
+
+Authentication:
+Login/authentication (by user or admin).
+
+Admins:
+- View products
+- Add/Delete products.
+
+Non-Admin Users:
+- View products
+- Add/Update/Delete their cart.
+- Cart is associated to logged in user.
+
+Anonymous Users:
+- Ability to also add to cart and come back to their previous state.
+- At checkout users are required to log in (register if not already)
 
 ## Technologies
 
@@ -15,6 +31,8 @@
 :coffee: **_Redux_**
 <br>
 :coffee: **_Redux-Thunk (Middleware)_**
+<br>
+:coffee: **_Bootstrap 4_**
 
 ###### Sever
 
@@ -30,8 +48,10 @@
 
 :coffee: **_Stripe Api_**
 
-###### Nama Chocolates Shopping Cart Demo (Click YouTube link for demo ~3mins)
-<br>
+###### Authentication
+:coffee: **_JSON Web Tokens_**
+
+###### Nama Chocolates Shopping Cart Demo (Click gif below complete YouTube demo ~3mins)
 <a href="https://youtu.be/BZs19k3MByI"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
 
