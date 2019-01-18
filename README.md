@@ -6,9 +6,7 @@
 
 ## Shopping cart features
 
-This shopping cart was created with admin, non-admin and anonymous users in mind and the user experience on the site.
-
-The shopping cart allows anonymous users to save cart state and maintain cart on page reloads. Once a user has registered, the first time the user logs in, the current cart is associated to the user at checkout. From their the cart follows the user.
+This shopping cart was created with admin, non-admin and anonymous users in mind and the user experience on the site. The shopping cart allows anonymous users to save cart state and maintain cart on page reloads. Once a user has registered, the first time the user logs in, the current cart is associated to the user at checkout. From their the cart follows the user.
 
 Authentication:
 - Login/authentication (by user or admin).
