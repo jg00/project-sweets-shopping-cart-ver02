@@ -1,5 +1,9 @@
 ## Welcome to Nama Chocolates
 
+## Nama Shopping Cart Demo (Click .gif to view YouTube demo ~3mins)
+
+<a href="https://youtu.be/BZs19k3MByI" target="_blank"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
+
 ## Shopping cart features
 
 Created a shopping cart that allowed anonymous users to save cart state and maintain cart on page reloads.
@@ -51,8 +55,6 @@ Anonymous Users:
 ###### Authentication
 :coffee: **_JSON Web Tokens_**
 
-## Nama Shopping Cart Demo (Click .gif to view YouTube demo ~3mins)
 
-<a href="https://youtu.be/BZs19k3MByI" target="_blank"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
 
