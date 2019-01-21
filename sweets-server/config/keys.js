@@ -1,3 +1,5 @@
-module.exports = {
-  mongoUrl: "mongodb://localhost:27017/sweetsdbv02"
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}
