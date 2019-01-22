@@ -37,10 +37,10 @@ app.use("/api/carts", carts);
 // Server static assests if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
-  app.use(express.static("client/build"));
+  app.use(express.static("sweets-client/sweets/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html")); // load the React index.html file
+    res.sendFile(path.resolve(__dirname, "sweets", "build", "index.html")); // load the React index.html file
   });
 }
 
