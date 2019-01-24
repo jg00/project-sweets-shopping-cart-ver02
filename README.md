@@ -4,6 +4,8 @@
 
 <a href="https://youtu.be/BZs19k3MByI" target="_blank"><img src="https://i.imgflip.com/2rdrhh.gif" title="Shopping Cart Demo"/></a>
 
+<a href="https://nama-sweets.herokuapp.com/" target="_blank">Nama Shopping Cart (Heroku Site)</a>
+
 ## Shopping cart features
 
 This shopping cart was created with admin, non-admin and anonymous users in mind and the user experience on the site. The shopping cart allows anonymous users to save cart state and maintain cart on page reloads. Once a user has registered, the first time the user logs in, the current cart is associated to the user at checkout. From their the cart follows the user.
