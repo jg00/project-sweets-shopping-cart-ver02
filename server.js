@@ -37,7 +37,8 @@ app.use("/api/carts", carts);
 // Serve static assests from the React app if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
-  app.use(express.static(path.join(__dirname, "/sweets-client/sweets/build")));
+  app.use(express.static("/sweets-client/sweets/build"));
+  // app.use(express.static(path.join(__dirname, "/sweets-client/sweets/build")));
   // app.use(express.static("sweets-client/sweets/build"));
 
   // The "catchall" handler: for any request that doesn't
@@ -45,7 +46,8 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     res.sendFile(
-      path.join(__dirname + "/sweets-client/sweets/build/index.html")
+      path.resolve(__dirname, "sweets-client", "sweets", "build", "index.html")
+      // path.join(__dirname + "/sweets-client/sweets/build/index.html")
     ); // load the React index.html file
   });
 
