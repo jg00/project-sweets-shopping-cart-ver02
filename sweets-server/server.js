@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(
       // path.resolve(__dirname, "sweets-client", "sweets", "build", "index.html") // seemed to deploy
-      path.resolve(__dirname + "../sweets-client/sweets/build/index.html")
+      path.resolve(__dirname, "../sweets-client/sweets/build", "index.html")
     ); // load the React index.html file
   });
 
