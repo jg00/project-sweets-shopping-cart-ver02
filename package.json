@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node sweets-server/server.js",
-    "heroku-postbuild": "cd sweets-client/sweets/ && npm install --prefix sweets && npm run build --prefix sweets"
+    "start": "node server.js",
+    "heroku-postbuild": "cd sweets-client/ && npm install --prefix sweets && npm run build --prefix sweets"
   },
   "author": "",
   "license": "ISC",
