@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
-const CHECKOUT_CHARGE_URL = "http://localhost:3001/api/checkout/charge";
+
+const CHECKOUT_CHARGE_URL = "/api/checkout/charge";
+
+// const CHECKOUT_CHARGE_URL = "http://localhost:3001/api/checkout/charge";
 
 class PlaceOrder extends Component {
   constructor(props) {
