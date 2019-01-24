@@ -30,8 +30,8 @@ const rootReducer = combineReducers({
   // cartUpdate: updateCartItemsReducer
 });
 
-// axios.defaults.baseURL = 'https://nama-sweets.herokuapp.com'
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://nama-sweets.herokuapp.com";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 const logger = store => {
   return next => {
