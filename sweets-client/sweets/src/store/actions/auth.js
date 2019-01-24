@@ -3,8 +3,12 @@ import * as cartActionCreators from "./cartItems";
 import axios from "axios";
 import { setAuthenticationToken } from "../../utils";
 import jwtDecode from "jwt-decode";
-const LOGIN_URL = "http://localhost:3001/api/auth/";
-const UPDATE_USER_CART_ID = "http://localhost:3001/api/auth/updateusercartid";
+
+const LOGIN_URL = "/api/auth/";
+const UPDATE_USER_CART_ID = "/api/auth/updateusercartid";
+
+// const LOGIN_URL = "http://localhost:3001/api/auth/";
+// const UPDATE_USER_CART_ID = "http://localhost:3001/api/auth/updateusercartid";
 
 export const returnAuthActionTypePayload = responseData => {
   return {

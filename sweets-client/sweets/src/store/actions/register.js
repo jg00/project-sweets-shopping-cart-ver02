@@ -1,6 +1,9 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-const REGISTER_URL = "http://localhost:3001/api/users/register";
+
+const REGISTER_URL = "/api/users/register";
+
+// const REGISTER_URL = "http://localhost:3001/api/users/register";
 
 export const saveResult = (user, response) => {
   return {

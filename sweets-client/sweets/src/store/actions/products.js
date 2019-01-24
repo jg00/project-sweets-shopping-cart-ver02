@@ -1,9 +1,13 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
-const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
-const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
+const ADD_PRODUCT_URL = "/api/products/add";
+const ALL_PRODUCTS_URL = "/api/products/display";
+const DELETE_PRODUCT_URL = "/api/products/delete";
+
+// const ADD_PRODUCT_URL = "http://localhost:3001/api/products/add";
+// const ALL_PRODUCTS_URL = "http://localhost:3001/api/products/display";
+// const DELETE_PRODUCT_URL = "http://localhost:3001/api/products/delete";
 
 /* Add product to database and add to product list */
 export const returnAddToProductListActionType = responseData => {

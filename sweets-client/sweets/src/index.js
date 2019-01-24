@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 // import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
@@ -28,6 +29,9 @@ const rootReducer = combineReducers({
   cart: cartItemsReducer
   // cartUpdate: updateCartItemsReducer
 });
+
+// axios.defaults.baseURL = 'https://nama-sweets.herokuapp.com'
+axios.defaults.baseURL = "http://localhost:3001";
 
 const logger = store => {
   return next => {

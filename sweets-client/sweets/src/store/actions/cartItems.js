@@ -2,11 +2,18 @@ import * as authActionCreators from "./auth";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import * as actionTypes from "./actionTypes";
-const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED TO BUILD
-const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
-const GET_CART_ITEMS_URL = "http://localhost:3001/api/carts/cart";
-const UPDATE_CART_ITEM_URL = "http://localhost:3001/api/carts";
-const DELETE_CART_ITEM_URL = "http://localhost:3001/api/carts/delete";
+
+const ADD_ITEM_INIT_CART_URL = "/api/carts/init"; // NEED TO BUILD
+const ADD_ITEM_TO_CART_URL = "/api/carts"; // NEED TO BUILD
+const GET_CART_ITEMS_URL = "/api/carts/cart";
+const UPDATE_CART_ITEM_URL = "/api/carts";
+const DELETE_CART_ITEM_URL = "/api/carts/delete";
+
+// const ADD_ITEM_INIT_CART_URL = "http://localhost:3001/api/carts/init"; // NEED TO BUILD
+// const ADD_ITEM_TO_CART_URL = "http://localhost:3001/api/carts"; // NEED TO BUILD
+// const GET_CART_ITEMS_URL = "http://localhost:3001/api/carts/cart";
+// const UPDATE_CART_ITEM_URL = "http://localhost:3001/api/carts";
+// const DELETE_CART_ITEM_URL = "http://localhost:3001/api/carts/delete";
 
 /* Add user items to cart */
 export const returnAddItemToCartActionType = responseData => {
